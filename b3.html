@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rapider — Direction B · Blueprint</title>
+<meta name="description" content="Enterprise software and AI agents — drafted by AI, checked by engineers, approved by you.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@500..700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 fill=%22%23f1efe8%22 stroke=%22%23161616%22/%3E%3Cpath d=%22M16 6 L26 11 L16 16 L6 11Z M6 16 L16 21 L26 16 M6 21 L16 26 L26 21%22 fill=%22none%22 stroke=%22%231d4eff%22 stroke-width=%221.6%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/fx.css">
+<link rel="stylesheet" href="css/b3.css">
+<script>document.documentElement.classList.add(/[?&]static\b/.test(location.search) ? 'static' : 'js');try{if(!/[?&]static\b/.test(location.search)&&(/[?&]intro\b/.test(location.search)||!sessionStorage.getItem('rp-b-intro')))document.documentElement.classList.add('is-pre')}catch(e){}</script>
+</head>
+<body>
+<div class="pre" id="pre" aria-hidden="true">
+  <div class="pre__in">
+    <ol class="pre__log mono">
+      <li><span>001</span>Load requirements<em>OK</em></li><li><span>002</span>Draft screens<em>OK</em></li><li><span>003</span>Draft data model<em>OK</em></li><li><span>004</span>Connect 8 tools<em>OK</em></li>
+      <li><span>005</span>Engineer review<em>OK</em></li><li><span>006</span>Security check<em>OK</em></li><li><span>007</span>Free first version<em>OK</em></li><li><span>008</span>Await your approval<em class="wait">…</em></li>
+    </ol>
+    <svg class="pre__mark" viewBox="0 0 640 140"><text x="320" y="110" text-anchor="middle">RAPIDER</text></svg>
+    <p class="pre__k mono"><span>Plotting sheet 01 / 09</span><b id="prePct">00%</b></p>
+    <div class="pre__bar"><i id="preBar"></i></div>
+  </div>
+  <i class="pre__scan"></i>
+</div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-replay" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></symbol>
+    <symbol id="i-sms" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10.5h.01M12 10.5h.01M16 10.5h.01"/></symbol>
+    <symbol id="i-sheet" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M5 9h14M5 14h14M10 9v12"/></symbol>
+    <symbol id="i-ucheck" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6M16 11l2 2 4-4"/></symbol>
+    <symbol id="i-api" viewBox="0 0 24 24"><path d="M8 4C6 4 5 5 5 7v2c0 1.5-1 3-2.5 3C4 12 5 13.5 5 15v2c0 2 1 3 3 3M16 4c2 0 3 1 3 3v2c0 1.5 1 3 2.5 3-1.5 0-2.5 1.5-2.5 3v2c0 2-1 3-3 3"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="i-flow" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7 7.5l3.5 8M17 7.5l-3.5 8"/></symbol>
+    <symbol id="i-layout" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></symbol>
+    <symbol id="i-process" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="6" rx="1.5"/><rect x="14" y="15" width="7" height="6" rx="1.5"/><path d="M6.5 9v5a1 1 0 0 0 1 1H14"/></symbol>
+    <symbol id="i-branch" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="7" r="2"/><path d="M6 7v10M18 9c0 4-6 3-11 7.5"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5"/></symbol>
+    <symbol id="i-boxes" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></symbol>
+    <symbol id="i-export" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></symbol>
+    <symbol id="i-orch" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="4.5" cy="5" r="1.8"/><circle cx="19.5" cy="5" r="1.8"/><circle cx="4.5" cy="19" r="1.8"/><circle cx="19.5" cy="19" r="1.8"/><path d="M6 6.5l3.8 3.6M18 6.5l-3.8 3.6M6 17.5l3.8-3.6M18 17.5l-3.8-3.6"/></symbol>
+    <symbol id="i-fork" viewBox="0 0 24 24"><path d="M12 3v6M12 9l-6 6v6M12 9l6 6v6"/></symbol>
+    <symbol id="i-canvas" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="5" rx="1"/><rect x="14" y="16" width="7" height="5" rx="1"/><path d="M6.5 8v4h11v4"/></symbol>
+    <symbol id="i-template" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+    <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6"/></symbol>
+  </defs>
+</svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="ink"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter></defs></svg>
+
+<header class="nav" id="nav">
+  <div class="nav__in">
+    <a class="nav__logo" href="#top" aria-label="Rapider home"><b>RAPIDER</b><span>AI &amp; Human Expertise</span></a>
+    <nav class="nav__cells" aria-label="Main">
+      <div class="nc nc--drop"><button type="button" aria-expanded="false">Product <svg class="ic"><use href="#i-chev"/></svg></button>
+        <div class="ndrop"><a href="#run"><b>Digital employees</b><small>Agents that ask before they act</small></a><a href="#studio"><b>AI Studio</b><small>Free low-code AI development</small></a><a href="#how"><b>Blueprint</b><small>Spec + free first version</small></a></div></div>
+      <a class="nc" href="#pricing"><span data-scramble>Pricing</span></a>
+      <a class="nc" href="#proof"><span data-scramble>Customers</span></a>
+      <a class="nc" href="#how"><span data-scramble>How we build</span></a>
+      <button class="nc nc--notes" type="button" id="notesBtn" aria-pressed="false"><span class="sw"><i></i></span><span data-scramble>Engineer's notes</span></button>
+      <a class="nc nc--cta" href="#cta"><span data-scramble>Contact us</span></a>
+    </nav>
+    <button class="nav__menu" type="button" aria-expanded="false">Menu</button>
+  </div>
+  <div class="msheet" hidden><a href="#run">Product</a><a href="#pricing">Pricing</a><a href="#proof">Customers</a><a href="#how">How we build</a><a href="#cta">Contact us</a></div>
+</header>
+
+<main class="frame" id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__draw" id="heroDraw">
+    <span class="corner c-tl">+</span><span class="corner c-tr">+</span><span class="corner c-bl">+</span><span class="corner c-br">+</span>
+    <p class="coords mono" aria-hidden="true">X <b id="cx">0000</b> · Y <b id="cy">0000</b></p>
+    <p class="legend mono"><span class="l-ai">— Drafted by AI</span><span class="l-hu">◯ Checked by engineers</span><span class="l-you">■ Approved by you</span></p>
+    <svg class="iso" id="isoHero" viewBox="0 0 1200 560" role="img" aria-label="Exploded technical drawing of Rapider: your data at the bottom, the Rapider agent above it, approvals above that, and actions at the top"></svg>
+    <div class="stamp stamp--hero">APPROVED<small>BY YOU · REV 2.4</small></div>
+    <div class="tblock mono"><span>Drawing</span><span>Rapider · system</span><span>Drawn by</span><span class="t-ai">Rapider AI</span><span>Checked by</span><span class="t-hu">Rapider engineers</span><span>Approved by</span><span class="t-you">You</span></div>
+  </div>
+  <div class="hero__row">
+    <h1 class="h1 rv-lines" data-note="✓ checked — 24/7 is literal" data-note-at="tr">Your AI-powered digital employee that never stops working</h1>
+    <div class="hero__r">
+      <p data-note="Blueprint = spec + free v1 ✓" data-note-at="br">Enterprise software and AI agents, built with AI &amp; human expertise. Every project starts with a Blueprint — a full technical spec and a first version, free.</p>
+      <div class="hero__btns"><a class="btn btn--ink" href="#cta">Book a demo <svg class="ic"><use href="#i-arrow"/></svg></a><a class="btn btn--line" href="#how">See how we build</a></div>
+    </div>
+  </div>
+  <div class="marquee mono" aria-hidden="true"><div class="marquee__row"><span>Drafted by AI</span><span>Checked by engineers</span><span>Approved by you</span><span>Free first version</span><span>Runs 24/7</span><span>50+ integrations</span><span>Your code, your deployment</span></div></div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients" aria-labelledby="clT">
+  <div class="rowlab"><span class="rowlab__n">[00]</span><h2 id="clT">Clients</h2><span class="rowlab__r"><button type="button" class="arw" id="clPrev" aria-label="Previous logos"><svg class="ic"><use href="#i-arrow"/></svg></button><button type="button" class="arw" id="clNext" aria-label="Next logos"><svg class="ic"><use href="#i-arrow"/></svg></button></span></div>
+  <div class="clients__view"><ul class="clients__row" id="clRow">
+    <li><span class="logo" style="-webkit-mask-image:url(assets/logos/bmw.png);mask-image:url(assets/logos/bmw.png);--w:46px;--h:46px" role="img" aria-label="BMW"></span></li>
+    <li><span class="logo" style="-webkit-mask-image:url(assets/logos/pfizer.png);mask-image:url(assets/logos/pfizer.png);--w:96px;--h:40px" role="img" aria-label="Pfizer"></span></li>
+    <li><span class="logo" style="-webkit-mask-image:url(assets/logos/merck.png);mask-image:url(assets/logos/merck.png);--w:120px;--h:35px" role="img" aria-label="Merck"></span></li>
+    <li><span class="logo" style="-webkit-mask-image:url(assets/logos/continental.png);mask-image:url(assets/logos/continental.png);--w:146px;--h:27px" role="img" aria-label="Continental"></span></li>
+    <li><span class="logo" style="-webkit-mask-image:url(assets/logos/success.png);mask-image:url(assets/logos/success.png);--w:76px;--h:50px" role="img" aria-label="Success Academy Charter Schools"></span></li>
+    <li><span class="logo" style="-webkit-mask-image:url(assets/logos/paritii.svg);mask-image:url(assets/logos/paritii.svg);--w:110px;--h:30px" role="img" aria-label="paritii"></span></li>
+    <li><span class="logo" style="-webkit-mask-image:url(assets/logos/fingerprint.png);mask-image:url(assets/logos/fingerprint.png);--w:44px;--h:44px" role="img" aria-label="Customer logo"></span></li>
+  </ul></div>
+  <p class="clients__note mono">Works natively with Google Sheets, Salesforce, Slack, Notion, Jira, Drive, OneDrive, MongoDB and PostgreSQL.</p>
+</section>
+
+<!-- PROBLEMS -->
+<section class="problems" aria-labelledby="prT">
+  <div class="rowlab"><span class="rowlab__n">[01]</span><span>Problems</span></div>
+  <div class="split2">
+    <h2 class="h2 rv-lines" id="prT" data-note="the real problem ↑" data-note-at="br">Your data lives everywhere. Your team holds it together.</h2>
+    <p class="rv">While your business data is spread across dozens of tools, your people do the glue work by hand — and every new piece of software takes quarters, not weeks.</p>
+  </div>
+  <figure class="strip" aria-hidden="true">
+    <div class="strip__vp"><video src="assets/video/b-papers.mp4" poster="assets/img/b-papers.jpg" muted loop playsinline preload="metadata"></video></div>
+    <figcaption class="mono"><span>Fig. 00 — the glue work, by hand</span><span>Paper · copy · paste · repeat</span></figcaption>
+    <svg class="strip__dim" viewBox="0 0 1000 40" preserveAspectRatio="none"><line x1="0" y1="20" x2="1000" y2="20"/><line x1="1" y1="12" x2="1" y2="28"/><line x1="999" y1="12" x2="999" y2="28"/></svg>
+  </figure>
+  <ol class="pcells">
+    <li class="pcell"><p class="pcell__k mono"><span>Manual</span><span>[01]</span></p><svg class="iso iso--sm" data-iso="copy" viewBox="0 0 300 200" aria-hidden="true"></svg><h3>Every update is copy and paste</h3><p>Rows move from Sheets to the CRM by hand, one at a time.</p></li>
+    <li class="pcell"><p class="pcell__k mono"><span>Disconnected</span><span>[02]</span></p><svg class="iso iso--sm" data-iso="split" viewBox="0 0 300 200" aria-hidden="true"></svg><h3>Ten tools, no single truth</h3><p>Nobody can tell which sheet is the right one.</p></li>
+    <li class="pcell"><p class="pcell__k mono"><span>Slow</span><span>[03]</span></p><svg class="iso iso--sm" data-iso="stairs" viewBox="0 0 300 200" aria-hidden="true"></svg><h3>Software takes quarters</h3><p>Internal tools wait in the backlog behind everything else.</p></li>
+    <li class="pcell"><p class="pcell__k mono"><span>Unchecked</span><span>[04]</span></p><svg class="iso iso--sm" data-iso="gate" viewBox="0 0 300 200" aria-hidden="true"></svg><h3>AI that acts without asking</h3><p>Autonomous agents change records nobody approved.</p></li>
+  </ol>
+</section>
+
+<!-- STATEMENT (pinned, with footage) -->
+<section class="state" aria-label="How Rapider works in one line">
+  <div class="state__pin">
+    <div class="state__txt">
+      <p class="state__l s-ai"><span>Drafted by AI.</span></p>
+      <p class="state__l s-hu"><span>Checked by engineers.</span><svg class="pen-ul" viewBox="0 0 600 30" preserveAspectRatio="none"><path d="M6 20 C 140 6, 320 26, 594 10"/></svg></p>
+      <p class="state__l s-you"><span>Approved by you.</span><span class="stamp stamp--sm">APPROVED</span></p>
+    </div>
+    <figure class="fig" aria-hidden="true">
+      <span class="corner c-tl">+</span><span class="corner c-tr">+</span><span class="corner c-bl">+</span><span class="corner c-br">+</span>
+      <div class="fig__vp">
+        <div class="fig__f is-on" data-f="0"><video src="assets/video/b-code.mp4" poster="assets/img/b-code.jpg" muted loop playsinline preload="metadata"></video></div>
+        <div class="fig__f" data-f="1"><video src="assets/video/b-review.mp4" poster="assets/img/b-review.jpg" muted loop playsinline preload="metadata"></video></div>
+        <div class="fig__f" data-f="2"><video src="assets/video/b-sign.mp4" poster="assets/img/b-sign.jpg" muted loop playsinline preload="metadata"></video></div>
+        <i class="fig__scan"></i>
+      </div>
+      <figcaption class="mono"><span id="figCap">Fig. 01 — AI drafts the spec and the first version</span><span id="figTc">TC 00:00:00:00</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- INTRODUCTION (pinned blueprint) -->
+<section class="intro" id="how" aria-labelledby="inT">
+  <div class="rowlab"><span class="rowlab__n">[02]</span><span>Introduction</span><span class="rowlab__r mono">[Scroll to continue]</span></div>
+  <div class="intro__pin">
+    <div class="sheet" id="sheet">
+      <div class="sheet__zones mono" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span></div>
+      <div class="sheet__in">
+        <svg class="draw-app" viewBox="0 0 800 520" aria-hidden="true">
+          <g class="built">
+            <rect x="20" y="20" width="760" height="470" rx="10" fill="#fff" stroke="#d8dde7"/>
+            <rect x="20.5" y="20.5" width="759" height="40" rx="10" fill="#f6f7f9"/>
+            <text x="40" y="46" font-size="14" font-weight="700" fill="#161616">Rapider</text>
+            <rect x="672" y="31" width="92" height="20" rx="10" fill="#e0f3e8"/><circle cx="686" cy="41" r="3.5" fill="#0b7a44"/><text x="695" y="45" font-size="10.5" font-weight="600" fill="#0b7a44">Running</text>
+            <rect x="20.5" y="60" width="170" height="429.5" fill="#fafbfc"/>
+            <rect x="32" y="78" width="146" height="26" rx="6" fill="#e7edff"/><text x="42" y="95" font-size="11.5" font-weight="600" fill="#1d4eff">Lead management</text>
+            <text x="42" y="129" font-size="11.5" fill="#3f3f3f">Invoice follow-up</text><text x="42" y="163" font-size="11.5" fill="#3f3f3f">Onboarding</text><text x="42" y="197" font-size="11.5" fill="#3f3f3f">Support triage</text>
+            <text x="212" y="96" font-size="14" font-weight="700" fill="#161616">Inbound leads · 214 rows</text>
+            <g font-size="11.5" fill="#161616">
+              <rect x="212" y="114" width="548" height="28" rx="5" fill="#fff" stroke="#e6e9ef"/><text x="226" y="132">Northwind Ltd</text><text x="400" y="132" fill="#6b6a65">201–500</text><rect x="520" y="121" width="66" height="14" rx="7" fill="#e0f3e8"/><text x="529" y="132" font-size="9.5" fill="#0b7a44">Qualified</text>
+              <rect x="212" y="148" width="548" height="28" rx="5" fill="#fff" stroke="#e6e9ef"/><text x="226" y="166">Bluebird Health</text><text x="400" y="166" fill="#6b6a65">501–1k</text><rect x="520" y="155" width="66" height="14" rx="7" fill="#e0f3e8"/><text x="529" y="166" font-size="9.5" fill="#0b7a44">Qualified</text>
+              <rect x="212" y="182" width="548" height="28" rx="5" fill="#fff" stroke="#e6e9ef"/><text x="226" y="200">Kite &amp; Co</text><text x="400" y="200" fill="#6b6a65">51–200</text><rect x="520" y="189" width="66" height="14" rx="7" fill="#fff1dc"/><text x="527" y="200" font-size="9.5" fill="#985000">Contacted</text>
+              <rect x="212" y="216" width="548" height="28" rx="5" fill="#fff" stroke="#e6e9ef"/><text x="226" y="234">Atlas Freight</text><text x="400" y="234" fill="#6b6a65">1k+</text><rect x="520" y="223" width="66" height="14" rx="7" fill="#e7edff"/><text x="539" y="234" font-size="9.5" fill="#1d4eff">New</text>
+            </g>
+            <rect x="212" y="268" width="260" height="200" rx="8" fill="#fff" stroke="#e6e9ef"/><text x="226" y="290" font-size="10.5" font-weight="600" fill="#6b6a65">Leads enriched this week</text>
+            <path d="M226 450 L262 420 L298 428 L334 392 L370 400 L406 360 L456 344 L456 456 L226 456 Z" fill="#e7edff"/><path d="M226 450 L262 420 L298 428 L334 392 L370 400 L406 360 L456 344" fill="none" stroke="#1d4eff" stroke-width="2"/>
+            <rect x="500" y="268" width="260" height="200" rx="10" fill="#fff" stroke="#d8dde7"/>
+            <text x="518" y="296" font-size="9.5" font-weight="600" fill="#985000" letter-spacing=".06em">NEEDS YOUR APPROVAL</text>
+            <text x="518" y="320" font-size="13.5" font-weight="700" fill="#161616">Update 186 records in Salesforce</text>
+            <text x="518" y="342" font-size="10.5" fill="#6b6a65">Lead → Qualified · Owner by territory</text>
+            <rect x="518" y="420" width="96" height="30" rx="6" fill="#1d4eff"/><text x="541" y="439" font-size="11.5" font-weight="700" fill="#fff">Approve</text>
+            <rect x="624" y="420" width="110" height="30" rx="6" fill="#fff" stroke="#c4cad6"/><text x="650" y="439" font-size="11.5" font-weight="600" fill="#161616">Review</text>
+          </g>
+          <g class="bp">
+            <rect class="ln" x="20" y="20" width="760" height="470" rx="10"/><line class="ln" x1="20" y1="60" x2="780" y2="60"/><line class="ln" x1="190" y1="60" x2="190" y2="490"/>
+            <rect class="ph" x="38" y="36" width="70" height="12"/><rect class="ln dash" x="672" y="31" width="92" height="20" rx="10"/><rect class="ln dash" x="32" y="78" width="146" height="26" rx="6"/>
+            <rect class="ph" x="42" y="120" width="100" height="10"/><rect class="ph" x="42" y="154" width="80" height="10"/><rect class="ph" x="42" y="188" width="92" height="10"/>
+            <rect class="ph" x="212" y="84" width="190" height="14"/>
+            <rect class="ln dash" x="212" y="114" width="548" height="28" rx="5"/><rect class="ln dash" x="212" y="148" width="548" height="28" rx="5"/><rect class="ln dash" x="212" y="182" width="548" height="28" rx="5"/><rect class="ln dash" x="212" y="216" width="548" height="28" rx="5"/>
+            <rect class="ln" x="212" y="268" width="260" height="200" rx="8"/><polyline class="ln" points="226,450 262,420 298,428 334,392 370,400 406,360 456,344"/>
+            <rect class="ln" x="500" y="268" width="260" height="200" rx="10"/><rect class="ph" x="518" y="310" width="200" height="12"/><rect class="ph" x="518" y="334" width="150" height="10"/>
+            <rect class="ln" x="518" y="420" width="96" height="30" rx="6"/><rect class="ln dash" x="624" y="420" width="110" height="30" rx="6"/>
+          </g>
+          <g class="ai-note"><line x1="440" y1="44" x2="400" y2="84"/><rect x="430" y="32" width="176" height="22"/><text x="440" y="47">AI · 14 screens drafted</text></g>
+          <g class="pen">
+            <path class="pn" d="M508 436 C 504 404, 570 398, 610 404 C 650 410, 638 466, 586 468 C 540 470, 500 456, 510 428"/>
+            <path class="pn" d="M500 478 C 470 500, 400 512, 330 512"/><path class="pn" d="M338 504 L328 512 L340 518"/>
+            <text class="hw" x="40" y="518" clip-path="url(#hwA)">2nd approver above $10k ✓ — J.</text>
+            <path class="pn" d="M770 128 L776 136 L790 118"/>
+            <path class="pn" d="M214 254 C 320 250, 460 252, 760 250"/>
+          </g>
+          <defs><clipPath id="hwA"><rect class="hwc" x="36" y="492" width="0" height="36"/></clipPath></defs>
+        </svg>
+        <svg class="draw-erd" viewBox="0 0 360 520" aria-hidden="true">
+          <text class="erd-t" x="18" y="34">SHEET 02 · DATA MODEL</text>
+          <g class="erd">
+            <rect class="ln" x="18" y="56" width="150" height="132"/><line class="ln" x1="18" y1="82" x2="168" y2="82"/>
+            <text x="28" y="74" class="erd-h">LEAD</text><text x="28" y="102">id · uuid</text><text x="28" y="122">company_id → COMPANY</text><text x="28" y="142">size · enum</text><text x="28" y="162">status · enum</text><text x="28" y="180">owner · user</text>
+            <rect class="ln" x="196" y="56" width="146" height="98"/><line class="ln" x1="196" y1="82" x2="342" y2="82"/>
+            <text x="206" y="74" class="erd-h">COMPANY</text><text x="206" y="102">id · uuid</text><text x="206" y="122">domain · text</text><text x="206" y="142">employees · int</text>
+            <rect class="ln" x="18" y="236" width="150" height="114"/><line class="ln" x1="18" y1="262" x2="168" y2="262"/>
+            <text x="28" y="254" class="erd-h">APPROVAL</text><text x="28" y="282">request · text</text><text x="28" y="302">approver · user</text><text x="28" y="322">status · enum</text><text x="28" y="342">limit · $10,000</text>
+            <rect class="ln" x="196" y="236" width="146" height="98"/><line class="ln" x1="196" y1="262" x2="342" y2="262"/>
+            <text x="206" y="254" class="erd-h">MESSAGE</text><text x="206" y="282">to · lead</text><text x="206" y="302">body · text</text><text x="206" y="322">sent_at · time</text>
+            <path class="ln" d="M168 122 H182 V110 H196"/><path class="ln" d="M93 188 V236"/><path class="ln" d="M168 300 H196"/>
+          </g>
+          <g class="pen"><path class="pn" d="M14 330 C 60 360, 150 362, 172 338"/><text class="hw" x="22" y="392" clip-path="url(#hwB)">limit set by finance ✓</text></g>
+          <defs><clipPath id="hwB"><rect class="hwc" x="18" y="366" width="0" height="36"/></clipPath></defs>
+          <g class="ai-note"><rect x="196" y="380" width="150" height="40"/><text x="206" y="397">AI · schema from</text><text x="206" y="411">your Sheets + CRM</text></g>
+        </svg>
+        <div class="stamp stamp--sheet">APPROVED<small>BY YOU · REV 2.4</small></div>
+      </div>
+      <div class="sheet__foot">
+        <div class="caption" id="caption"><p class="mono caption__k">Introduction</p><p class="caption__t" id="capT">AI drafts the screens from your requirements.</p><p class="mono caption__s">[Scroll to continue]</p></div>
+        <div class="tblock tblock--sheet mono"><span>Project</span><span>Lead management agent</span><span>Sheet</span><span id="sheetNo">01 / 04</span><span>Drawn by</span><span class="t-ai">Rapider AI</span><span>Checked by</span><span class="t-hu" id="tbHu">—</span><span>Approved by</span><span class="t-you" id="tbYou">—</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RUN NATIVELY -->
+<section class="run" id="run" data-scan aria-labelledby="runT">
+  <div class="rowlab"><span class="rowlab__n">[03]</span><span>Product</span></div>
+  <div class="run__grid">
+    <div class="run__vis">
+      <div class="crm" aria-hidden="true">
+        <p class="crm__bar mono"><img src="assets/tools/salesforce.png" alt="">Salesforce · Leads · 214</p>
+        <div class="crm__rows"><p><span>Northwind Ltd</span><span>201–500</span><span>Open</span></p><p class="is-hl"><span>Bluebird Health</span><span>501–1k</span><span>Open</span></p><p><span>Kite &amp; Co</span><span>51–200</span><span>Working</span></p><p><span>Atlas Freight</span><span>1k+</span><span>Open</span></p><p><span>Morrow Labs</span><span>11–50</span><span>New</span></p><p><span>Pine &amp; Lake</span><span>201–500</span><span>New</span></p></div>
+        <span class="crm__mark mono">01</span>
+      </div>
+      <div class="widget" id="widget">
+        <p class="widget__h"><span class="widget__dot"></span><b>Rapider</b><span class="mono">Lead agent</span></p>
+        <div class="widget__msgs">
+          <p class="wm"><img src="assets/avatars/p1.jpg" alt=""><span>Can you qualify this week's inbound leads?</span></p>
+          <p class="wm wm--ai"><span>Done for 186 leads. Bluebird Health is 501–1k people — I'd move it to <b>Qualified</b> and assign it to the enterprise team.</span></p>
+          <div class="wm wm--req"><p class="mono">Request · needs approval</p><p><b>Update 186 records in Salesforce</b></p><div class="wbtns"><button type="button" class="btn btn--blue btn--xs" id="wApprove">Approve</button><button type="button" class="btn btn--line btn--xs" tabindex="-1">Review</button></div><span class="stamp stamp--w">APPROVED</span></div>
+        </div>
+        <p class="widget__in">Ask Rapider…</p>
+      </div>
+    </div>
+    <div class="run__txt">
+      <h2 class="h2 rv-lines" id="runT" data-note="asks before it acts ✓" data-note-at="tr">Run a digital employee natively in your stack</h2>
+      <p class="rv">Build AI agents that handle complex multi-step workflows, make decisions, and collaborate with your team in real-time. Every action is shown to you first, so nothing happens without your say-so.</p>
+      <ul class="caps">
+        <li><span>Works with Sheets, Salesforce, Slack, Notion and 50+ tools</span><svg class="ic"><use href="#i-orch"/></svg></li>
+        <li><span>Understands your data and your intent</span><svg class="ic"><use href="#i-db"/></svg></li>
+        <li><span>Suggests the next step while you work</span><svg class="ic"><use href="#i-fork"/></svg></li>
+        <li><span>Acts only after your approval</span><svg class="ic"><use href="#i-ucheck"/></svg></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- BUILT TO WORK THE WAY YOU DO (pinned stepper) -->
+<section class="way" aria-labelledby="wayT">
+  <div class="rowlab"><span class="rowlab__n">[04]</span><span>Why us</span><span class="rowlab__r mono">[Scroll to continue]</span></div>
+  <div class="split2"><h2 class="h2 rv-lines" id="wayT">Built to work the way you do</h2><p class="rv">Whether you're managing tasks, collaborating with your team, or customizing your workflow, Rapider fits into your process instead of replacing it.</p></div>
+  <div class="way__pin">
+    <div class="way__cols">
+      <div class="wcol"><svg class="iso iso--md" data-iso="connect" viewBox="0 0 300 240" aria-hidden="true"></svg><p class="wcol__tag mono">Real-time sync</p></div>
+      <div class="wcol"><svg class="iso iso--md" data-iso="decide" viewBox="0 0 300 240" aria-hidden="true"></svg><p class="wcol__tag mono">Automated workflows</p></div>
+      <div class="wcol"><svg class="iso iso--md" data-iso="ask" viewBox="0 0 300 240" aria-hidden="true"></svg><p class="wcol__tag mono">Human-in-the-loop</p></div>
+      <div class="wcol"><svg class="iso iso--md" data-iso="act" viewBox="0 0 300 240" aria-hidden="true"></svg><p class="wcol__tag mono">Custom views</p></div>
+    </div>
+    <div class="way__bar"><div class="wbar" id="wbar"><b id="wbT">Connect</b><span id="wbD">Instantly sync your data across all connected tools, ensuring that your entire team has access to the latest information at all times.</span></div></div>
+  </div>
+</section>
+
+<!-- SAMPLE AGENT -->
+<section class="sample" aria-labelledby="saT">
+  <div class="rowlab"><span class="rowlab__n">[05]</span><span>Built in minutes</span></div>
+  <div class="sample__grid">
+    <div class="sample__txt">
+      <h2 class="h2 rv-lines" id="saT">A sample lead management AI built by Rapider</h2>
+      <p class="rv">A sample AI agent built by Rapider in minutes: It pulls data from Google Sheets, enriches it via web sources, and requests user approval before updating Salesforce. After saving, it sends SMS messages to new leads—again, only after review.</p>
+      <a class="btn btn--line" href="https://www.youtube.com/watch?v=ypzKpUhMXSg" target="_blank" rel="noopener"><svg class="ic"><use href="#i-play"/></svg>Watch it run</a>
+    </div>
+    <div class="sample__draw">
+      <svg class="dims" viewBox="0 0 520 620" aria-hidden="true"><line x1="80" y1="30" x2="440" y2="30"/><line x1="80" y1="24" x2="80" y2="36"/><line x1="440" y1="24" x2="440" y2="36"/><text x="226" y="22">390 · mobile</text><line x1="474" y1="60" x2="474" y2="590"/><line x1="468" y1="60" x2="480" y2="60"/><line x1="468" y1="590" x2="480" y2="590"/></svg>
+      <div class="phone" aria-hidden="true">
+        <div class="phone__top"><b>Lead Management Agent</b><span><span class="widget__dot"></span>working</span></div>
+        <div class="chat" id="chat">
+          <p class="msg"><time>21:04</time>Read 214 new rows from Google Sheets. Enriched 186 leads via web sources.</p>
+          <p class="msg msg--ask"><time>21:05</time>Ready to update 186 records in Salesforce. I'll wait for your approval.<span class="msg__btns"><b>Approve</b><b>Review</b></span></p>
+          <p class="gap mono">Overnight · the agent waits for a human</p>
+          <p class="msg msg--me"><time>08:02</time>Approve</p>
+          <p class="msg"><time>08:02</time>Done. Welcome SMS for the new leads is ready for review.</p>
+          <p class="msg msg--me"><time>08:03</time>Send it</p>
+          <p class="msg msg--ok"><time>08:03</time>✓ 186 messages sent</p>
+        </div>
+        <div class="phone__in">Message Lead Management Agent…</div>
+      </div>
+      <p class="hand hand--a">approve from anywhere ↘</p>
+      <p class="hand hand--b">↖ nothing ships without you</p>
+    </div>
+  </div>
+</section>
+
+<!-- AI STUDIO · bill of materials -->
+<section class="studio" id="studio" data-scan aria-labelledby="stT">
+  <div class="rowlab"><span class="rowlab__n">[06]</span><span>AI Studio</span><span class="rowlab__r mono">Bill of materials</span></div>
+  <div class="split2"><h2 class="h2 rv-lines" id="stT" data-note="no lock-in — code is yours ✓" data-note-at="br">Free low-code AI development platform</h2><div class="rv"><p>Generate sophisticated, fully customizable software and AI agents instantly — and configure your AI workflows yourself.</p><a class="btn btn--ink" href="https://app.rapider.ai">Try Free <svg class="ic"><use href="#i-arrow"/></svg></a></div></div>
+  <table class="bom">
+    <thead><tr><th>Item</th><th>Part</th><th>What it gives you</th><th>Included</th></tr></thead>
+    <tbody>
+      <tr><td>01</td><td><svg class="ic"><use href="#i-api"/></svg>Instant API Generation</td><td>REST endpoints for every model, generated as you design</td><td><span class="tick"></span></td></tr>
+      <tr><td>02</td><td><svg class="ic"><use href="#i-db"/></svg>Visual Data Modeling</td><td>Draw entities and relations; the schema follows</td><td><span class="tick"></span></td></tr>
+      <tr><td>03</td><td><svg class="ic"><use href="#i-flow"/></svg>AI Workflows</td><td>Agents with triggers, decisions and approvals</td><td><span class="tick"></span></td></tr>
+      <tr><td>04</td><td><svg class="ic"><use href="#i-layout"/></svg>Build Functional Interfaces</td><td>Screens your team can use on day one</td><td><span class="tick"></span></td></tr>
+      <tr><td>05</td><td><svg class="ic"><use href="#i-process"/></svg>Business Process Design</td><td>Map the process before you automate it</td><td><span class="tick"></span></td></tr>
+      <tr><td>06</td><td><svg class="ic"><use href="#i-branch"/></svg>Version Control &amp; Deploy</td><td>Every change reviewed, every release traceable</td><td><span class="tick"></span></td></tr>
+      <tr><td>07</td><td><svg class="ic"><use href="#i-layers"/></svg>Ready to Use Design System</td><td>Consistent UI without starting from zero</td><td><span class="tick"></span></td></tr>
+      <tr><td>08</td><td><svg class="ic"><use href="#i-boxes"/></svg>Microservices &amp; Backend Data Flow</td><td>Services that scale with your data</td><td><span class="tick"></span></td></tr>
+      <tr><td>09</td><td><svg class="ic"><use href="#i-export"/></svg>Instant Code Export</td><td>Your code, your deployment — no lock-in</td><td><span class="tick"></span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- PROOF -->
+<section class="proof" id="proof" data-scan aria-labelledby="pfT">
+  <div class="rowlab"><span class="rowlab__n">[07]</span><span>Test results</span><span class="rowlab__r mono">Knowledge meets action</span></div>
+  <h2 class="sr" id="pfT">Results</h2>
+  <div class="results">
+    <div class="res"><p class="mono">Time saved</p><p class="res__n"><span class="cnt" data-to="70" data-pre="~" data-suf="%">~70%</span></p><p>Most repetitive research and data tasks are fully handled by your AI agents from search to execution.</p><span class="pass">PASS</span></div>
+    <div class="res"><p class="mono">Automation</p><p class="res__n"><span class="cnt" data-to="7" data-pre="~" data-suf="×">~7×</span></p><p>Teams execute more workflows by connecting knowledge discovery to instant automation across systems.</p><span class="pass">PASS</span></div>
+    <div class="res"><p class="mono">Integrations</p><p class="res__n"><span class="cnt" data-to="50" data-suf="+">50+</span></p><p>Connect your knowledge sources and action tools — from Slack to Salesforce to Google Workspace.</p><span class="pass">PASS</span></div>
+    <div class="res"><p class="mono">Adoption</p><p class="res__n"><span class="cnt" data-to="91" data-suf="%">91%</span></p><p>Teams love having AI that doesn't just find answers but actually gets work done for them.</p><span class="pass">PASS</span></div>
+  </div>
+  <div class="notes">
+    <figure class="note"><p class="mono note__k">Review note · Faydam</p><blockquote>Rapider AI delivered our custom CRM in just 60 days at a fraction of traditional development costs. We paid only after we were completely satisfied.</blockquote><figcaption><img src="assets/people/haluk.jpg" alt=""><span class="sig">Haluk</span></figcaption></figure>
+    <figure class="note"><p class="mono note__k">Review note · BMW</p><blockquote>The AI-generated code integrated perfectly with our analytics infrastructure. Rapider's platform produced enterprise-quality solutions that required minimal tweaking.</blockquote><figcaption><img src="assets/people/thomas.jpg" alt=""><span class="sig">Thomas</span></figcaption></figure>
+    <figure class="note"><p class="mono note__k">Review note · LiifeID</p><blockquote>Rapider AI cut our mobile app development time in half. Their self-service platform gave us the core functionality we needed, while their expert team refined the UX.</blockquote><figcaption><img src="assets/people/aaron.jpg" alt=""><span class="sig">Aaron</span></figcaption></figure>
+  </div>
+</section>
+
+<!-- PRICING · spec sheets -->
+<section class="pricing" id="pricing" aria-labelledby="pcT">
+  <div class="rowlab"><span class="rowlab__n">[08]</span><span>Pricing</span><span class="rowlab__r"><span class="bill" role="group" aria-label="Billing period"><button type="button" aria-pressed="true" data-b="m">Monthly</button><button type="button" aria-pressed="false" data-b="y">Yearly −15%</button></span></span></div>
+  <h2 class="sr" id="pcT">Pricing</h2>
+  <div class="specs">
+    <article class="spec"><p class="spec__k mono">Spec sheet · 01</p><h3>Basic</h3><p class="spec__p"><b data-m="899" data-y="764">$899</b><span>/ month</span></p><dl><div><dt>AI tokens</dt><dd>5M / month</dd></div><div><dt>Data sources</dt><dd>10</dd></div><div><dt>Agents</dt><dd>AI agent creation</dd></div><div><dt>Automation</dt><dd>Basic templates</dd></div><div><dt>Setup</dt><dd>Integrations &amp; architecture</dd></div><div><dt>Support</dt><dd>Email</dd></div></dl><a class="btn btn--line" href="#cta">Start for free</a></article>
+    <article class="spec spec--pro" data-note="most teams start here →" data-note-at="tl"><p class="spec__k mono">Spec sheet · 02 <span class="chipb">Most popular</span></p><h3>Pro</h3><p class="spec__p"><b data-m="2,000" data-y="1,700">$2,000</b><span>/ month</span></p><dl><div><dt>AI tokens</dt><dd>25M / month</dd></div><div><dt>Data sources</dt><dd>Unlimited</dd></div><div><dt>Agents</dt><dd>Custom + multi-agent</dd></div><div><dt>Hosting</dt><dd>Your own subdomain</dd></div><div><dt>Support</dt><dd>24/7 technical</dd></div><div><dt>Channel</dt><dd>Dedicated Slack</dd></div></dl><a class="btn btn--blue" href="#cta">Start for free <svg class="ic"><use href="#i-arrow"/></svg></a></article>
+    <article class="spec"><p class="spec__k mono">Spec sheet · 03</p><h3>Enterprise</h3><p class="spec__p"><b>Custom</b></p><dl><div><dt>Deployment</dt><dd>Your domain, code &amp; deploy</dd></div><div><dt>Security</dt><dd>SSO, SCIM</dd></div><div><dt>Integrations</dt><dd>Custom &amp; APIs</dd></div><div><dt>AI actions</dt><dd>Unlimited</dd></div><div><dt>People</dt><dd>Dedicated CSM</dd></div><div><dt>Engineers</dt><dd>Private marketplace</dd></div></dl><a class="btn btn--line" href="#cta">Talk to sales</a></article>
+  </div>
+  <p class="specs__note mono">30-day free trial · no credit card required</p>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta" aria-labelledby="ctT">
+  <div class="cta__box" id="ctaBox">
+    <span class="corner c-tl">+</span><span class="corner c-tr">+</span><span class="corner c-bl">+</span><span class="corner c-br">+</span>
+    <svg class="iso iso--cta" id="isoCta" viewBox="0 0 1200 420" aria-hidden="true"></svg>
+    <p class="mono">[09] Get started</p>
+    <h2 class="h-xl rv-lines" id="ctT" data-note="sign here ↓" data-note-at="br">Start with a Blueprint</h2>
+    <p class="cta__sub">See how Rapider helps you build your first working agent. Free first version, production-ready.</p>
+    <svg class="sigline" viewBox="0 0 320 70" aria-hidden="true"><path pathLength="1" d="M10 50 C 30 10, 50 10, 52 40 C 54 62, 70 20, 84 22 C 98 24, 92 52, 108 46 C 124 40, 130 14, 146 18 C 162 22, 150 50, 170 48 C 190 46, 200 26, 220 30 C 240 34, 236 50, 262 44 L 310 40"/><line x1="0" y1="62" x2="320" y2="62"/></svg>
+    <button type="button" class="btn btn--ink btn--lg" id="ctaBtn" data-cursor="Sign"><svg class="ic"><use href="#i-cal"/></svg>Book a demo</button>
+    <span class="stamp stamp--cta" id="ctaStamp">REQUESTED<small>WE'LL CALL YOU · 24H</small></span>
+  </div>
+</section>
+</main>
+
+<footer class="foot frame">
+  <div class="foot__grid mono">
+    <div class="fcell fcell--logo"><b>RAPIDER AI</b><span>Enterprise software development with AI &amp; human expertise</span></div>
+    <div class="fcell"><span>Address</span><p>115 Broadway Street 5th Floor<br>New York, NY 10006</p></div>
+    <div class="fcell"><span>Contact</span><p><button type="button" class="copy" data-copy="info@rapider.ai">info@rapider.ai</button><br><a href="tel:+12128290150">(212) 829-0150</a></p></div>
+    <div class="fcell"><span>Pages</span><p><a href="#pricing">Pricing</a> · <a href="#cta">Contact us</a> · <a href="#">Privacy &amp; Policy</a></p></div>
+    <div class="fcell"><span>Sheet</span><p>01 / 01 · Rev 2.4</p></div>
+    <div class="fcell"><span>©</span><p><span id="yr">2026</span> Rapider AI</p></div>
+  </div>
+  <p class="foot__note mono">Direction B · concept mock-up, not the live site. Sample data in drawings and product screens is illustrative.</p>
+</footer>
+
+<div class="toastx mono" id="toastx" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/b3.js"></script>
+<script src="js/review.js"></script>
+</body>
+</html>

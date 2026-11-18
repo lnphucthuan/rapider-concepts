@@ -1,0 +1,10 @@
+.DS_Store
+.claude/
+node_modules/
+# internal only: QA captures, scripts, Vietnamese research notes with third-party screenshots
+_qa/
+_source/
+research/
+# unused footage
+assets/video/a-team.mp4
+assets/img/a-team.jpg

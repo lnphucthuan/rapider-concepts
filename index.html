@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rapider homepage options</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23141518%22/%3E%3Ctext x=%2216%22 y=%2222%22 font-family=%22Arial%22 font-weight=%22700%22 font-size=%2215%22 fill=%22white%22 text-anchor=%22middle%22%3EA/B%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root { --bg: #f4f3ef; --panel: #fff; --ink: #141518; --mute: #5f6168; --line: #e0ded7; --ok: #0c7a43; --acc: #2f4bff; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #111215; --panel: #191a1e; --ink: #eeece6; --mute: #9d9b94; --line: #2b2c31; --ok: #62d796; --acc: #8ea0ff; } }
+:root[data-theme="dark"] { --bg: #111215; --panel: #191a1e; --ink: #eeece6; --mute: #9d9b94; --line: #2b2c31; --ok: #62d796; --acc: #8ea0ff; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 "Instrument Sans", system-ui, sans-serif; }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 48px 20px 80px; }
+.k { font: 500 11.5px/1.3 "JetBrains Mono", monospace; letter-spacing: .07em; text-transform: uppercase; color: var(--mute); }
+h1 { font-size: clamp(32px, 4.4vw, 52px); line-height: 1.04; letter-spacing: -.03em; font-weight: 560; margin: 12px 0 14px; }
+h2 { font-size: 26px; letter-spacing: -.02em; font-weight: 580; margin: 0 0 6px; }
+h3 { font-size: 17px; margin: 0 0 8px; font-weight: 620; }
+p { margin: 0; }
+.intro { color: var(--mute); max-width: 68ch; font-size: 17px; }
+.opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 40px; }
+.opt { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; }
+.shots { position: relative; display: block; background: #000; }
+.shots .m { position: absolute; right: 14px; bottom: 14px; width: 21%; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.4); border: 1px solid rgba(255,255,255,.2); }
+.opt__b { padding: 22px 24px 26px; display: grid; gap: 14px; }
+.one { font-size: 18px; line-height: 1.45; }
+dl { display: grid; grid-template-columns: 112px 1fr; gap: 8px 14px; margin: 0; font-size: 14.5px; }
+dt { color: var(--mute); }
+dd { margin: 0; }
+.open { display: inline-flex; align-items: center; gap: 8px; justify-self: start; height: 44px; padding: 0 18px; border-radius: 999px; background: var(--ink); color: var(--bg); text-decoration: none; font-weight: 600; }
+.open:hover { opacity: .88; }
+section { margin-top: 64px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 18px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; }
+ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+li::marker { color: var(--mute); }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-top: 18px; }
+th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 11.5px "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--mute); }
+tr:last-child td { border-bottom: 0; }
+.ok { color: var(--ok); font-weight: 600; }
+figure { margin: 18px 0 0; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+figcaption { padding: 12px 16px; font-size: 14px; color: var(--mute); border-top: 1px solid var(--line); }
+code { font: 500 13px "JetBrains Mono", monospace; }
+.foot { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--mute); }
+@media (max-width: 860px) { .opts, .grid2 { grid-template-columns: 1fr; } dl { grid-template-columns: 96px 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="k">Rapider · homepage · visual directions · round 3</p>
+  <h1>Two directions for rapider.ai</h1>
+  <p class="intro">Round 2, both light. We studied award-winning AI and SaaS sites first (Heron AI, Loopsii, Grail, Planhat Frontier, Autopilot). What they have in common: they don't list features, they tell one story in chapters — the problem, meeting the product, watching it work, proof, action. Both options now follow that arc using Rapider's own content. Each one is a working page: open it and scroll.</p>
+
+
+  
+  <div class="card" style="margin-top:24px;border-left:4px solid #ff3b6b">
+    <h3>How to give feedback</h3>
+    <p style="color:var(--mute)">Open any option, press the <b>Feedback</b> button (bottom-left), then <b>click anything</b> — a headline, a button, a picture, a whole section — to pin a note to it. Tag it Love / Change / Bug / Question. Open <b>Notes → Overall</b> to rate the page and pick Keep / Revise / Drop. Notes stay on your device; press <b>Copy all pages</b> and paste the text to Claude. Tip: add <code>?review</code> to any link to open it already in review mode. On a phone it works the same way (tap).</p>
+    <p style="margin-top:12px"><a class="open" href="a3.html?review">Review Direction A →</a> &nbsp; <a class="open" href="b3.html?review">Review Direction B →</a></p>
+  </div>
+
+  <section style="margin-top:40px">
+    <p class="k">Round 3 · brand-led, full pages</p>
+    <h2>Two directions built on what makes Rapider different</h2>
+    <p class="intro">Brand truths: the name means <i>faster</i>; Rapider calls itself "Enterprise Software Development with AI &amp; Human Expertise"; every project starts with a Blueprint and a free first version; customers report a 60-day CRM and half the development time. Direction A carries the speed, Direction B carries the accountability.</p>
+    <div class="opts">
+      <article class="opt">
+        <a class="shots" href="a3.html"><img src="review/a3-desktop.jpg" alt="Direction A, first screen"><span class="m"><img src="review/a3-mobile.jpg" alt="Direction A on mobile"></span></a>
+        <div class="opt__b"><p class="k">Direction A · Loopsii / Ramp school</p><h2>Rapid-er</h2>
+          <p class="one">Speed as personality: a live agent console in the hero, a "data everywhere → so does Rapider" scene, a time-back calculator, a race against a traditional build, crisp product cards, pricing and a fast-forward mosaic.</p>
+          <a class="open" href="a3.html">Open Direction A →</a></div>
+      </article>
+      <article class="opt">
+        <a class="shots" href="b3.html"><img src="review/b3-desktop.jpg" alt="Direction B, first screen"><span class="m"><img src="review/b3-mobile.jpg" alt="Direction B on mobile"></span></a>
+        <div class="opt__b"><p class="k">Direction B · Heron school</p><h2>Blueprint</h2>
+          <p class="one">Accountability as personality: an exploded technical drawing of the system, "Drafted by AI. Checked by engineers. Approved by you.", a blueprint that builds itself, spec-sheet pricing and a CTA that gets stamped.</p>
+          <a class="open" href="b3.html">Open Direction B →</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section style="margin-top:56px"><p class="k">Round 2 (for reference)</p></section>
+  <div class="opts">
+    <article class="opt">
+      <a class="shots" href="a2.html"><img src="review/a2-desktop.jpg" alt="Option A v2, first screen on desktop"><span class="m"><img src="review/a2-mobile.jpg" alt="Option A v2 on mobile"></span></a>
+      <div class="opt__b">
+        <p class="k">Option A v2</p>
+        <h2>Live desk</h2>
+        <p class="one">The product is the stage. A real agent run opens the page, then one pinned stage changes chapter by chapter: tools connect, a workflow draws itself, a request waits for approval, results land in a kanban view.</p>
+        <dl>
+          <dt>Story</dt><dd>Problem: "Your data lives everywhere." The sentence splits open and the work that falls between tools pours into the gap, then everything collapses into Rapider. After that, Connect → Decide → Ask → Act as a pinned 4-step scene.</dd>
+          <dt>Look</dt><dd>Warm paper, drawing-sheet frame with crop marks, one cobalt accent. Funnel Display + Instrument Sans + mono.</dd>
+          <dt>Motion</dt><dd>Pinned scroll scenes · word reveals · stacked cards. The visitor can click Approve in the hero.</dd>
+          <dt>Learned from</dt><dd>Heron AI (pinned steps, technical frame), Loopsii (brackets of pain, stacked cards).</dd>
+          <dt>Risk</dt><dd>Long scroll; the pinned scenes need real content from the team to stay honest.</dd>
+        </dl>
+        <a class="open" href="a2.html">Open option A v2 →</a>
+      </div>
+    </article>
+    <article class="opt">
+      <a class="shots" href="b2.html"><img src="review/b2-desktop.jpg" alt="Option B v2, first screen on desktop"><span class="m"><img src="review/b2-mobile.jpg" alt="Option B v2 on mobile"></span></a>
+      <div class="opt__b">
+        <p class="k">Option B v2</p>
+        <h2>24/7 shift</h2>
+        <p class="one">Time is the stage. The page is one day with Rapider, 09:00 to 10:00 the next morning. The sky tint follows the clock but never goes dark. One "new lead" card travels through the night shift and waits for a human at 02:14.</p>
+        <dl>
+          <dt>Story</dt><dd>09:00 promise → 11:30 problem → 14:00 set it up (AI Studio) → 18:00–08:47 night shift (Connect, Decide, Ask, Act) → 08:47 approve from your phone → 09:30 results → 10:00 get started.</dd>
+          <dt>Look</dt><dd>Editorial: Instrument Serif headlines, 12-column grid, giant clock numerals, orange "on shift" accent.</dd>
+          <dt>Motion</dt><dd>Shift clock and sky tint · panels sliding over each other · word and line reveals. Hero task cards float.</dd>
+          <dt>Learned from</dt><dd>Grail (one card through chapters, giant timer, sliding panels), Planhat Frontier (staggered statement on a grid).</dd>
+          <dt>Risk</dt><dd>More "brand" than "product UI" in the first screen.</dd>
+        </dl>
+        <a class="open" href="b2.html">Open option B v2 →</a>
+      </div>
+    </article>
+  </div>
+
+  <section>
+    <p class="k">Same in both</p>
+    <h2>What both options fix</h2>
+    <div class="grid2">
+      <div class="card"><h3>Story</h3><ul>
+        <li>A new "problem" chapter (the current page jumps straight into four feature cards).</li>
+        <li>How it works as four clear steps, built from Rapider's own features: Real-time sync, Automated workflows, Seamless collaboration (human approvals), Custom views.</li>
+        <li>A sticky "Book a demo" pill after the first screen.</li>
+      </ul></div>
+      <div class="card"><h3>Look</h3><ul>
+        <li>About 15 font families loaded today → 3 per option.</li>
+        <li>No brand colour today (four stats, four colours) → one accent per option.</li>
+        <li>The empty hero product frame is replaced by something alive.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="k">Words to check</p>
+    <h2>Copy we wrote or changed</h2>
+    <div class="card"><ul>
+      <li>New: the pain lines ("Copy it from Sheets to Salesforce", "Who approved this change?", "Update the CRM. Again.", …), the step names Connect / Decide / Ask / Act, and in B the time labels and "Your team goes home. Rapider keeps working."</li>
+      <li>Fixed: "COLLABRATION" → "Collaboration", "take our words for it" → "our word for it", © year.</li>
+      <li>Sample data in the demos (214 rows, 186 leads, company names, times) is invented for the mock-up and marked "sample data".</li>
+    </ul></div>
+  </section>
+
+  <section>
+    <p class="k">Checks</p>
+    <h2>Tested at 1440 × 900 and 390 × 844</h2>
+    <table>
+      <tr><th>Check</th><th>A v2</th><th>B v2</th></tr>
+      <tr><td>Horizontal overflow</td><td class="ok">none</td><td class="ok">none</td></tr>
+      <tr><td>Text contrast (WCAG AA)</td><td class="ok">0 failures</td><td class="ok">0 failures</td></tr>
+      <tr><td>Console errors</td><td class="ok">0</td><td class="ok">0</td></tr>
+      <tr><td>Reduced motion / <code>?static</code></td><td>No pinning; still frames of each scene</td><td>No pinning; the night card shown waiting at 02:14</td></tr>
+      <tr><td>Interaction tested</td><td>Approve in the hero, step buttons jump to their scene</td><td>Clock, sky tint and the travelling card at 14 scroll points</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <p class="k">Scroll through</p>
+    <h2>Key moments</h2>
+    <figure><img src="review/a2-sheet-0.jpg" alt="Option A v2: hero, logos, problem chapter splitting open" loading="lazy"><figcaption>A v2: hero with the live agent run, then the problem sentence splits open and collapses into Rapider.</figcaption></figure>
+    <figure><img src="review/a2-how.jpg" alt="Option A v2: Connect scene and Act scene" loading="lazy"><figcaption>A v2: the pinned stage, from Connect (every tool wired to Rapider) to Act (results in a kanban view).</figcaption></figure>
+    <figure><img src="review/b2-sheet-0.jpg" alt="Option B v2: hero, statement, AI Studio panel" loading="lazy"><figcaption>B v2: 09:00 hero with floating tasks, the staggered "Your data lives everywhere." and the first AI Studio panel.</figcaption></figure>
+    <figure><img src="review/b2-night.jpg" alt="Option B v2: the night shift" loading="lazy"><figcaption>B v2: the night shift. The card waits for approval at 02:14 and is approved at 08:47; the sky moves from night blue to dawn peach.</figcaption></figure>
+  </section>
+
+  <section>
+    <p class="k">Open questions</p>
+    <h2>To decide before the next round</h2>
+    <div class="card"><ul>
+      <li>Brand guide: colour, logo, font? A uses cobalt, B uses orange; both are proposals.</li>
+      <li>Is it OK to change the section order and add the problem chapter?</li>
+      <li>Replace the sample agent run with a real one (real screens or a real recording)?</li>
+      <li>What goes in the Products / Solutions menus?</li>
+    </ul></div>
+  </section>
+
+  <section>
+    <p class="k">Round 1 (for reference)</p>
+    <p class="intro"><a href="home-a.html">Option A v1 — Live desk</a> · <a href="home-b.html">Option B v1 — 24/7 shift (dark)</a></p>
+  </section>
+
+  <p class="foot">Footage: Mixkit (free licence). Avatars in product screens: Unsplash. Concept mock-ups for review, not the live site. Plain HTML/CSS/JS with GSAP, ScrollTrigger and Lenis; no build step. Content © Rapider AI.</p>
+</div>
+<script src="js/review.js"></script>
+</body>
+</html>

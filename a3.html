@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rapider — Direction A · Rapid-er</title>
+<meta name="description" content="AI agents and enterprise software, built with AI & human expertise. Your first version is free.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23111112%22/%3E%3Cpath d=%22M9 22 L19 10 M15 22 L25 10%22 stroke=%22%23d7ff3f%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/fx.css">
+<link rel="stylesheet" href="css/a3.css">
+<script>document.documentElement.classList.add(/[?&]static\b/.test(location.search) ? 'static' : 'js');try{if(!/[?&]static\b/.test(location.search)&&(/[?&]intro\b/.test(location.search)||!sessionStorage.getItem('rp-a-intro')))document.documentElement.classList.add('is-pre')}catch(e){}</script>
+</head>
+<body>
+<div class="pre" id="pre" aria-hidden="true">
+  <p class="pre__k"><span class="clock__dot"></span>On your marks</p>
+  <p class="pre__t"><b id="preT">0.00</b><span>s</span></p>
+  <div class="pre__bar"><i id="preBar"></i></div>
+  <p class="pre__done" id="preDone">Loaded in <b id="preD">0.84</b>s. Told you — rapid<span class="er">er</span>.</p>
+  <div class="pre__wipe"><span>»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»</span></div>
+</div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-replay" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></symbol>
+    <symbol id="i-sms" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10.5h.01M12 10.5h.01M16 10.5h.01"/></symbol>
+    <symbol id="i-sheet" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M5 9h14M5 14h14M10 9v12"/></symbol>
+    <symbol id="i-ucheck" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6M16 11l2 2 4-4"/></symbol>
+    <symbol id="i-api" viewBox="0 0 24 24"><path d="M8 4C6 4 5 5 5 7v2c0 1.5-1 3-2.5 3C4 12 5 13.5 5 15v2c0 2 1 3 3 3M16 4c2 0 3 1 3 3v2c0 1.5 1 3 2.5 3-1.5 0-2.5 1.5-2.5 3v2c0 2-1 3-3 3"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="i-flow" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7 7.5l3.5 8M17 7.5l-3.5 8"/></symbol>
+    <symbol id="i-layout" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></symbol>
+    <symbol id="i-process" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="6" rx="1.5"/><rect x="14" y="15" width="7" height="6" rx="1.5"/><path d="M6.5 9v5a1 1 0 0 0 1 1H14"/></symbol>
+    <symbol id="i-branch" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="7" r="2"/><path d="M6 7v10M18 9c0 4-6 3-11 7.5"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5"/></symbol>
+    <symbol id="i-boxes" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></symbol>
+    <symbol id="i-export" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></symbol>
+    <symbol id="i-orch" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="4.5" cy="5" r="1.8"/><circle cx="19.5" cy="5" r="1.8"/><circle cx="4.5" cy="19" r="1.8"/><circle cx="19.5" cy="19" r="1.8"/><path d="M6 6.5l3.8 3.6M18 6.5l-3.8 3.6M6 17.5l3.8-3.6M18 17.5l-3.8-3.6"/></symbol>
+    <symbol id="i-fork" viewBox="0 0 24 24"><path d="M12 3v6M12 9l-6 6v6M12 9l6 6v6"/></symbol>
+    <symbol id="i-canvas" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="5" rx="1"/><rect x="14" y="16" width="7" height="5" rx="1"/><path d="M6.5 8v4h11v4"/></symbol>
+    <symbol id="i-template" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+    <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6"/></symbol>
+  </defs>
+</svg>
+
+<div class="announce" id="announce"><p><span class="pulse"></span>Rapider AI v2.4 is live — build your first agent with a free first version.<a href="https://app.rapider.ai">Try it <span class="ff">»</span></a></p><button type="button" class="announce__x" aria-label="Close announcement"><svg class="ic"><use href="#i-x"/></svg></button></div>
+
+<header class="nav" id="nav">
+  <div class="nav__in">
+    <a class="brand" href="#top" aria-label="Rapider home">Rapid<span class="er">er</span></a>
+    <nav class="menu" aria-label="Main">
+      <div class="menu__item"><button type="button" aria-expanded="false">Products <svg class="ic"><use href="#i-chev"/></svg></button>
+        <div class="drop"><a href="#studio"><span class="drop__ic t-volt"><svg class="ic"><use href="#i-layers"/></svg></span><b>AI Studio</b><small>Free low-code AI development platform</small></a><a href="#features"><span class="drop__ic t-sky"><svg class="ic"><use href="#i-canvas"/></svg></span><b>Low-Code Builder</b><small>Create AI agents without coding</small></a><a href="#agent"><span class="drop__ic t-coral"><svg class="ic"><use href="#i-ucheck"/></svg></span><b>Digital employees</b><small>Agents that work 24/7 and ask first</small></a><a href="#features"><span class="drop__ic t-sage"><svg class="ic"><use href="#i-api"/></svg></span><b>Integrations</b><small>50+ tools and custom APIs</small></a></div></div>
+      <div class="menu__item"><button type="button" aria-expanded="false">Solutions <svg class="ic"><use href="#i-chev"/></svg></button>
+        <div class="drop drop--sm"><a href="#agent"><b>Sales &amp; RevOps</b><small>Lead enrichment, CRM updates</small></a><a href="#agent"><b>Operations</b><small>Onboarding, handovers</small></a><a href="#agent"><b>Finance</b><small>Invoice follow-up, reporting</small></a><a href="#agent"><b>Support</b><small>Triage, answers, escalation</small></a></div></div>
+      <a href="#pricing">Pricing</a>
+      <a href="#proof">Customers</a>
+    </nav>
+    <div class="nav__r">
+      <a class="nav__sign" href="https://app.rapider.ai">Sign in</a>
+      <a class="btn btn--volt btn--sm" href="#cta" data-alt="Talk to an engineer">Book a demo</a>
+      <a class="btn btn--ink btn--sm nav__get" href="#cta" data-alt="Go rapid-er">Get started</a>
+      <button class="burger" type="button" aria-label="Open menu" aria-expanded="false"><svg class="ic"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <p class="clock"><span class="clock__dot"></span>On the clock since you arrived <b id="sw">00:00.00</b></p>
+    <h1 class="h1 rv-lines"><span>Your AI-powered digital employee.</span> <span class="grey">That never stops working.</span></h1>
+    <p class="hero__sub rv">AI agents and enterprise software, built with AI &amp; human expertise. Your first version is free.</p>
+    <form class="email rv" onsubmit="return false">
+      <label class="sr" for="em1">Work email</label>
+      <input id="em1" type="email" placeholder="What's your work email?" autocomplete="email">
+      <button class="btn btn--volt" type="submit" data-alt="It's quicker than you think">Get your free first version <span class="ff">»</span></button>
+    </form>
+    <p class="hero__alt rv">or <a href="#cta">book a demo with an engineer</a></p>
+  </div>
+
+  <div class="wrap">
+    <div class="stage rv" id="stage">
+      <div class="app" data-tilt="4" aria-label="Rapider console: a lead management agent at work (sample data)">
+        <div class="app__bar"><span class="dots"><i></i><i></i><i></i></span><span class="app__url">app.rapider.ai / agents / lead-management</span><span class="app__live"><span class="clock__dot"></span>Running</span></div>
+        <div class="app__body">
+          <aside class="app__side">
+            <p class="app__k">Workspace</p>
+            <a class="is-on"><svg class="ic"><use href="#i-ucheck"/></svg>Lead management<b>186</b></a>
+            <a><svg class="ic"><use href="#i-sms"/></svg>Invoice follow-up<b>12</b></a>
+            <a><svg class="ic"><use href="#i-template"/></svg>Employee onboarding<b>4</b></a>
+            <a><svg class="ic"><use href="#i-pulse"/></svg>Support triage<b>31</b></a>
+            <p class="app__k">Connected</p>
+            <div class="app__tools"><span class="sheet-ic"><svg class="ic"><use href="#i-sheet"/></svg></span><img src="assets/tools/salesforce.png" alt=""><img src="assets/tools/slack.png" alt=""><img src="assets/tools/notion.png" alt=""><img src="assets/tools/gdrive.png" alt=""></div>
+          </aside>
+          <div class="app__main">
+            <div class="app__head"><div><p class="app__crumb">Agents / Lead management</p><h3>Inbound leads <span>214 rows · Google Sheets</span></h3></div><div class="app__tabs"><span class="is-on">Table</span><span>Kanban</span><span>Runs</span></div></div>
+            <table class="tbl">
+              <thead><tr><th>Company</th><th>Size</th><th>Owner</th><th>Status</th><th>Next step</th></tr></thead>
+              <tbody id="rows">
+                <tr><td><i class="co" style="--c:#2563eb">N</i>Northwind Ltd</td><td>201–500</td><td><img src="assets/avatars/p1.jpg" alt="">Sarah K.</td><td><span class="chip chip--ok">Qualified</span></td><td>Update CRM</td></tr>
+                <tr><td><i class="co" style="--c:#0ea5e9">B</i>Bluebird Health</td><td>501–1k</td><td><img src="assets/avatars/p2.jpg" alt="">Daniel R.</td><td><span class="chip chip--ok">Qualified</span></td><td>Update CRM</td></tr>
+                <tr><td><i class="co" style="--c:#f97316">K</i>Kite &amp; Co</td><td>51–200</td><td><img src="assets/avatars/p9.jpg" alt="">Olivia P.</td><td><span class="chip chip--run">Enriching</span></td><td>Web lookup</td></tr>
+                <tr><td><i class="co" style="--c:#16a34a">A</i>Atlas Freight</td><td>1k+</td><td><img src="assets/avatars/p1.jpg" alt="">Sarah K.</td><td><span class="chip chip--run">Enriching</span></td><td>Web lookup</td></tr>
+                <tr><td><i class="co" style="--c:#7c3aed">M</i>Morrow Labs</td><td>11–50</td><td><img src="assets/avatars/p2.jpg" alt="">Daniel R.</td><td><span class="chip chip--new">New</span></td><td>Queue</td></tr>
+                <tr><td><i class="co" style="--c:#059669">P</i>Pine &amp; Lake</td><td>201–500</td><td><img src="assets/avatars/p9.jpg" alt="">Olivia P.</td><td><span class="chip chip--new">New</span></td><td>Queue</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <aside class="app__drawer">
+            <div class="req" id="req">
+              <p class="req__k"><span class="chip chip--wait">Needs approval</span><span>2 min ago</span></p>
+              <p class="req__t">Update 186 records in Salesforce</p>
+              <ul class="req__diff"><li><span>Lead status</span><b>→ Qualified</b></li><li><span>Company size</span><b>enriched</b></li><li><span>Owner</span><b>by territory</b></li></ul>
+              <p class="req__who"><span class="stack"><img src="assets/avatars/p1.jpg" alt=""><img src="assets/avatars/p2.jpg" alt=""></span>Sarah K. + Daniel R. approve</p>
+              <div class="req__btns"><button type="button" class="btn btn--ink btn--xs" id="approveBtn" data-cursor="Approve" data-no-magnet data-no-roll><span class="lbl">Approve</span></button><button type="button" class="btn btn--line btn--xs" tabindex="-1">Review</button></div>
+            </div>
+            <div class="feed"><p class="app__k">Activity</p><ol id="feed"><li><span>09:41</span>Read 214 rows from Sheets</li><li><span>09:42</span>Enriched 186 leads</li><li><span>09:42</span>Asked Sarah K. for approval</li></ol></div>
+          </aside>
+        </div>
+        <div class="ticker" aria-label="Agent counters for this sample run"><span class="ticker__k"><span class="clock__dot"></span>Agents at work · sample run</span><span>Leads enriched <b data-n="186">0</b></span><span>Records synced <b data-n="2481">0</b></span><span>Approvals asked <b data-n="2">0</b></span><span>Messages drafted <b data-n="186">0</b></span><span>Hours saved <b data-n="14.5" data-d="1">0</b></span></div>
+      </div>
+      <div class="float float--slack" aria-hidden="true"><img src="assets/tools/slack.png" alt=""><div><p><b>Sarah Kim</b><span>#sales · now</span></p><p>Can we text the new leads before lunch?</p></div></div>
+      <div class="float float--toast" id="toast" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg><div><p><b>186 records updated</b></p><p>Salesforce · approved by Sarah K.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<section class="logos" aria-labelledby="logosT">
+  <div class="wrap">
+    <h2 class="two rv-lines" id="logosT"><span>Trusted by the best companies around the world.</span> <span class="grey">From schools to BMW, Merck and Pfizer.</span></h2>
+    <div class="logos__grid">
+      <div class="logos__cells">
+        <span class="cell"><span class="logo" style="-webkit-mask-image:url(assets/logos/bmw.png);mask-image:url(assets/logos/bmw.png);--w:46px;--h:46px" role="img" aria-label="BMW"></span></span>
+        <span class="cell"><span class="logo" style="-webkit-mask-image:url(assets/logos/pfizer.png);mask-image:url(assets/logos/pfizer.png);--w:94px;--h:39px" role="img" aria-label="Pfizer"></span></span>
+        <span class="cell"><span class="logo" style="-webkit-mask-image:url(assets/logos/merck.png);mask-image:url(assets/logos/merck.png);--w:120px;--h:35px" role="img" aria-label="Merck"></span></span>
+        <span class="cell"><span class="logo" style="-webkit-mask-image:url(assets/logos/continental.png);mask-image:url(assets/logos/continental.png);--w:144px;--h:27px" role="img" aria-label="Continental"></span></span>
+        <span class="cell"><span class="logo" style="-webkit-mask-image:url(assets/logos/success.png);mask-image:url(assets/logos/success.png);--w:76px;--h:50px" role="img" aria-label="Success Academy Charter Schools"></span></span>
+        <span class="cell"><span class="logo" style="-webkit-mask-image:url(assets/logos/paritii.svg);mask-image:url(assets/logos/paritii.svg);--w:108px;--h:29px" role="img" aria-label="paritii"></span></span>
+        <span class="cell"><span class="logo" style="-webkit-mask-image:url(assets/logos/fingerprint.png);mask-image:url(assets/logos/fingerprint.png);--w:44px;--h:44px" role="img" aria-label="Customer logo"></span></span>
+        <a class="cell cell--more" href="#proof">Read the stories <span class="ff">»</span></a>
+      </div>
+      <a class="bigstat" href="#proof">
+        <p class="bigstat__k">Custom CRM · Faydam</p>
+        <p class="bigstat__n">60<small>days</small></p>
+        <p class="bigstat__q">“…at a fraction of traditional development costs. We paid only after we were completely satisfied.”</p>
+        <p class="bigstat__who"><img src="assets/people/haluk.jpg" alt="">Haluk, Faydam</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CHAOS → ORDER (pinned) -->
+<section class="chaos" id="chaos" aria-labelledby="chaosT">
+  <div class="chaos__pin">
+    <h2 class="chaos__t" id="chaosT"><span class="chaos__a">Your data lives everywhere,</span> <span class="chaos__b">so does Rapider.</span></h2>
+    <p class="chaos__sub"><span class="chaos__sa">Sheets, CRM, Slack, email, tickets, docs, databases — and your team copying between them.</span><span class="chaos__sb">While your business data is spread across dozens of tools, Rapider connects to them all, giving you one intelligent assistant that understands your entire business.</span></p>
+    <div class="mess" aria-hidden="true">
+      <div class="win w-sheet" style="--x:-34;--y:-8;--r:-5"><p class="win__bar g">Inbound leads — Nov.xlsx</p><table><tr><th>Company</th><th>Size</th><th>Owner</th></tr><tr><td>Northwind</td><td>?</td><td>—</td></tr><tr><td>Bluebird</td><td>500</td><td>Sarah</td></tr><tr><td>Kite &amp; Co</td><td>?</td><td>—</td></tr><tr><td>Atlas</td><td>1k+</td><td>?</td></tr></table><i class="err">3 duplicates</i></div>
+      <div class="win w-sf" style="--x:-6;--y:-26;--r:3"><p class="win__bar b"><img src="assets/tools/salesforce.png" alt="">Lead · Northwind Ltd</p><p class="kv"><span>Status</span><b>Open — not contacted</b></p><p class="kv"><span>Last update</span><b>34 days ago</b></p><i class="err">stale</i></div>
+      <div class="win w-slack" style="--x:28;--y:-18;--r:4"><p class="win__bar"><img src="assets/tools/slack.png" alt="">#sales</p><p class="msg"><img src="assets/avatars/p1.jpg" alt=""><span><b>Sarah</b> which sheet is the right one??</span></p><p class="msg"><img src="assets/avatars/p8.jpg" alt=""><span><b>Jonas</b> the one in Drive… I think</span></p></div>
+      <div class="win w-mail" style="--x:-26;--y:24;--r:2"><p class="win__bar">Inbox · 48 unread</p><p class="mail"><b>Re: Re: FW: updated pricing</b><span>Can someone update the CRM before…</span></p><p class="mail"><b>New lead form submission</b><span>Pine &amp; Lake — 214 employees</span></p></div>
+      <div class="win w-jira" style="--x:8;--y:20;--r:-3"><p class="win__bar"><img src="assets/tools/jira.png" alt="">RAP-212</p><p><b>Sync leads to CRM (again)</b></p><p class="tags"><span>To do</span><span>Blocked</span></p><i class="err">waiting 9 days</i></div>
+      <div class="win w-notion" style="--x:34;--y:16;--r:-5"><p class="win__bar"><img src="assets/tools/notion.png" alt="">Approval process v3 (final)</p><p class="check">☐ Who signs off above $10k?</p><p class="check">☐ Ask finance</p></div>
+      <div class="win w-sql" style="--x:-2;--y:-2;--r:-1"><p class="win__bar"><img src="assets/tools/postgres.png" alt="">query.sql</p><pre>SELECT * FROM leads
+WHERE owner IS NULL; <em>-- 74 rows</em></pre></div>
+    </div>
+    <div class="order" aria-hidden="true">
+      <div class="order__core"><span class="clock__dot"></span>Rapider<small>one assistant · all your tools</small></div>
+      <div class="order__ring">
+        <span style="--a:0deg"><span class="sheet-ic"><svg class="ic"><use href="#i-sheet"/></svg></span></span><span style="--a:45deg"><img src="assets/tools/salesforce.png" alt=""></span><span style="--a:90deg"><img src="assets/tools/slack.png" alt=""></span><span style="--a:135deg"><img src="assets/tools/gdrive.png" alt=""></span><span style="--a:180deg"><img src="assets/tools/jira.png" alt=""></span><span style="--a:225deg"><img src="assets/tools/notion.png" alt=""></span><span style="--a:270deg"><img src="assets/tools/postgres.png" alt=""></span><span style="--a:315deg"><img src="assets/tools/mongodb.png" alt=""></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="calc" id="calc" aria-labelledby="calcT">
+  <div class="wrap calc__in">
+    <div class="calc__l">
+      <h2 class="two rv-lines" id="calcT"><span>How much time could you get back?</span> <span class="grey">Move the sliders. We'll do the math.</span></h2>
+      <div class="field"><label for="team">Team size <output id="teamV">40</output></label><input id="team" type="range" min="5" max="500" step="5" value="40"></div>
+      <div class="field"><label for="hrs">Hours per person, per week, on repetitive data work <output id="hrsV">8</output></label><input id="hrs" type="range" min="1" max="20" step="1" value="8"></div>
+      <fieldset class="chips"><legend>What would you hand to a digital employee?</legend>
+        <label><input type="checkbox" checked><span>Lead enrichment</span></label><label><input type="checkbox" checked><span>CRM updates</span></label><label><input type="checkbox"><span>Onboarding emails</span></label><label><input type="checkbox"><span>Invoice follow-up</span></label><label><input type="checkbox" checked><span>Weekly reports</span></label><label><input type="checkbox"><span>Support triage</span></label>
+      </fieldset>
+    </div>
+    <div class="result" aria-live="polite">
+      <div class="result__top"><video class="result__v" src="assets/video/a-watch.mp4" poster="assets/img/a-watch.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video><p class="result__k">Time back with Rapider</p></div>
+      <p class="result__n"><b id="hoursBack">0</b><span>hours / month</span></p>
+      <div class="result__bar"><i id="resBar"></i></div>
+      <ul class="result__list">
+        <li><span>Equal to</span><b><span id="fte">0</span> people focused on real work</b></li>
+        <li><span>Workflows picked</span><b id="picked">3 of 6</b></li>
+        <li><span>Based on</span><b>~70% of repetitive tasks handled by agents</b></li>
+      </ul>
+      <a class="btn btn--ink" href="#cta" data-alt="It's quicker than you think">Get your free first version <span class="ff">»</span></a>
+      <p class="result__quip" id="quip">That's a whole team's Friday, every week.</p>
+      <p class="result__note">Estimate: team × hours × 4.3 weeks × 70%, using the average Rapider reports.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NIGHT SHIFT (pinned cinematic) -->
+<section class="cine" id="cine" aria-labelledby="cineT">
+  <div class="cine__pin">
+    <div class="cine__frame" id="cineFrame">
+      <video class="cine__v" src="assets/video/a-trails.mp4" poster="assets/img/a-trails.jpg" muted loop playsinline preload="metadata"></video>
+      <div class="cine__shade"></div>
+      <p class="cine__clock" aria-hidden="true"><span class="clock__dot"></span><b id="cineClock">18:00</b></p>
+      <div class="cine__copy"><p class="kick kick--inv">After hours</p><h2 class="cine__t" id="cineT"><span>Your team clocks out.</span><span>Rapid<span class="er">er</span> doesn't.</span></h2></div>
+      <ul class="pops" aria-label="What the agent did overnight (sample)">
+        <li data-t="18.7"><span class="sheet-ic"><svg class="ic"><use href="#i-sheet"/></svg></span><p><b>Read 214 new rows</b><small>18:42 · Google Sheets</small></p></li>
+        <li data-t="21.1"><img src="assets/tools/salesforce.png" alt=""><p><b>186 leads enriched</b><small>21:05 · ready for Salesforce</small></p></li>
+        <li data-t="21.2" class="pop--ask"><img src="assets/avatars/p1.jpg" alt=""><p><b>Approval requested</b><small>21:06 · Sarah K. · waits for a human</small></p></li>
+        <li data-t="26.2"><img src="assets/tools/notion.png" alt=""><p><b>Weekly report drafted</b><small>02:14 · Notion</small></p></li>
+        <li data-t="32" class="pop--ok"><img src="assets/avatars/p1.jpg" alt=""><p><b>Sarah approved from her phone</b><small>08:02 · 186 records saved</small></p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="ffwipe" aria-hidden="true"><span>»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»</span></div>
+
+<!-- RACE (pinned) -->
+<section class="race" id="how" aria-labelledby="raceT">
+  <div class="wrap race__head">
+    <h2 class="two rv-lines" id="raceT"><span>AI for speed.</span> <span class="grey">Engineers for certainty.</span></h2>
+    <p class="rv">Every Rapider project starts with a Blueprint — a full technical spec and a first version, free. AI does the heavy lifting, Rapider's engineers check the work, you sign off, and it goes live.</p>
+  </div>
+  <div class="race__pin">
+    <div class="wrap">
+      <div class="race__top"><p class="race__day"><b id="day">000</b><span>Day of the project</span></p><ol class="race__legend"><li class="is-on" data-s="0"><i>01</i>AI drafts the Blueprint</li><li data-s="1"><i>02</i>Engineers review</li><li data-s="2"><i>03</i>You approve</li><li data-s="3"><i>04</i>Live, 24/7</li></ol></div>
+      <div class="lane lane--old"><p class="lane__k"><b>Traditional build</b><span id="oldPct">0%</span></p>
+        <div class="track"><i class="fill" id="oldFill"></i><span class="ms" style="--at:0" data-d="0"><b>Requirements</b>Day 0</span><span class="ms" style="--at:.25" data-d="30"><b>Design</b>Day 30</span><span class="ms" style="--at:.5" data-d="60"><b>Build</b>Day 60</span><span class="ms" style="--at:.79" data-d="95"><b>QA</b>Day 95</span><span class="ms ms--end" style="--at:1" data-d="120"><b>Launch</b>Day 120</span></div></div>
+      <div class="lane lane--new"><p class="lane__k"><b>Rapid<span class="er">er</span> · AI + engineers</b><span id="newPct">0%</span></p>
+        <div class="track"><i class="fill" id="newFill"></i><span class="live" id="live"><span class="clock__dot"></span>Live · working 24/7</span><span class="ms" style="--at:.008" data-d="1"><b>Blueprint + free first version</b>Day 1</span><span class="ms" style="--at:.2" data-d="24"><b>Engineers review</b>Day 24</span><span class="ms" style="--at:.38" data-d="45"><b>You approve</b>Day 45</span><span class="ms ms--end" style="--at:.5" data-d="60"><b>Live</b>Day 60</span></div></div>
+      <p class="race__note">Illustrative timeline based on customer reports: a custom CRM delivered in 60 days (Faydam) and development time cut in half (LiifeID).</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES (bento) -->
+<section class="features" id="features" aria-labelledby="featT">
+  <div class="wrap">
+    <h2 class="two rv-lines" id="featT"><span>Everything your digital employee needs.</span> <span class="grey">Nothing it does without asking.</span></h2>
+    <div class="bento">
+      <article class="fcard rv">
+        <header><h3>Custom views. <span>From grid to kanban, every aspect of your workflow.</span></h3><span class="arrow"><svg class="ic"><use href="#i-arrow"/></svg></span></header>
+        <div class="fui fui--views"><div class="seg"><span class="is-on">Grid</span><span>Kanban</span></div>
+          <div class="board"><div class="bcol"><p>New <b>2</b></p></div><div class="bcol"><p>Qualified <b>3</b></p></div><div class="bcol"><p>Contacted <b>1</b></p></div>
+            <span class="bc" data-c="1"><i class="co" style="--c:#2563eb">N</i>Northwind</span><span class="bc" data-c="1"><i class="co" style="--c:#0ea5e9">B</i>Bluebird</span><span class="bc" data-c="2"><i class="co" style="--c:#f97316">K</i>Kite &amp; Co</span><span class="bc" data-c="0"><i class="co" style="--c:#16a34a">A</i>Atlas</span><span class="bc" data-c="1"><i class="co" style="--c:#7c3aed">M</i>Morrow</span><span class="bc" data-c="0"><i class="co" style="--c:#059669">P</i>Pine &amp; Lake</span></div></div>
+      </article>
+      <article class="fcard rv">
+        <header><h3>Real-time sync. <span>Your entire team always sees the latest information.</span></h3><span class="arrow"><svg class="ic"><use href="#i-arrow"/></svg></span></header>
+        <div class="fui fui--sync">
+          <div class="rec"><p class="rec__h"><span class="sheet-ic"><svg class="ic"><use href="#i-sheet"/></svg></span>Google Sheets · row 18</p><p><span>Company</span><b>Northwind Ltd</b></p><p><span>Status</span><b class="js-st">Qualified</b></p></div>
+          <div class="wire"><i></i><span>synced <b class="js-ago">just now</b></span></div>
+          <div class="rec"><p class="rec__h"><img src="assets/tools/salesforce.png" alt="">Salesforce · Lead</p><p><span>Company</span><b>Northwind Ltd</b></p><p><span>Status</span><b class="js-st">Qualified</b></p></div>
+        </div>
+      </article>
+      <article class="fcard rv">
+        <header><h3>Automated workflows. <span>Triggers that do the busywork — with rules you set.</span></h3><span class="arrow"><svg class="ic"><use href="#i-arrow"/></svg></span></header>
+        <div class="fui fui--rule">
+          <p class="rl"><span class="rl__ic"><svg class="ic"><use href="#i-pulse"/></svg></span>When a <b>lead is created</b></p>
+          <p class="rl rl--in"><span class="rl__ic"><svg class="ic"><use href="#i-fork"/></svg></span>If the <span class="pill2">Company size</span> is greater than <span class="pill2">200</span></p>
+          <p class="rl rl--in2"><span class="rl__ic"><svg class="ic"><use href="#i-ucheck"/></svg></span>Require <span class="who"><img src="assets/avatars/p1.jpg" alt="">Sales Manager</span> + <span class="who"><img src="assets/avatars/p2.jpg" alt="">RevOps</span></p>
+          <p class="rl rl--in2"><span class="rl__ic"><svg class="ic"><use href="#i-sms"/></svg></span>Then <b>send welcome email</b> · handbook attached</p>
+        </div>
+      </article>
+      <article class="fcard rv">
+        <header><h3>Seamless collaboration. <span>Share views, make updates, leave feedback in real time.</span></h3><span class="arrow"><svg class="ic"><use href="#i-arrow"/></svg></span></header>
+        <div class="fui fui--collab">
+          <div class="doc"><p class="doc__t">Q4 lead routing</p><i></i><i class="hl"></i><i></i><i class="w60"></i></div>
+          <span class="cur cur--a"><svg viewBox="0 0 20 20"><path d="M3 2l13 7-6 1.6L7.4 17z"/></svg><b>Lena</b></span>
+          <span class="cur cur--b"><svg viewBox="0 0 20 20"><path d="M3 2l13 7-6 1.6L7.4 17z"/></svg><b>Omar</b></span>
+          <div class="thread"><p><img src="assets/avatars/p3.jpg" alt=""><span><b>Emma</b> Route 1k+ to enterprise team?</span></p><p><img src="assets/avatars/p6.jpg" alt=""><span><b>Omar</b> Done. Agent updated ✓</span></p></div>
+        </div>
+      </article>
+      <article class="fcard fcard--wide rv">
+        <header><h3>50+ integrations. <span>Connect any data source with custom APIs — build workflows without coding.</span></h3><span class="arrow"><svg class="ic"><use href="#i-arrow"/></svg></span></header>
+        <div class="fui fui--ints">
+          <div class="cloud"><span class="hub">Rapider</span>
+            <img src="assets/tools/gdrive.png" alt="" style="--x:14%;--y:30%"><img src="assets/tools/jira.png" alt="" style="--x:26%;--y:70%"><img src="assets/tools/onedrive.png" alt="" style="--x:36%;--y:22%"><img src="assets/tools/salesforce.png" alt="" style="--x:64%;--y:24%"><img src="assets/tools/mongodb.png" alt="" style="--x:74%;--y:72%"><img src="assets/tools/notion.png" alt="" style="--x:86%;--y:34%"><img src="assets/tools/slack.png" alt="" style="--x:44%;--y:80%"><img src="assets/tools/postgres.png" alt="" style="--x:58%;--y:82%"><span class="api" style="--x:90%;--y:76%">{ API }</span>
+          </div>
+        </div>
+      </article>
+      <article class="fcard fcard--wide rv">
+        <header><h3>Low-Code Builder. <span>Ask Rapider to build workflows and actions; edit and monitor every step.</span></h3><span class="arrow"><svg class="ic"><use href="#i-arrow"/></svg></span></header>
+        <div class="fui fui--build">
+          <div class="flow">
+            <span class="nd"><small>Trigger</small>New row in Sheets</span><i class="ln"></i><span class="nd"><small>Step</small>Enrich lead</span><i class="ln"></i><span class="nd nd--ask"><small>Approval</small>Sales Manager</span><i class="ln"></i><span class="nd"><small>Step</small>Update Salesforce</span><i class="ln"></i><span class="nd nd--new"><small>New step</small>Slack message</span>
+          </div>
+          <p class="prompt"><span class="prompt__in" id="prompt">Add a Slack message when a deal is won</span><span class="prompt__go"><svg class="ic"><use href="#i-arrow"/></svg></span></p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="comp" aria-hidden="true"><div class="comp__row"><span>Faster builds</span><span>Smarter agents</span><span>Safer approvals</span><span>Happier teams</span><span class="comp__er">Rapid<span class="er">er</span></span><span>Faster builds</span><span>Smarter agents</span><span>Safer approvals</span><span>Happier teams</span><span class="comp__er">Rapid<span class="er">er</span></span></div></div>
+
+<!-- SAMPLE AGENT -->
+<section class="agent" id="agent" aria-labelledby="agentT">
+  <div class="wrap agent__in">
+    <div class="agent__txt">
+      <p class="kick">Built in minutes</p>
+      <h2 class="two rv-lines" id="agentT"><span>A sample lead management AI.</span> <span class="grey">Built by Rapider, approved by people.</span></h2>
+      <p class="rv">A sample AI agent built by Rapider in minutes: It pulls data from Google Sheets, enriches it via web sources, and requests user approval before updating Salesforce. After saving, it sends SMS messages to new leads—again, only after review.</p>
+      <a class="video rv" data-cursor="Play" href="https://www.youtube.com/watch?v=ypzKpUhMXSg" target="_blank" rel="noopener"><span class="video__play"><svg class="ic"><use href="#i-play"/></svg></span><span><b>Watch it run</b><small>2 min · lead management agent</small></span></a>
+    </div>
+    <div class="shot rv">
+      <video class="shot__v" src="assets/video/a-phone.mp4" poster="assets/img/a-phone.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+      <div class="bub bub--1"><p class="bub__k"><span class="clock__dot"></span>Lead Management Agent · 21:05</p><p>Ready to update <b>186 records</b> in Salesforce. I'll wait for your approval.</p><div class="bub__btns"><button type="button" class="btn btn--volt btn--xs" id="phoneApprove" data-cursor="Approve" data-no-magnet data-no-roll>Approve</button><button type="button" class="btn btn--line btn--xs" tabindex="-1">Review</button></div></div>
+      <div class="bub bub--2" id="bub2"><p class="bub__k">You · 08:02</p><p>Approved ✓ — send the welcome SMS too.</p></div>
+      <div class="bub bub--3" id="bub3"><svg class="ic"><use href="#i-check"/></svg><p><b>186 messages sent</b><br><span>before your first coffee</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- AI STUDIO (tiles) -->
+<section class="studio" id="studio" aria-labelledby="studioT">
+  <div class="wrap">
+    <div class="studio__head">
+      <h2 class="two rv-lines" id="studioT"><span>AI Studio.</span> <span class="grey">Free low-code AI development platform for you to configure your AI workflows.</span></h2>
+      <a class="btn btn--ink rv" href="https://app.rapider.ai" data-alt="Build an agent today">Try Free <span class="ff">»</span></a>
+    </div>
+    <ul class="tiles">
+      <li class="t t-volt"><svg viewBox="0 0 80 80" class="g"><path d="M10 40h18M52 40h18M40 10v18M40 52v18"/><rect x="28" y="28" width="24" height="24" rx="4"/></svg><b>Instant API Generation</b></li>
+      <li class="t t-sky"><svg viewBox="0 0 80 80" class="g"><ellipse cx="40" cy="20" rx="24" ry="9"/><path d="M16 20v40c0 5 11 9 24 9s24-4 24-9V20M16 40c0 5 11 9 24 9s24-4 24-9"/></svg><b>Visual Data Modeling</b></li>
+      <li class="t t-coral"><svg viewBox="0 0 80 80" class="g"><circle cx="18" cy="20" r="9"/><circle cx="62" cy="20" r="9"/><circle cx="40" cy="62" r="9"/><path d="M24 27l11 27M56 27L45 54"/></svg><b>AI Workflows</b></li>
+      <li class="t t-sage"><svg viewBox="0 0 80 80" class="g"><rect x="10" y="14" width="60" height="52" rx="6"/><path d="M10 30h60M30 30v36"/></svg><b>Build Functional Interfaces</b></li>
+      <li class="t t-sand"><svg viewBox="0 0 80 80" class="g"><rect x="10" y="10" width="24" height="18" rx="4"/><rect x="46" y="52" width="24" height="18" rx="4"/><path d="M22 28v18a4 4 0 0 0 4 4h20"/></svg><b>Business Process Design</b></li>
+      <li class="t t-lilac"><svg viewBox="0 0 80 80" class="g"><circle cx="20" cy="16" r="7"/><circle cx="20" cy="64" r="7"/><circle cx="60" cy="24" r="7"/><path d="M20 23v34M60 31c0 16-24 12-38 27"/></svg><b>Version Control &amp; Deploy</b></li>
+      <li class="t t-sky"><svg viewBox="0 0 80 80" class="g"><path d="M40 10l30 16-30 16-30-16zM10 42l30 16 30-16M10 56l30 16 30-16"/></svg><b>Ready to Use Design System</b></li>
+      <li class="t t-volt"><svg viewBox="0 0 80 80" class="g"><rect x="10" y="10" width="26" height="26" rx="5"/><rect x="44" y="10" width="26" height="26" rx="5"/><rect x="10" y="44" width="26" height="26" rx="5"/><rect x="44" y="44" width="26" height="26" rx="5"/></svg><b>Microservices &amp; Backend Data Flow</b></li>
+      <li class="t t-coral"><svg viewBox="0 0 80 80" class="g"><path d="M40 10v40M24 36l16 16 16-16M14 68h52"/></svg><b>Instant Code Export</b></li>
+    </ul>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="proof" id="proof" aria-labelledby="proofT">
+  <div class="wrap">
+    <h2 class="two rv-lines" id="proofT"><span>Knowledge meets action.</span> <span class="grey">Results reported by teams using Rapider.</span></h2>
+    <div class="proof__grid">
+      <div class="tower rv" aria-label="Results">
+        <p class="tower__h"><span>Lap times</span><b><span class="clock__dot"></span>Reported by customers</b></p>
+        <div class="lap"><span class="lap__p">P1</span><span class="lap__n">Time saved<small>repetitive research &amp; data tasks</small></span><span class="lap__t"><span class="cnt" data-to="70" data-pre="~" data-suf="%">~70%</span></span></div>
+        <div class="lap"><span class="lap__p">P2</span><span class="lap__n">Automation<small>more workflows executed</small></span><span class="lap__t"><span class="cnt" data-to="7" data-pre="~" data-suf="×">~7×</span></span></div>
+        <div class="lap"><span class="lap__p">P3</span><span class="lap__n">Integrations<small>from Slack to Salesforce</small></span><span class="lap__t"><span class="cnt" data-to="50" data-suf="+">50+</span></span></div>
+        <div class="lap"><span class="lap__p">P4</span><span class="lap__n">Adoption<small>teams love the agents</small></span><span class="lap__t"><span class="cnt" data-to="91" data-suf="%">91%</span></span></div>
+      </div>
+      <div class="quotes">
+        <figure class="q rv"><blockquote>“Rapider AI delivered our custom CRM in just 60 days at a fraction of traditional development costs. We paid only after we were completely satisfied.”</blockquote><figcaption><img src="assets/people/haluk.jpg" alt=""><span><b>Haluk</b>Faydam</span><span class="q__tag">60 days</span></figcaption></figure>
+        <figure class="q rv"><blockquote>“The AI-generated code integrated perfectly with our analytics infrastructure. Rapider's platform produced enterprise-quality solutions that required minimal tweaking.”</blockquote><figcaption><img src="assets/people/thomas.jpg" alt=""><span><b>Thomas</b>BMW</span><span class="q__tag">Enterprise-grade</span></figcaption></figure>
+        <figure class="q rv"><blockquote>“Rapider AI cut our mobile app development time in half. Their self-service platform gave us the core functionality we needed, while their expert team refined the UX.”</blockquote><figcaption><img src="assets/people/aaron.jpg" alt=""><span><b>Aaron</b>LiifeID</span><span class="q__tag">−50% time</span></figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing" aria-labelledby="priceT">
+  <div class="wrap">
+    <div class="pricing__head">
+      <h2 class="two rv-lines" id="priceT"><span>Simple pricing.</span> <span class="grey">Powerful features. 30-day free trial, no credit card.</span></h2>
+      <div class="bill" role="group" aria-label="Billing period"><button type="button" aria-pressed="true" data-b="m">Monthly</button><button type="button" aria-pressed="false" data-b="y">Yearly <span>−15%</span></button><i class="bill__knob"></i></div>
+    </div>
+    <div class="plans">
+      <article class="plan rv"><p class="plan__n">Basic</p><p class="plan__p"><b data-m="899" data-y="764">$899</b><span>/ month</span></p><p class="plan__d">A SaaS app with immediate AI access.</p><ul><li>Up to 5M AI tokens monthly</li><li>AI agent creation</li><li>Basic automation templates</li><li>Knowledge search across 10 data sources</li><li>System integrations &amp; architecture setup</li><li>Email support</li></ul><a class="btn btn--line" href="#cta" data-alt="No card. No wait.">Start for free</a></article>
+      <article class="plan plan--pro rv"><p class="plan__badge">Most popular</p><p class="plan__n">Pro</p><p class="plan__p"><b data-m="2,000" data-y="1,700">$2,000</b><span>/ month</span></p><p class="plan__d">Everything in Basic, on your own subdomain.</p><ul><li>Up to 25M AI tokens monthly</li><li>Unlimited data source connections</li><li>Custom AI agents</li><li>Multi-agent orchestration</li><li>24/7 technical support</li><li>Dedicated Slack channel</li></ul><a class="btn btn--ink" href="#cta" data-alt="No card. No wait.">Start for free <span class="ff">»</span></a></article>
+      <article class="plan rv"><p class="plan__n">Enterprise</p><p class="plan__p"><b>Custom</b></p><p class="plan__d">Everything in Pro — your domain, your code, your deployment.</p><ul><li>Custom integrations &amp; APIs</li><li>Enterprise security (SSO, SCIM)</li><li>Dedicated customer success manager</li><li>Unlimited AI actions</li><li>Advanced automation consulting</li><li>Engineers from a private marketplace</li></ul><a class="btn btn--line" href="#cta" data-alt="Talk to a human">Talk to sales</a></article>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta" aria-labelledby="ctaT">
+  <div class="mosaic" aria-hidden="true"></div>
+  <div class="cta__in">
+    <p class="kick">Free first version included</p>
+    <h2 class="h1 cta__t" id="ctaT">Rapid is good.<br><span class="grey">Rapid<span class="er">er</span> is better.</span></h2>
+    <form class="email" onsubmit="return false"><label class="sr" for="em2">Work email</label><input id="em2" type="email" placeholder="What's your work email?" autocomplete="email"><button class="btn btn--volt" type="submit" data-alt="It's quicker than you think">Get your free first version <span class="ff">»</span></button></form>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__cols">
+      <div><p class="foot__k">Product</p><a href="#studio">AI Studio</a><a href="#features">Low-Code Builder</a><a href="#agent">Digital employees</a><a href="#features">Integrations</a></div>
+      <div><p class="foot__k">Company</p><a href="#pricing">Pricing</a><a href="#proof">Customers</a><a href="#cta">Contact us</a><a href="#">Privacy &amp; Policy</a></div>
+      <div><p class="foot__k">Get in touch</p><p>115 Broadway Street 5th Floor<br>New York, NY 10006</p><a href="tel:+12128290150">(212) 829-0150</a><button type="button" class="copy" data-copy="info@rapider.ai">info@rapider.ai <svg class="ic"><use href="#i-template"/></svg></button></div>
+      <div class="foot__mini"><p class="foot__k">Start in a day</p><p>Book a demo and get a Blueprint with a free first version.</p><a class="btn btn--volt btn--sm" href="#cta">Book a demo <span class="ff">»</span></a></div>
+    </div>
+    <p class="foot__lap">You got here in <b id="lapT">00:00</b>. A Rapider agent would have enriched <b id="lapN">0</b> leads meanwhile <span>(sample rate)</span>.</p>
+    <p class="foot__word" aria-hidden="true">Rapid<span class="er">er</span></p>
+    <div class="foot__end"><p>© <span id="yr">2026</span> Rapider AI</p><p>Direction A · concept mock-up, not the live site. Sample data in product screens is illustrative.</p></div>
+  </div>
+</footer>
+
+<div class="toastx" id="toastx" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/a3.js"></script>
+<script src="js/review.js"></script>
+</body>
+</html>

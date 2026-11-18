@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rapider — Concept 1 · Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@500..700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23fbfbf9%22 stroke=%22%231d4eff%22/%3E%3Cpath d=%22M8 22 L16 8 L24 22Z%22 fill=%22none%22 stroke=%22%231d4eff%22 stroke-width=%222%22/%3E%3C/svg%3E">
+<style>
+:root {
+  --paper: #fbfbf9; --panel: #fff; --ink: #0e1a2b; --ink-2: #364154; --mute: #586173; --line: #d8dde7;
+  --ai: #1d4eff; --ai-soft: #e7edff; --human: #d3312a; --human-soft: #fde9e7; --you: #0b7a44; --you-soft: #e0f3e8;
+  --sans: "IBM Plex Sans", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace; --hand: "Caveat", cursive;
+  --ease: cubic-bezier(.2, .7, .1, 1); --pad: clamp(16px, 3vw, 40px); --side: max(var(--pad), calc((100vw - 1340px) / 2));
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+html.lenis, html.lenis body { height: auto; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.55 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: clip;
+  background-image: linear-gradient(rgba(29, 78, 255, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(29, 78, 255, .045) 1px, transparent 1px); background-size: 24px 24px; }
+a { color: inherit; }
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
+.mono { font: 500 11.5px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--mute); }
+.btn { display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 22px; border-radius: 4px; font-weight: 600; font-size: 15px; text-decoration: none; transition: transform .2s, background-color .2s, box-shadow .2s; }
+.btn:active { transform: scale(.97); }
+.btn--ink { background: var(--ink); color: #fff; } .btn--ink:hover { background: #1f2d44; }
+.btn--ghost { box-shadow: inset 0 0 0 1px var(--ink); } .btn--ghost:hover { background: var(--panel); }
+.btn svg { width: 16px; height: 16px; }
+
+/* nav */
+.nav { position: sticky; top: 0; z-index: 50; background: rgba(251, 251, 249, .9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.nav__in { display: flex; align-items: center; gap: 24px; height: 60px; padding: 0 var(--side); }
+.brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+.brand b { font: 700 22px/1 var(--sans); letter-spacing: -.03em; }
+.brand span { font: 500 10px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ai); border: 1px solid var(--ai); padding: 2px 5px; }
+.nav__links { display: flex; gap: 22px; margin-left: auto; font-size: 14.5px; font-weight: 500; }
+.nav__links a { text-decoration: none; }
+.nav .btn { height: 38px; padding: 0 14px; font-size: 14px; }
+
+/* hero */
+.hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; align-items: center; padding: 56px var(--side) 72px; min-height: calc(100svh - 60px); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 26px; }
+.legend li { display: inline-flex; align-items: center; gap: 8px; font: 500 11.5px var(--mono); letter-spacing: .05em; text-transform: uppercase; }
+.legend i { display: inline-block; flex: none; }
+.lg-ai i { width: 22px; height: 0; border-top: 2px dashed var(--ai); }
+.lg-hu i { width: 16px; height: 16px; border: 2px solid var(--human); border-radius: 50%; transform: rotate(-12deg) scaleX(1.25); }
+.lg-you i { width: 14px; height: 14px; background: var(--you); transform: rotate(-8deg); }
+.lg-ai { color: var(--ai); } .lg-hu { color: var(--human); } .lg-you { color: var(--you); }
+.h1 { font: 600 clamp(38px, 4.4vw, 66px)/1.02 var(--sans); letter-spacing: -.035em; }
+.h1 em { font-style: normal; color: var(--ai); }
+.lead { margin-top: 22px; font-size: 17.5px; color: var(--ink-2); max-width: 52ch; }
+.hero .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.sign { margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--line); display: grid; gap: 4px; }
+.sign p:last-child { font: 600 30px/1 var(--hand); color: var(--human); transform: rotate(-1.5deg); transform-origin: 0 50%; }
+
+/* the drawing sheet */
+.sheet-wrap { position: relative; padding: 22px 26px; }
+.zones { position: absolute; display: flex; justify-content: space-around; font: 500 10px var(--mono); color: var(--mute); }
+.zones--t { left: 26px; right: 26px; top: 4px; } .zones--b { left: 26px; right: 26px; bottom: 4px; }
+.zones--l, .zones--r { flex-direction: column; top: 22px; bottom: 22px; } .zones--l { left: 6px; } .zones--r { right: 6px; }
+.sheet { position: relative; background: var(--panel); border: 1.5px solid var(--ink); padding: 10px; box-shadow: 0 30px 60px -36px rgba(14, 26, 43, .35); }
+.sheet__in { position: relative; border: 1px solid var(--ink); background-image: linear-gradient(rgba(29, 78, 255, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(29, 78, 255, .07) 1px, transparent 1px); background-size: 20px 20px; overflow: hidden; }
+.sheet svg.draw { display: block; width: 100%; height: auto; }
+.bp path, .bp rect, .bp line, .bp polyline, .bp circle { fill: none; stroke: var(--ai); stroke-width: 1.4; vector-effect: non-scaling-stroke; }
+.bp .dash { stroke-dasharray: 5 4; }
+.bp .ph { fill: rgba(29, 78, 255, .12); stroke: none; }
+.dim line, .dim path { stroke: var(--ai); stroke-width: 1; fill: none; vector-effect: non-scaling-stroke; }
+.dim text, .ai-note text { font: 500 10px var(--mono); fill: var(--ai); letter-spacing: .04em; }
+.ai-note rect { fill: var(--panel); stroke: var(--ai); stroke-width: 1; }
+.ai-note line { stroke: var(--ai); stroke-width: 1; stroke-dasharray: 2 3; }
+.pen path { fill: none; stroke: var(--human); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.pen text { font: 600 21px var(--hand); fill: var(--human); }
+.built { opacity: 0; }
+.built text { font-family: var(--sans); }
+.sheet.is-built .built { opacity: 1; }
+.sheet.is-built .bp { opacity: .14; }
+.sheet.is-built .ai-note, .sheet.is-built .dim { opacity: .35; }
+.built, .bp, .ai-note, .dim { transition: opacity .7s var(--ease); }
+.stamp { position: absolute; right: 5%; top: 27%; padding: 8px 14px; border: 3px double var(--you); color: var(--you); font: 700 22px/1 var(--mono); letter-spacing: .12em; text-align: center; transform: rotate(-9deg); background: rgba(224, 243, 232, .55); filter: url(#ink); pointer-events: none; }
+.stamp small { display: block; font: 600 9.5px var(--mono); letter-spacing: .08em; margin-top: 4px; }
+.tblock { position: absolute; right: 10px; bottom: 10px; min-width: 42%; display: grid; grid-template-columns: auto auto; background: var(--panel); border: 1px solid var(--ink); font: 500 9.5px/1.25 var(--mono); text-transform: uppercase; letter-spacing: .04em; }
+.tblock span { padding: 4px 7px; border-bottom: 1px solid var(--ink); }
+.tblock span:nth-child(odd) { color: var(--mute); border-right: 1px solid var(--ink); }
+.tblock span:nth-last-child(-n+2) { border-bottom: 0; }
+.tblock .t-ai { color: var(--ai); } .tblock .t-hu { color: var(--human); } .tblock .t-you { color: var(--you); font-weight: 600; }
+.toggle { position: absolute; left: 36px; top: 30px; z-index: 5; display: flex; padding: 3px; background: var(--panel); border: 1px solid var(--ink); font: 600 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+.toggle button { padding: 6px 10px; }
+.toggle button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+
+/* section: from blueprint to production */
+.how { padding: 0 var(--side); border-top: 1px solid var(--line); background: rgba(255, 255, 255, .6); }
+.how__head { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 48px; align-items: end; padding: 96px 0 48px; }
+.h2 { font: 600 clamp(32px, 3.6vw, 54px)/1.05 var(--sans); letter-spacing: -.03em; }
+.how__head p { color: var(--ink-2); font-size: 17px; }
+.how__pin { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 40px; align-items: center; height: calc(100svh - 60px); }
+.hsteps { display: grid; gap: 4px; }
+.hstep { padding: 16px 18px; border-left: 3px solid var(--line); opacity: .4; transition: opacity .4s, border-color .4s, background-color .4s; }
+.hstep.is-on { opacity: 1; background: var(--panel); }
+.hstep[data-c="ai"].is-on { border-color: var(--ai); } .hstep[data-c="hu"].is-on { border-color: var(--human); } .hstep[data-c="you"].is-on { border-color: var(--you); } .hstep[data-c="run"].is-on { border-color: var(--ink); }
+.hstep .mono { margin-bottom: 4px; }
+.hstep h3 { font: 600 22px/1.2 var(--sans); letter-spacing: -.02em; }
+.hstep p { font-size: 14.5px; color: var(--ink-2); margin-top: 6px; }
+.hstep q { display: block; margin-top: 8px; font: 600 19px/1.15 var(--hand); color: var(--human); quotes: none; }
+.hstep[data-c="ai"] q { color: var(--ai); font: 500 12px/1.4 var(--mono); }
+.hstep[data-c="you"] q { color: var(--you); }
+.how__stage .sheet-wrap { padding: 0; }
+
+/* style tile */
+.tile { padding: 96px var(--side) 120px; border-top: 1px solid var(--line); }
+.tile__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; margin-top: 40px; }
+.card { background: var(--panel); border: 1px solid var(--line); padding: 22px; }
+.c-6 { grid-column: span 6; } .c-4 { grid-column: span 4; } .c-8 { grid-column: span 8; } .c-12 { grid-column: span 12; }
+.card h3 { font: 600 13px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--mute); margin-bottom: 16px; }
+.swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.sw { border: 1px solid var(--line); }
+.sw i { display: block; height: 72px; }
+.sw b { display: block; padding: 8px 10px 0; font-size: 14px; }
+.sw span { display: block; padding: 0 10px 10px; font: 500 11px var(--mono); color: var(--mute); }
+.spec { display: grid; gap: 14px; }
+.spec p:nth-child(1) { font: 600 44px/1 var(--sans); letter-spacing: -.035em; }
+.spec p:nth-child(2) { font: 500 13px var(--mono); color: var(--ai); text-transform: uppercase; letter-spacing: .06em; }
+.spec p:nth-child(3) { font: 600 30px/1 var(--hand); color: var(--human); }
+.spec small { font: 500 11px var(--mono); color: var(--mute); }
+.voice li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 17px; }
+.voice li:last-child { border: 0; }
+.why li { padding: 8px 0 8px 22px; position: relative; color: var(--ink-2); }
+.why li::before { content: ""; position: absolute; left: 0; top: 17px; width: 10px; height: 2px; background: var(--ai); }
+.motifs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.motif { border: 1px dashed var(--line); padding: 14px; min-height: 110px; display: grid; align-content: space-between; gap: 10px; }
+.motif p { font: 500 11px var(--mono); color: var(--mute); text-transform: uppercase; letter-spacing: .05em; }
+.foot { padding: 28px var(--side); border-top: 1px solid var(--line); font: 500 11px var(--mono); color: var(--mute); text-transform: uppercase; letter-spacing: .06em; }
+
+@media (max-width: 960px) {
+  .hero, .how__head { grid-template-columns: 1fr; }
+  .nav__links { display: none; }
+  .how__pin { grid-template-columns: 1fr; height: auto; padding-bottom: 48px; }
+  .hstep { opacity: 1; }
+  .c-6, .c-4, .c-8 { grid-column: span 12; }
+  .swatches, .motifs { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .brand span { display: none; }
+  .nav .btn { white-space: nowrap; }
+  .sheet-wrap { padding: 16px 14px; }
+  .zones--l, .zones--r { display: none; }
+  .ai-note, .tblock { display: none; }
+  .stamp { font-size: 15px; padding: 5px 9px; border-width: 2px; }
+  .toggle { left: 22px; top: 22px; }
+  .pen text { font-size: 30px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="ink"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter>
+</defs></svg>
+
+<header class="nav"><div class="nav__in">
+  <a class="brand" href="#"><b>Rapider</b><span>AI &amp; Human Expertise</span></a>
+  <nav class="nav__links"><a href="#">Products</a><a href="#">Solutions</a><a href="#">Pricing</a><a href="#">Contact us</a></nav>
+  <a class="btn btn--ink" href="#">Book a demo</a>
+</div></header>
+
+<main>
+<section class="hero">
+  <div>
+    <ul class="legend"><li class="lg-ai"><i></i>Drafted by AI</li><li class="lg-hu"><i></i>Checked by engineers</li><li class="lg-you"><i></i>Approved by you</li></ul>
+    <h1 class="h1">Your AI-Powered Digital Employee That <em>Never Stops Working</em></h1>
+    <p class="lead">Rapider transforms your workforce with intelligent digital AI employees that understand your business, execute complex workflows, and adapt to your unique processes – working 24/7 alongside your human team.</p>
+    <div class="row"><a class="btn btn--ink" href="#">Schedule a custom demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn--ghost" href="#">Check plans</a></div>
+    <div class="sign"><p class="mono">Enterprise software development with AI &amp; human expertise</p><p>Free first version included.</p></div>
+  </div>
+
+  <div class="sheet-wrap" id="heroSheet">
+    <div class="zones zones--t"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span></div>
+    <div class="zones zones--b"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span></div>
+    <div class="zones zones--l"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+    <div class="zones zones--r"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+    <div class="toggle" role="group" aria-label="Show the blueprint or the built app"><button type="button" aria-pressed="true" data-v="bp">Blueprint</button><button type="button" aria-pressed="false" data-v="built">Built</button></div>
+    <div class="sheet"><div class="sheet__in">
+      <svg class="draw" viewBox="0 0 800 624" role="img" aria-label="A technical drawing of a lead management app: drafted by AI in blue, checked by an engineer in red pen, approved with a green stamp">
+        <!-- BUILT layer -->
+        <g class="built">
+          <rect x="40" y="40" width="720" height="440" rx="10" fill="#fff" stroke="#d8dde7"/>
+          <rect x="40.5" y="40.5" width="719" height="40" rx="10" fill="#f6f7f9"/>
+          <text x="60" y="66" font-size="14" font-weight="700" fill="#0e1a2b">Rapider</text>
+          <rect x="652" y="51" width="92" height="20" rx="10" fill="#e0f3e8"/><circle cx="666" cy="61" r="3.5" fill="#0b7a44"/><text x="675" y="65" font-size="10.5" font-weight="600" fill="#0b7a44">Running</text>
+          <rect x="40.5" y="80" width="160" height="399.5" fill="#fafbfc"/>
+          <rect x="52" y="98" width="136" height="26" rx="6" fill="#e7edff"/>
+          <text x="62" y="115" font-size="11.5" font-weight="600" fill="#1d4eff">Lead management</text>
+          <text x="62" y="149" font-size="11.5" fill="#364154">Invoice follow-up</text>
+          <text x="62" y="183" font-size="11.5" fill="#364154">Onboarding</text>
+          <text x="62" y="217" font-size="11.5" fill="#364154">Support triage</text>
+          <text x="230" y="116" font-size="14" font-weight="700" fill="#0e1a2b">Inbound leads · 214 rows</text>
+          <g font-size="11.5" fill="#0e1a2b">
+            <rect x="230" y="134" width="500" height="28" rx="5" fill="#fff" stroke="#e6e9ef"/><text x="244" y="152">Northwind Ltd</text><rect x="420" y="141" width="66" height="14" rx="7" fill="#e0f3e8"/><text x="429" y="152" font-size="9.5" fill="#0b7a44">Qualified</text>
+            <rect x="230" y="168" width="500" height="28" rx="5" fill="#fff" stroke="#e6e9ef"/><text x="244" y="186">Bluebird Health</text><rect x="420" y="175" width="66" height="14" rx="7" fill="#e0f3e8"/><text x="429" y="186" font-size="9.5" fill="#0b7a44">Qualified</text>
+            <rect x="230" y="202" width="500" height="28" rx="5" fill="#fff" stroke="#e6e9ef"/><text x="244" y="220">Kite &amp; Co</text><rect x="420" y="209" width="66" height="14" rx="7" fill="#fff1dc"/><text x="427" y="220" font-size="9.5" fill="#985000">Contacted</text>
+            <rect x="230" y="236" width="500" height="28" rx="5" fill="#fff" stroke="#e6e9ef"/><text x="244" y="254">Atlas Freight</text><rect x="420" y="243" width="66" height="14" rx="7" fill="#e7edff"/><text x="439" y="254" font-size="9.5" fill="#1d4eff">New</text>
+            <rect x="230" y="270" width="500" height="28" rx="5" fill="#fff" stroke="#e6e9ef"/><text x="244" y="288">Morrow Labs</text><rect x="420" y="277" width="66" height="14" rx="7" fill="#e0f3e8"/><text x="429" y="288" font-size="9.5" fill="#0b7a44">Qualified</text>
+          </g>
+          <rect x="230" y="322" width="250" height="140" rx="8" fill="#fff" stroke="#e6e9ef"/>
+          <text x="244" y="342" font-size="10.5" font-weight="600" fill="#586173">Leads enriched this week</text>
+          <path d="M244 446 L280 420 L316 428 L352 398 L388 404 L424 372 L462 360 L462 452 L244 452 Z" fill="#e7edff"/>
+          <path d="M244 446 L280 420 L316 428 L352 398 L388 404 L424 372 L462 360" fill="none" stroke="#1d4eff" stroke-width="2"/>
+          <rect x="500" y="306" width="240" height="152" rx="10" fill="#fff" stroke="#d8dde7" style="filter: drop-shadow(0 12px 18px rgba(14,26,43,.16))"/>
+          <text x="518" y="334" font-size="9.5" font-weight="600" fill="#985000" letter-spacing=".06em">NEEDS YOUR APPROVAL</text>
+          <text x="518" y="356" font-size="13" font-weight="700" fill="#0e1a2b">Update 186 records</text>
+          <text x="518" y="374" font-size="13" font-weight="700" fill="#0e1a2b">in Salesforce</text>
+          <text x="518" y="396" font-size="10.5" fill="#586173">Lead → Qualified · Owner → J. Park</text>
+          <rect x="518" y="412" width="90" height="28" rx="6" fill="#1d4eff"/><text x="539" y="430" font-size="11.5" font-weight="700" fill="#fff">Approve</text>
+          <rect x="618" y="412" width="104" height="28" rx="6" fill="#fff" stroke="#c4cad6"/><text x="634" y="430" font-size="11.5" font-weight="600" fill="#0e1a2b">Review</text>
+        </g>
+
+        <!-- BLUEPRINT layer (drawn by AI) -->
+        <g class="bp">
+          <rect class="ln" x="40" y="40" width="720" height="440" rx="10"/>
+          <line class="ln" x1="40" y1="80" x2="760" y2="80"/>
+          <line class="ln" x1="200" y1="80" x2="200" y2="480"/>
+          <rect class="ph" x="58" y="56" width="70" height="12"/>
+          <rect class="ln dash" x="652" y="51" width="92" height="20" rx="10"/>
+          <rect class="ln dash" x="52" y="98" width="136" height="26" rx="6"/>
+          <rect class="ph" x="62" y="140" width="100" height="10"/><rect class="ph" x="62" y="174" width="80" height="10"/><rect class="ph" x="62" y="208" width="92" height="10"/>
+          <rect class="ph" x="230" y="104" width="190" height="14"/>
+          <rect class="ln dash" x="230" y="134" width="500" height="28" rx="5"/>
+          <rect class="ln dash" x="230" y="168" width="500" height="28" rx="5"/>
+          <rect class="ln dash" x="230" y="202" width="500" height="28" rx="5"/>
+          <rect class="ln dash" x="230" y="236" width="500" height="28" rx="5"/>
+          <rect class="ln dash" x="230" y="270" width="500" height="28" rx="5"/>
+          <rect class="ln" x="230" y="322" width="250" height="140" rx="8"/>
+          <polyline class="ln" points="244,446 280,420 316,428 352,398 388,404 424,372 462,360"/>
+          <rect class="ln" x="500" y="306" width="240" height="152" rx="10"/>
+          <rect class="ph" x="518" y="346" width="150" height="12"/><rect class="ph" x="518" y="364" width="110" height="12"/>
+          <rect class="ln" x="518" y="412" width="90" height="28" rx="6"/>
+          <rect class="ln dash" x="618" y="412" width="104" height="28" rx="6"/>
+        </g>
+        <g class="dim">
+          <line class="ln" x1="40" y1="22" x2="760" y2="22"/><line class="ln" x1="40" y1="16" x2="40" y2="28"/><line class="ln" x1="760" y1="16" x2="760" y2="28"/>
+          <text x="372" y="18">1440 · desktop</text>
+          <line class="ln" x1="780" y1="306" x2="780" y2="458"/><line class="ln" x1="774" y1="306" x2="786" y2="306"/><line class="ln" x1="774" y1="458" x2="786" y2="458"/>
+        </g>
+        <g class="ai-note">
+          <line x1="470" y1="64" x2="430" y2="104"/><rect x="460" y="52" width="170" height="22"/><text x="470" y="67">AI · 14 screens drafted</text>
+          <line x1="140" y1="268" x2="120" y2="218"/><rect x="52" y="262" width="138" height="38"/><text x="60" y="278">AI · role-based</text><text x="60" y="292">access</text>
+        </g>
+        <!-- PEN layer (checked by an engineer) -->
+        <g class="pen">
+          <path class="pn" d="M512 426 C 508 400, 560 392, 600 396 C 640 400, 628 452, 580 456 C 538 460, 504 446, 512 420"/>
+          <path class="pn" d="M498 470 C 470 492, 420 506, 360 510"/>
+          <path class="pn" d="M366 502 L356 511 L368 516"/>
+          <text class="hw" x="60" y="522" clip-path="url(#hw1)">2nd approver above $10k ✓ — J.</text>
+          <path class="pn" d="M736 148 L744 158 L760 136"/>
+          <text class="hw" x="610" y="124" clip-path="url(#hw2)">tested on real data</text>
+          <path class="pn" d="M232 304 C 300 300, 380 302, 470 300"/>
+        </g>
+        <defs><clipPath id="hw1"><rect class="hwc" x="56" y="498" width="0" height="34"/></clipPath><clipPath id="hw2"><rect class="hwc" x="606" y="104" width="0" height="28"/></clipPath></defs>
+      </svg>
+      <div class="stamp">APPROVED<small>BY YOU · REV 2.4</small></div>
+      <div class="tblock">
+        <span>Project</span><span>Lead management agent</span>
+        <span>Drawn by</span><span class="t-ai">Rapider AI</span>
+        <span>Checked by</span><span class="t-hu">Rapider engineers</span>
+        <span>Approved by</span><span class="t-you">You</span>
+        <span>Sheet · Rev</span><span>01 / 04 · v2.4</span>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="how__head">
+    <h2 class="h2">From blueprint to production — every step has an owner.</h2>
+    <p>Every engagement starts with a Blueprint: a complete technical specification and a first version, free. AI efficiency does the drafting; human engineering excellence checks it; nothing ships without your approval.</p>
+  </div>
+  <div class="how__pin">
+    <ol class="hsteps">
+      <li class="hstep" data-c="ai"><p class="mono">01 · AI</p><h3>AI drafts the blueprint</h3><p>Screens, data model, APIs and workflows — generated in minutes from your requirements.</p><q>“The AI-generated code integrated perfectly with our analytics infrastructure.” — Thomas, BMW</q></li>
+      <li class="hstep" data-c="hu"><p class="mono">02 · Engineers</p><h3>Engineers check every line</h3><p>Rapider's experts review the logic, security and UX before anything goes live.</p><q>“…while their expert team refined the UX.” — Aaron, LiifeID</q></li>
+      <li class="hstep" data-c="you"><p class="mono">03 · You</p><h3>You approve</h3><p>Human-in-the-loop approvals: the agent asks before it changes your systems.</p><q>“We paid only after we were completely satisfied.” — Haluk, Faydam</q></li>
+      <li class="hstep" data-c="run"><p class="mono">04 · Live</p><h3>It ships — and never stops working</h3><p>Your digital employee runs 24/7 across Sheets, Salesforce, Slack and 50+ tools.</p></li>
+    </ol>
+    <div class="how__stage" id="howStage"></div>
+  </div>
+</section>
+
+<section class="tile" aria-labelledby="tileT">
+  <p class="mono">Concept 1 · style tile</p>
+  <h2 class="h2" id="tileT" style="margin-top:10px">Blueprint: drawn by AI, checked by engineers, approved by you.</h2>
+  <div class="tile__grid">
+    <div class="card c-8"><h3>Colour = who did it</h3>
+      <div class="swatches">
+        <div class="sw"><i style="background:#1d4eff"></i><b>Blueprint blue</b><span>AI · machine work</span></div>
+        <div class="sw"><i style="background:#d3312a"></i><b>Red pen</b><span>Engineers · human check</span></div>
+        <div class="sw"><i style="background:#0b7a44"></i><b>Stamp green</b><span>You · approval</span></div>
+        <div class="sw"><i style="background:#0e1a2b"></i><b>Drafting ink</b><span>Text · structure</span></div>
+      </div></div>
+    <div class="card c-4"><h3>Type</h3><div class="spec"><p>IBM Plex Sans</p><p>IBM Plex Mono · labels &amp; AI notes</p><p>Caveat · the engineer's hand</p><small>Plex: engineering heritage, enterprise-calm. Handwriting only for human checks.</small></div></div>
+    <div class="card c-12"><h3>Motifs</h3>
+      <div class="motifs">
+        <div class="motif"><svg viewBox="0 0 120 40" width="120"><line x1="4" y1="20" x2="116" y2="20" stroke="#1d4eff"/><line x1="4" y1="12" x2="4" y2="28" stroke="#1d4eff"/><line x1="116" y1="12" x2="116" y2="28" stroke="#1d4eff"/><text x="40" y="14" font-size="9" font-family="IBM Plex Mono" fill="#1d4eff">1440</text></svg><p>Dimension lines</p></div>
+        <div class="motif"><svg viewBox="0 0 120 40" width="120"><path d="M14 22 C 10 6, 70 2, 100 10 C 124 18, 96 38, 60 36 C 24 34, 8 30, 16 18" fill="none" stroke="#d3312a" stroke-width="2" stroke-linecap="round"/></svg><p>Red-pen circle &amp; notes</p></div>
+        <div class="motif"><span style="display:inline-block;border:3px double #0b7a44;color:#0b7a44;font:700 14px 'IBM Plex Mono';padding:4px 8px;transform:rotate(-8deg);justify-self:start">APPROVED</span><p>Approval stamp</p></div>
+        <div class="motif"><span style="font:500 9px 'IBM Plex Mono';border:1px solid #0e1a2b;display:grid;grid-template-columns:auto auto;justify-self:start"><span style="padding:3px 6px;border-right:1px solid #0e1a2b">DRAWN BY</span><span style="padding:3px 6px;color:#1d4eff">RAPIDER AI</span></span><p>Title block</p></div>
+      </div></div>
+    <div class="card c-6"><h3>Voice</h3><ul class="voice"><li>Drafted by AI. Checked by engineers. Approved by you.</li><li>Every step has an owner.</li><li>Free first version — you only pay when it works for you.</li></ul></div>
+    <div class="card c-6"><h3>Why it fits the market</h3><ul class="why"><li>Other AI-agent sites sell autonomy. Enterprise buyers fear it. Rapider can sell accountability: a human checks, a human approves.</li><li>Comes from Rapider's own words: "AI &amp; Human Expertise", the Blueprint, "paid only after we were satisfied".</li><li>A drawing sheet reads as engineering, not as AI hype — no purple gradients, no sparkles.</li></ul></div>
+  </div>
+</section>
+</main>
+<p class="foot">Concept 1 · Blueprint — style frame for review, not the live site. Sample data in the drawing is illustrative.</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(() => {
+  const REDUCED = /[?&]static\b/.test(location.search) || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  gsap.registerPlugin(ScrollTrigger);
+  let lenis = null;
+  if (!REDUCED && window.Lenis) { lenis = new Lenis({ lerp: 0.1 }); lenis.on('scroll', ScrollTrigger.update); gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
+  window.H = { lenis };
+
+  // clone the hero sheet into the pinned section (one drawing, two uses)
+  const hero = document.getElementById('heroSheet');
+  const copy = hero.cloneNode(true); copy.id = 'howSheet';
+  copy.querySelector('.toggle').remove();
+  copy.querySelectorAll('[id^="hw"]').forEach((c) => { c.id = c.id + 'b'; });
+  copy.querySelectorAll('[clip-path]').forEach((t) => t.setAttribute('clip-path', t.getAttribute('clip-path').replace(')', 'b)')));
+  document.getElementById('howStage').append(copy);
+
+  const parts = (root) => ({
+    lines: root.querySelectorAll('.bp .ln, .dim .ln'),
+    ph: root.querySelectorAll('.bp .ph'),
+    notes: root.querySelectorAll('.ai-note > *, .dim text'),
+    pen: root.querySelectorAll('.pen .pn'),
+    hw: root.querySelectorAll('.hwc'),
+    stamp: root.querySelector('.stamp'),
+    tb: root.querySelectorAll('.tblock span'),
+    tbox: root.querySelector('.tblock'),
+    sheet: root.querySelector('.sheet'),
+  });
+  const prep = (p) => {
+    p.lines.forEach((l) => { l.setAttribute('pathLength', '1'); });
+    p.pen.forEach((l) => { l.setAttribute('pathLength', '1'); });
+  };
+  const build = (p, tl) => {
+    tl.fromTo(p.lines, { strokeDasharray: '1 1', strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.2, stagger: 0.03, ease: 'power2.inOut' })
+      .fromTo(p.ph, { opacity: 0 }, { opacity: 1, duration: 0.4, stagger: 0.03 }, '-=.6')
+      .fromTo(p.notes, { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.05 }, '-=.3')
+      .addLabel('pen')
+      .fromTo(p.pen, { strokeDasharray: '1 1', strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.5, stagger: 0.18, ease: 'power1.inOut' }, 'pen')
+      .fromTo(p.hw, { attr: { width: 0 } }, { attr: { width: 330 }, duration: 0.9, stagger: 0.4, ease: 'none' }, 'pen+=.3')
+      .addLabel('stamp')
+      .fromTo(p.stamp, { opacity: 0, scale: 1.9, rotation: -22 }, { opacity: 1, scale: 1, rotation: -9, duration: 0.35, ease: 'power4.in' }, 'stamp')
+      .to(p.sheet, { x: 3, duration: 0.05, yoyo: true, repeat: 3 }, 'stamp+=.33')
+      .fromTo(p.tbox, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.25 }, 'stamp+=.15')
+      .fromTo(p.tb, { opacity: 0 }, { opacity: 1, duration: 0.2, stagger: 0.05 }, 'stamp+=.2');
+    return tl;
+  };
+  const ph = parts(hero), pc = parts(copy);
+  prep(ph); prep(pc);
+
+  // hero: plays once on load
+  const heroTl = build(ph, gsap.timeline({ paused: true, delay: 0.3 }));
+  if (REDUCED) heroTl.progress(1); else heroTl.play();
+
+  // toggle Blueprint / Built
+  hero.querySelectorAll('.toggle button').forEach((b) => b.addEventListener('click', () => {
+    hero.querySelectorAll('.toggle button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    ph.sheet.classList.toggle('is-built', b.dataset.v === 'built');
+  }));
+
+  // pinned section: scroll draws → checks → approves → builds
+  const steps = document.querySelectorAll('.hstep');
+  const setStep = (p) => { const i = Math.min(3, Math.floor(p * 4.0001)); steps.forEach((s, k) => s.classList.toggle('is-on', k === i)); pc.sheet.classList.toggle('is-built', p > 0.82); };
+  const howTl = build(pc, gsap.timeline({ paused: true }));
+  if (REDUCED || matchMedia('(max-width: 960px)').matches) {
+    howTl.progress(1); setStep(0.9);
+  } else {
+    // each step owns one part of the drawing: AI lines → red pen → stamp → built
+    const map = (p) => {
+      const seg = p * 4, a = howTl.labels.pen, b = howTl.labels.stamp, c = howTl.duration();
+      return seg < 1 ? seg * a : seg < 2 ? a + (seg - 1) * (b - a) : seg < 3 ? b + (seg - 2) * (c - b) : c;
+    };
+    ScrollTrigger.create({ trigger: '.how__pin', start: 'top 60px', end: '+=300%', pin: true, onUpdate: (st) => { howTl.time(map(st.progress)); setStep(st.progress); } });
+    setStep(0);
+  }
+})();
+</script>
+<script src="js/review.js"></script>
+</body>
+</html>
