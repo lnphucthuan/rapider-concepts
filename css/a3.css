@@ -7,7 +7,7 @@
   --sky: #c4e3f3; --coral: #ffa587; --sage: #bcd6ae; --sandy: #f4d29c; --lilac: #d6ccf5;
   --ok: #0d7a45; --ok-soft: #e2f4e9; --run: #1d4ed8; --run-soft: #e6edff; --wait: #9a5200; --wait-soft: #fff1dc;
   --flex: "Roboto Flex", system-ui, -apple-system, "Segoe UI", sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace;
-  --ease: cubic-bezier(.2, .7, .1, 1); --spring: cubic-bezier(.34, 1.56, .64, 1);
+  --ease: cubic-bezier(.2, .7, .1, 1); --spring: cubic-bezier(.3, 1.15, .5, 1);
   --pad: clamp(16px, 3vw, 40px); --nav: 64px; --slnt: 0; --wdth: 100;
   --sh-1: 0 1px 2px rgba(17, 17, 18, .06); --sh-2: 0 1px 0 rgba(17, 17, 18, .04), 0 12px 32px -14px rgba(17, 17, 18, .22); --sh-3: 0 40px 80px -40px rgba(17, 17, 18, .35);
 }
@@ -195,7 +195,7 @@ button { background: none; border: 0; cursor: pointer; padding: 0; }
 .float img { width: 22px; height: 22px; object-fit: contain; flex: none; margin-top: 2px; }
 .float p:first-child { display: flex; gap: 8px; align-items: baseline; }
 .float p:first-child span { font: 500 10.5px var(--mono); color: #6b6b72; }
-.float--slack { left: 6px; top: 300px; max-width: 232px; transform: rotate(-3deg); }
+.float--slack { left: 6px; top: 300px; max-width: 232px; }
 .float--toast { right: 18px; top: 92px; background: var(--ink); color: #fff; opacity: 0; transform: translateY(-10px) scale(.96); transition: opacity .4s var(--ease), transform .5s var(--spring); }
 .float--toast .ic { color: var(--volt); margin-top: 2px; }
 .float--toast p:last-child { color: #a9a9ae; font-size: 12px; }

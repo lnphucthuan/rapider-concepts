@@ -1,6 +1,6 @@
 // Review mode for the Rapider concept pages. Click anything to pin a note; notes stay in this browser.
 // "Copy for Claude" exports a Markdown report (this page or all pages) that can be pasted back into the chat.
-// Open any page with ?review to start in review mode. No data leaves the browser.
+// Off by default: the visitor presses the Feedback button to start. No data leaves the browser.
 (() => {
   if (window.__rvLoaded) return; window.__rvLoaded = true;
   const PAGE = location.pathname.replace(/\/index\.html$/, '/');
@@ -152,7 +152,6 @@
 
   const setActive = (v) => {
     active = v; app.classList.toggle('on', v); doc.classList.toggle('rv-on', v);
-    try { sessionStorage.setItem('rp-review-on', v ? '1' : ''); } catch (e) {}
     if (!v) { closePop(); closePanel(); $('#hl').style.display = 'none'; cancelAnimationFrame(raf); $('#pins').innerHTML = ''; cache.clear(); }
     else { renderPins(); loop(); showTip(); }
   };
@@ -345,7 +344,8 @@
   const style = document.createElement('style');
   style.textContent = 'html.rv-on, html.rv-on *{cursor:crosshair !important} html.rv-on .cur{display:none !important}';
   document.head.append(style);
-  const mount = () => { document.body.append(host); updateCounts(); const q = /[?&]review\b/.test(location.search); let was = false; try { was = !!sessionStorage.getItem('rp-review-on'); } catch (e) {} if (q || was) setActive(true); };
+  // off by default: it only opens when the visitor presses the Feedback button (an explicit ?review in the URL still opens it, for testing)
+  const mount = () => { document.body.append(host); updateCounts(); try { sessionStorage.removeItem('rp-review-on'); } catch (e) {} if (/[?&]review\b/.test(location.search)) setActive(true); };
   document.body ? mount() : addEventListener('DOMContentLoaded', mount);
   window.RV = { open: () => setActive(true), close: () => setActive(false), state: () => S };
 })();

@@ -11,21 +11,9 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 fill=%22%23f1efe8%22 stroke=%22%23161616%22/%3E%3Cpath d=%22M16 6 L26 11 L16 16 L6 11Z M6 16 L16 21 L26 16 M6 21 L16 26 L26 21%22 fill=%22none%22 stroke=%22%231d4eff%22 stroke-width=%221.6%22/%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/fx.css">
 <link rel="stylesheet" href="css/b3.css">
-<script>document.documentElement.classList.add(/[?&]static\b/.test(location.search) ? 'static' : 'js');try{if(!/[?&]static\b/.test(location.search)&&(/[?&]intro\b/.test(location.search)||!sessionStorage.getItem('rp-b-intro')))document.documentElement.classList.add('is-pre')}catch(e){}</script>
+<script>document.documentElement.classList.add(/[?&]static\b/.test(location.search) ? 'static' : 'js');if(!/[?&]static\b/.test(location.search)&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('hero-wait');try{if(!/[?&]static\b/.test(location.search)&&(/[?&]intro\b/.test(location.search)||!sessionStorage.getItem('rp-b-intro')))document.documentElement.classList.add('is-pre')}catch(e){}</script>
 </head>
 <body>
-<div class="pre" id="pre" aria-hidden="true">
-  <div class="pre__in">
-    <ol class="pre__log mono">
-      <li><span>001</span>Load requirements<em>OK</em></li><li><span>002</span>Draft screens<em>OK</em></li><li><span>003</span>Draft data model<em>OK</em></li><li><span>004</span>Connect 8 tools<em>OK</em></li>
-      <li><span>005</span>Engineer review<em>OK</em></li><li><span>006</span>Security check<em>OK</em></li><li><span>007</span>Free first version<em>OK</em></li><li><span>008</span>Await your approval<em class="wait">…</em></li>
-    </ol>
-    <svg class="pre__mark" viewBox="0 0 640 140"><text x="320" y="110" text-anchor="middle">RAPIDER</text></svg>
-    <p class="pre__k mono"><span>Plotting sheet 01 / 09</span><b id="prePct">00%</b></p>
-    <div class="pre__bar"><i id="preBar"></i></div>
-  </div>
-  <i class="pre__scan"></i>
-</div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
@@ -84,7 +72,47 @@
     <span class="corner c-tl">+</span><span class="corner c-tr">+</span><span class="corner c-bl">+</span><span class="corner c-br">+</span>
     <p class="coords mono" aria-hidden="true">X <b id="cx">0000</b> · Y <b id="cy">0000</b></p>
     <p class="legend mono"><span class="l-ai">— Drafted by AI</span><span class="l-hu">◯ Checked by engineers</span><span class="l-you">■ Approved by you</span></p>
-    <svg class="iso" id="isoHero" viewBox="0 0 1200 560" role="img" aria-label="Exploded technical drawing of Rapider: your data at the bottom, the Rapider agent above it, approvals above that, and actions at the top"></svg>
+    <div class="hd" id="hd">
+      <svg class="hd__wire" id="hdWire" aria-hidden="true"></svg>
+      <div class="hd__clip" id="hdClip">
+        <div class="hd__ui" id="hdUi" aria-label="Rapider console: a lead management agent at work (sample data)">
+          <div class="ui-top" data-bp="box"><b class="ui-brand ui-t">Rapider</b><span class="ui-run" data-bp="pill"><i></i><span>Running</span></span></div>
+          <aside class="ui-side" data-bp="box">
+            <p class="ui-nav is-on" data-bp="pill"><span class="ui-t">Lead management</span></p>
+            <p class="ui-nav"><span class="ui-t">Invoice follow-up</span></p>
+            <p class="ui-nav"><span class="ui-t">Onboarding</span></p>
+            <p class="ui-nav"><span class="ui-t">Support triage</span></p>
+          </aside>
+          <section class="ui-main">
+            <h3 class="ui-h"><span class="ui-t">Inbound leads · 214 rows</span></h3>
+            <div class="ui-rows">
+              <div class="ui-row" data-bp="dash"><span class="ui-t ui-co">Northwind Ltd</span><span class="ui-t ui-sz">201–500</span><span class="ui-chip is-ok" data-bp="pill">Qualified</span></div>
+              <div class="ui-row" data-bp="dash"><span class="ui-t ui-co">Bluebird Health</span><span class="ui-t ui-sz">501–1k</span><span class="ui-chip is-ok" data-bp="pill">Qualified</span></div>
+              <div class="ui-row" data-bp="dash"><span class="ui-t ui-co">Kite &amp; Co</span><span class="ui-t ui-sz">51–200</span><span class="ui-chip is-run" data-bp="pill">Enriching</span></div>
+              <div class="ui-row" data-bp="dash"><span class="ui-t ui-co">Atlas Freight</span><span class="ui-t ui-sz">1k+</span><span class="ui-chip is-run" data-bp="pill">Enriching</span></div>
+              <div class="ui-row ui-row--x" data-bp="dash"><span class="ui-t ui-co">Morrow Labs</span><span class="ui-t ui-sz">11–50</span><span class="ui-chip is-new" data-bp="pill">New</span></div>
+            </div>
+            <div class="ui-low">
+              <div class="ui-chart" data-bp="box"><p class="ui-cap"><span class="ui-t">Leads enriched this week</span></p><svg viewBox="0 0 200 70" preserveAspectRatio="none"><path class="a" d="M0 66 L28 52 L56 56 L84 38 L112 42 L140 24 L170 16 L200 10 L200 70 L0 70Z"/><path class="l" d="M0 66 L28 52 L56 56 L84 38 L112 42 L140 24 L170 16 L200 10"/></svg></div>
+              <div class="ui-ask" id="uiAsk" data-bp="box">
+                <p class="ui-k"><span class="ui-t">Needs your approval</span></p>
+                <p class="ui-q"><span class="ui-t">Update 186 records in Salesforce</span></p>
+                <p class="ui-d"><span class="ui-t">Lead → Qualified · Owner by territory</span></p>
+                <div class="ui-btns"><button type="button" class="ui-btn is-pri" id="hdApprove" data-bp="pill" data-cursor="Approve" data-no-magnet data-no-roll>Approve</button><span class="ui-btn" data-bp="pill">Review</span></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <svg class="hd__pen" id="hdPen" aria-hidden="true"></svg>
+      <i class="hd__edge hd__edge--t"></i><i class="hd__edge hd__edge--b"></i>
+      <div class="hd__scan" id="hdScan" aria-hidden="true"><span class="mono" id="hdPct">Drafting 00%</span><i class="hd__l"></i></div>
+      <ol class="hd__log mono" id="hdLog" aria-hidden="true"><li>001 Read requirements</li><li>002 Draft screens</li><li>003 Draft data model</li><li>004 Connect 8 tools</li><li>005 Engineer review</li><li>006 Security check</li><li>007 Free first version</li><li>008 Await your approval</li></ol>
+      <div class="hd__card hd__card--a" aria-hidden="true"><span class="hc-ic sheet-ic"><svg class="ic"><use href="#i-sheet"/></svg></span><p><b>214 new rows</b><small>Google Sheets · 09:41</small></p></div>
+      <div class="hd__card hd__card--b" aria-hidden="true"><img class="hc-av" src="assets/avatars/p1.jpg" alt=""><p><b>Sarah K. <i>#sales</i></b><small>Can we text the new leads before lunch?</small></p></div>
+      <div class="hd__card hd__card--c" id="hdToast" aria-hidden="true"><img class="hc-ic" src="assets/tools/salesforce.png" alt=""><p><b>186 records updated</b><small>Salesforce · approved by Sarah K.</small></p></div>
+    </div>
+    <button type="button" class="hd__skip mono" id="hdSkip">Skip intro</button>
     <div class="stamp stamp--hero">APPROVED<small>BY YOU · REV 2.4</small></div>
     <div class="tblock mono"><span>Drawing</span><span>Rapider · system</span><span>Drawn by</span><span class="t-ai">Rapider AI</span><span>Checked by</span><span class="t-hu">Rapider engineers</span><span>Approved by</span><span class="t-you">You</span></div>
   </div>
@@ -236,6 +264,11 @@
 <!-- RUN NATIVELY -->
 <section class="run" id="run" data-scan aria-labelledby="runT">
   <div class="rowlab"><span class="rowlab__n">[03]</span><span>Product</span></div>
+  <figure class="sysfig">
+    <span class="corner c-tl">+</span><span class="corner c-tr">+</span>
+    <svg class="iso" id="isoHero" viewBox="0 0 1200 560" role="img" aria-label="Exploded technical drawing of Rapider: your data at the bottom, the Rapider agent above it, approvals above that, and actions at the top"></svg>
+    <figcaption class="mono"><span>Fig. 03 — the system, exploded: your data → agent → approvals → actions</span><span>24/7</span></figcaption>
+  </figure>
   <div class="run__grid">
     <div class="run__vis">
       <div class="crm" aria-hidden="true">

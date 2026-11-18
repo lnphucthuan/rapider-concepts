@@ -112,9 +112,21 @@
   const seen = (el, fn) => new IntersectionObserver((es) => es.forEach((e) => fn(e.isIntersecting))).observe(el);
   if (!STATIC) {
     const h1 = $('.hero .rv-lines');
+    // hero: one calm sequence — stage settles, then sidebar, table rows (wiped in from the left), approval card, ticker, small assets
+    // (power3/expo ease-outs only, 8–28 px of travel, no overshoot, no rotation)
+    gsap.set('.stage', { opacity: 0, y: 28 });
+    gsap.set('.app__side a, .app__drawer > *, .ticker > span', { opacity: 0, y: 8 });
+    gsap.set('.tbl tbody tr', { clipPath: 'inset(0 100% 0 0)' });
+    gsap.set('.float--slack', { opacity: 0, y: 14 });
     Promise.all([document.fonts ? document.fonts.ready : 0, intro]).then(() => {
       setTimeout(() => h1.classList.add('is-in'), 60);
-      gsap.from('.stage', { y: 80, rotationX: 10, transformPerspective: 1400, duration: 1.3, ease: 'expo.out', delay: 0.25, clearProps: 'transform' });
+      gsap.timeline({ delay: 0.2, defaults: { ease: 'power3.out' } })
+        .to('.stage', { opacity: 1, y: 0, duration: 1.1 })
+        .to('.app__side a', { opacity: 1, y: 0, duration: 0.6, stagger: 0.06 }, 0.3)
+        .to('.tbl tbody tr', { clipPath: 'inset(0 0% 0 0)', duration: 0.85, stagger: 0.07, ease: 'expo.out', clearProps: 'clipPath' }, 0.4)
+        .to('.app__drawer > *', { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 }, 0.6)
+        .to('.ticker > span', { opacity: 1, y: 0, duration: 0.5, stagger: 0.05 }, 0.85)
+        .to('.float--slack', { opacity: 1, y: 0, duration: 0.9, onComplete: () => gsap.to('.float--slack', { y: -4, duration: 4.6, yoyo: true, repeat: -1, ease: 'sine.inOut' }) }, 1.2);
     });
     once($$('.rv-lines').filter((e) => e !== h1), (el) => el.classList.add('is-in'));
     once($$('.rv'), (el) => el.classList.add('is-in'));
@@ -194,8 +206,8 @@
       .to(b, { opacity: 1, duration: 0.3 }, 0.95)
       .to(sa, { opacity: 0, duration: 0.2 }, 0.9)
       .to(sb, { opacity: 1, duration: 0.3 }, 1.05)
-      .to([core, ring], { scale: 1, opacity: 1, duration: 0.4, ease: 'back.out(1.6)' }, 1.05)
-      .from(dots, { scale: 0, duration: 0.3, stagger: 0.04, ease: 'back.out(2)' }, 1.2)
+      .to([core, ring], { scale: 1, opacity: 1, duration: 0.4, ease: 'power3.out' }, 1.05)
+      .from(dots, { scale: 0, duration: 0.3, stagger: 0.04, ease: 'power3.out' }, 1.2)
       .to({}, { duration: 0.35 });
     if (REDUCED) tl.progress(1);
     if (!REDUCED) gsap.to(ring, { rotation: 360, duration: 60, repeat: -1, ease: 'none' }), gsap.to(dots, { rotation: -360, duration: 60, repeat: -1, ease: 'none' });
@@ -318,7 +330,7 @@
       const v = lenis ? lenis.velocity || 0 : 0; if (Math.abs(v) > 0.5) dir = v > 0 ? 1 : -1;
       x -= (0.6 + Math.min(14, Math.abs(v) * 0.35)) * dir;
       const w = row.scrollWidth / 2; if (x <= -w) x += w; if (x > 0) x -= w;
-      row.style.transform = `translateX(${x}px) skewX(${Math.max(-10, Math.min(10, -v * 0.25))}deg)`;
+      row.style.transform = `translateX(${x}px) skewX(${Math.max(-6, Math.min(6, -v * 0.15))}deg)`;
     });
     // easter egg: a fast scroll gets noticed (once)
     let noticed = false;

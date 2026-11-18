@@ -38,8 +38,8 @@ window.FX = (() => {
     if (!FINE || REDUCED) return;
     $$('.btn, [data-magnetic]').forEach((el) => {
       if (el.closest('[data-no-magnet]')) return;
-      const qx = gsap.quickTo(el, 'x', { duration: 0.5, ease: 'elastic.out(1, .45)' }), qy = gsap.quickTo(el, 'y', { duration: 0.5, ease: 'elastic.out(1, .45)' });
-      el.addEventListener('pointermove', (e) => { const r = el.getBoundingClientRect(); qx((e.clientX - r.left - r.width / 2) * 0.22); qy((e.clientY - r.top - r.height / 2) * 0.35); });
+      const qx = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'power3.out' }), qy = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'power3.out' });
+      el.addEventListener('pointermove', (e) => { const r = el.getBoundingClientRect(); qx((e.clientX - r.left - r.width / 2) * 0.12); qy((e.clientY - r.top - r.height / 2) * 0.2); });
       el.addEventListener('pointerleave', () => { qx(0); qy(0); });
     });
   };

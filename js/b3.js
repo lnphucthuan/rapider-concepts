@@ -25,22 +25,10 @@
 
   if (window.FX) FX.init({ cursor: 'cross' });
 
-  /* ---------- preloader: the plotter (once per session) ---------- */
-  const intro = new Promise((done) => {
-    if (!root.classList.contains('is-pre')) return done();
-    try { sessionStorage.setItem('rp-b-intro', '1'); } catch (e) {}
-    if (lenis) lenis.stop();
-    const lis = $$('.pre__log li'), pct = $('#prePct'), bar = $('#preBar'), mark = $('.pre__mark text'), o = { v: 0 };
-    gsap.set(mark, { strokeDasharray: 1400, strokeDashoffset: 1400 });
-    const tl = gsap.timeline({ onComplete: () => { root.classList.remove('is-pre'); if (lenis) lenis.start(); done(); } });
-    tl.to(mark, { strokeDashoffset: 0, duration: 1.6, ease: 'power1.inOut' }, 0)
-      .to(o, { v: 100, duration: 1.7, ease: 'power1.inOut', onUpdate: () => { pct.textContent = String(Math.round(o.v)).padStart(2, '0') + '%'; bar.style.width = o.v + '%'; } }, 0);
-    lis.forEach((li, i) => tl.call(() => li.classList.add('is-on'), null, 0.12 + i * 0.19));
-    tl.to(mark, { fill: 'var(--ink)', duration: 0.3 }, 1.6)
-      .call(() => { const w = $('.pre__log em.wait'); w.textContent = 'YOU'; w.style.color = 'var(--you)'; }, null, 1.75)
-      .to('.pre__scan', { top: '-4%', duration: 0.6, ease: 'power2.inOut' }, 2.05)
-      .to('#pre', { clipPath: 'inset(0 0 100% 0)', duration: 0.6, ease: 'power2.inOut' }, 2.05);
-  });
+  /* ---------- the hero reveal is the preloader (Heron school): this promise resolves when the band has opened ---------- */
+  let resolveIntro; const intro = new Promise((r) => { resolveIntro = r; });
+  if (root.classList.contains('is-pre')) { try { sessionStorage.setItem('rp-b-intro', '1'); } catch (e) {} if (lenis) lenis.stop(); }
+  const unlock = () => { root.classList.remove('is-pre', 'hero-wait'); if (lenis) lenis.start(); resolveIntro(); };
 
   /* ---------- micro: nav, menu, toast, copy ---------- */
   $$('.nc--drop').forEach((m) => { const b = $('button', m); m.addEventListener('mouseenter', () => b.setAttribute('aria-expanded', 'true')); m.addEventListener('mouseleave', () => b.setAttribute('aria-expanded', 'false')); });
@@ -64,7 +52,7 @@
   const once = (els, fn, margin = '0px 0px -12% 0px') => { const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { fn(e.target); io.unobserve(e.target); } }), { rootMargin: margin }); els.forEach((el) => io.observe(el)); };
   if (!STATIC) {
     const h1 = $('.hero .rv-lines');
-    Promise.all([document.fonts ? document.fonts.ready : 0, intro]).then(() => setTimeout(() => h1.classList.add('is-in'), 900));
+    Promise.all([document.fonts ? document.fonts.ready : 0, intro]).then(() => setTimeout(() => h1.classList.add('is-in'), 150));
     once($$('.rv-lines').filter((e) => e !== h1), (el) => el.classList.add('is-in'));
     once($$('.rv'), (el) => el.classList.add('is-in'));
   }
@@ -214,30 +202,170 @@
     return gsap.to(shapes, { strokeDashoffset: 0, fillOpacity: 1, duration: opts.d || 0.9, stagger: opts.s || 0.01, ease: 'power2.inOut', delay: opts.delay || 0, paused: opts.paused });
   };
 
-  /* ---------- hero ---------- */
+  /* ---------- the system, exploded (moved out of the hero): draws once when it scrolls into view ---------- */
   const heroSvg = $('#isoHero');
   let H0 = drawHero(heroSvg);
-  const hstamp = $('.stamp--hero'), htb = $('.hero .tblock');
-  if (REDUCED) { /* drawn as is */ } else {
+  if (!REDUCED) {
     gsap.set($$('text, image, .callout rect', heroSvg), { opacity: 0 });
-    gsap.set([hstamp, htb], { opacity: 0 });
-    const tl = gsap.timeline({ delay: 0.2, paused: true });
-    intro.then(() => tl.play());
-    H0.layers.forEach((L, i) => tl.add(drawIn([L], { d: 0.8, s: 0.004 }), i * 0.32));
-    tl.add(drawIn([H0.guides], { d: 0.6 }), 0.1)
+    const tlI = gsap.timeline({ paused: true });
+    H0.layers.forEach((L, i) => tlI.add(drawIn([L], { d: 0.8, s: 0.004 }), i * 0.32));
+    tlI.add(drawIn([H0.guides], { d: 0.6 }), 0.1)
       .to($$('.layer image', heroSvg), { opacity: 1, duration: 0.4, stagger: 0.04 }, 0.9)
       .add(drawIn(H0.calls, { d: 0.5, s: 0.03 }), 1.2)
       .to($$('.callout text, .callout rect', heroSvg), { opacity: 1, duration: 0.3, stagger: 0.03 }, 1.4)
       .add(drawIn([H0.dm], { d: 0.4 }), 1.4).to($$('.dim text', heroSvg), { opacity: 1, duration: 0.3 }, 1.6)
-      .add(drawIn([H0.pen], { d: 0.6, s: 0.15 }), 1.9).to($$('.penL text', heroSvg), { opacity: 1, duration: 0.5 }, 2.3)
-      .fromTo(hstamp, { opacity: 0, scale: 1.9, rotation: -22 }, { opacity: 1, scale: 1, rotation: -9, duration: 0.32, ease: 'power4.in' }, 2.7)
-      .to(htb, { opacity: 1, duration: 0.4 }, 2.9);
+      .add(drawIn([H0.pen], { d: 0.6, s: 0.15 }), 1.9).to($$('.penL text', heroSvg), { opacity: 1, duration: 0.5 }, 2.3);
+    ScrollTrigger.create({ trigger: '.sysfig', start: 'top 78%', once: true, onEnter: () => tlI.play() });
   }
-  // cursor coordinates (micro)
-  const cx = $('#cx'), cy = $('#cy'), hd = $('#heroDraw');
-  hd.addEventListener('pointermove', (e) => { const r = hd.getBoundingClientRect(); cx.textContent = String(Math.round(e.clientX - r.left)).padStart(4, '0'); cy.textContent = String(Math.round(e.clientY - r.top)).padStart(4, '0'); });
   let lastM = MOBILE();
   addEventListener('resize', () => { if (MOBILE() !== lastM) { lastM = MOBILE(); H0 = drawHero(heroSvg); } });
+  // cursor coordinates (micro)
+  const heroBox = $('#heroDraw'), cxEl = $('#cx'), cyEl = $('#cy');
+  heroBox.addEventListener('pointermove', (e) => { const r = heroBox.getBoundingClientRect(); cxEl.textContent = String(Math.round(e.clientX - r.left)).padStart(4, '0'); cyEl.textContent = String(Math.round(e.clientY - r.top)).padStart(4, '0'); });
+
+  /* ---------- hero: blueprint → demo ----------
+     1. the blueprint of the console is generated from the real UI's own boxes, so the two layers always line up
+     2. a thin line grows across the stage with a % counter while the blueprint draws (this is the preloader)
+     3. at 100% the line splits in two and opens like a band; inside the band the real, working console appears
+     4. only then does the page chrome fade in, then three small assets glide in and drift slowly
+     5. the demo runs once (rows qualify, the agent asks), and you can approve it yourself */
+  (() => {
+    const hd = $('#hd'), ui = $('#hdUi'), wire = $('#hdWire'), pen = $('#hdPen'), clip = $('#hdClip');
+    const scanL = $('.hd__l'), pctEl = $('#hdPct'), scan = $('#hdScan'), edges = $$('.hd__edge'), logLis = $$('#hdLog li'), skip = $('#hdSkip');
+    const cards = $$('.hd__card'), toastCard = $('#hdToast'), stamp = $('.stamp--hero'), tbl = $('.hero .tblock');
+    const askBox = $('#uiAsk'), btn = $('#hdApprove'), rows = $$('.ui-row', ui);
+    // the scan line and band edges belong to the whole stage, not to the 1000px console
+    [scan, ...edges].forEach((el) => heroBox.append(el));
+    const mk = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (p) p.append(e); return e; };
+    const rel = (el, r0) => { const r = el.getBoundingClientRect(); return { x: r.left - r0.left, y: r.top - r0.top, w: r.width, h: r.height }; };
+    let wireShapes = [], wireTexts = [], noteEls = [], aiNotes = [], penShapes = [], penClips = [], penTexts = [];
+    let revealed = false, approved = false, penDrawn = false, W = 0, H = 0;
+    const state = { p: 0, o: 0 };
+
+    const build = () => {
+      wire.innerHTML = ''; pen.innerHTML = '';
+      const r0 = ui.getBoundingClientRect(); W = r0.width; H = r0.height; if (!W) return;
+      [wire, pen].forEach((s) => s.setAttribute('viewBox', `0 0 ${W} ${H}`));
+      wireShapes = []; wireTexts = []; noteEls = []; aiNotes = []; penShapes = []; penClips = []; penTexts = [];
+      // blueprint = outlines of every [data-bp] box + a placeholder bar under every text
+      $$('[data-bp]', ui).map((el) => ({ el, r: rel(el, r0) })).filter((o) => o.r.w > 2 && o.r.h > 2).sort((a, b) => a.r.y - b.r.y || a.r.x - b.r.x).forEach(({ el, r }) => {
+        const rad = parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0;
+        wireShapes.push(mk('rect', { x: r.x.toFixed(1), y: r.y.toFixed(1), width: r.w.toFixed(1), height: r.h.toFixed(1), rx: Math.min(rad, r.h / 2).toFixed(1), class: 'ln' + (el.dataset.bp === 'dash' ? ' dash' : ''), pathLength: 1 }, wire));
+      });
+      $$('.ui-t', ui).forEach((el) => { const r = rel(el, r0); if (r.w < 2) return; const h = Math.max(4, parseFloat(getComputedStyle(el).fontSize) * 0.55); wireTexts.push(mk('rect', { x: r.x.toFixed(1), y: (r.y + (r.h - h) / 2).toFixed(1), width: r.w.toFixed(1), height: h.toFixed(1), class: 'ph' }, wire)); });
+      // dimension line above the console
+      const wide = !MOBILE() && innerWidth > 1280;
+      const dm = mk('g', {}, wire); noteEls.push(dm);
+      mk('line', { x1: 0, y1: -16, x2: W, y2: -16, class: 'dm' }, dm); mk('line', { x1: 0, y1: -22, x2: 0, y2: -10, class: 'dm' }, dm); mk('line', { x1: W, y1: -22, x2: W, y2: -10, class: 'dm' }, dm);
+      const dt = mk('text', { x: W / 2, y: -22, 'text-anchor': 'middle' }, dm); dt.textContent = '1440 · desktop';
+      if (wide) {
+        const ask = rel(askBox, r0), side = rel($('.ui-side', ui), r0);
+        const note = (x, y, w, txt, tx, ty) => { const g = mk('g', {}, wire); noteEls.push(g); aiNotes.push(g); mk('line', { x1: x + w, y1: y + 11, x2: tx, y2: ty, class: 'dm', 'stroke-dasharray': '2 3' }, g); mk('rect', { x, y, width: w, height: 22, class: 'nb' }, g); const t = mk('text', { x: x + 9, y: y + 15 }, g); t.textContent = txt; };
+        note(-198, 14, 176, 'AI · 14 screens drafted', 14, 24);
+        note(-198, side.y + side.h * 0.7, 176, 'AI · role-based access', 14, side.y + side.h * 0.7 + 11);
+        const dg = mk('g', {}, wire); noteEls.push(dg);
+        mk('line', { x1: W + 14, y1: ask.y, x2: W + 14, y2: ask.y + ask.h, class: 'dm' }, dg); mk('line', { x1: W + 8, y1: ask.y, x2: W + 20, y2: ask.y, class: 'dm' }, dg); mk('line', { x1: W + 8, y1: ask.y + ask.h, x2: W + 20, y2: ask.y + ask.h, class: 'dm' }, dg);
+      }
+      // red pen (engineer): circle the Approve button, a note, a check mark on the first qualified row
+      const ar = rel(btn, r0), cx0 = ar.x + ar.w / 2, cy0 = ar.y + ar.h / 2, rx = ar.w * 0.78, ry = ar.h * 0.95;
+      penShapes.push(mk('path', { d: `M${cx0 - rx} ${cy0 + ry * 0.15} C ${cx0 - rx * 1.05} ${cy0 - ry * 1.25}, ${cx0 + rx * 1.05} ${cy0 - ry * 1.3}, ${cx0 + rx} ${cy0 - ry * 0.05} C ${cx0 + rx * 0.95} ${cy0 + ry * 1.35}, ${cx0 - rx * 0.95} ${cy0 + ry * 1.35}, ${cx0 - rx * 0.98} ${cy0 - ry * 0.1}`, pathLength: 1 }, pen));
+      const c0 = rel($('.ui-chip', ui), r0); penShapes.push(mk('path', { d: `M${c0.x + c0.w + 10} ${c0.y + c0.h * 0.55} L${c0.x + c0.w + 16} ${c0.y + c0.h * 0.95} L${c0.x + c0.w + 28} ${c0.y - c0.h * 0.15}`, pathLength: 1 }, pen));
+      if (wide) {
+        const ask = rel(askBox, r0), ty = ask.y + ask.h * 0.3;
+        penShapes.push(mk('path', { d: `M${W + 36} ${ty - 12} C ${W + 10} ${ty - 30}, ${cx0 + rx + 30} ${cy0 + 24}, ${cx0 + rx + 4} ${cy0 + ry * 0.2}`, pathLength: 1 }, pen));
+        const defs = mk('defs', {}, pen);
+        [['hdHw1', ty - 6, '2nd approver'], ['hdHw2', ty + 18, 'above $10k ✓']].forEach(([id, y, txt]) => {
+          const cp = mk('clipPath', { id }, defs), rc = mk('rect', { x: W + 22, y: y - 22, width: 0, height: 30 }, cp); penClips.push(rc);
+          const t = mk('text', { x: W + 26, y, 'clip-path': `url(#${id})` }, pen); t.textContent = txt; penTexts.push(t);
+        });
+      }
+    };
+
+    // --- state helpers ---
+    const setPct = () => { pctEl.textContent = 'Drafting ' + String(Math.round(state.p * 100)).padStart(2, '0') + '%'; };
+    const logStep = () => { const n = Math.floor(state.p * 8.001); logLis.forEach((li, i) => li.classList.toggle('is-on', i < n)); };
+    const stageMetrics = () => { const hb = heroBox.getBoundingClientRect(), r = hd.getBoundingClientRect(); return { c: r.top - hb.top + r.height / 2, t: r.top - hb.top, b: r.bottom - hb.top }; };
+    const setBand = () => {
+      const m = stageMetrics(), o = state.o, inset = 50 * (1 - o);
+      clip.style.clipPath = `inset(${inset}% 0 ${inset}% 0)`;
+      edges[0].style.top = `${m.c - (m.c - m.t) * o}px`; edges[1].style.top = `${m.c + (m.b - m.c) * o}px`;
+    };
+    const placeScan = () => { const m = stageMetrics(); scan.style.top = `${m.c}px`; edges.forEach((e) => { e.style.top = `${m.c}px`; }); };
+    const setChip = (row, cls, txt) => { const c = $('.ui-chip', row); gsap.to(c, { opacity: 0, y: -3, duration: 0.16, ease: 'power1.in', onComplete: () => { c.className = 'ui-chip ' + cls; c.textContent = txt; gsap.fromTo(c, { opacity: 0, y: 3 }, { opacity: 1, y: 0, duration: 0.28, ease: 'power2.out' }); } }); };
+    const penIn = () => {
+      if (penDrawn) return; penDrawn = true;
+      askBox.classList.add('is-ask');
+      gsap.fromTo(penShapes, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.7, stagger: 0.22, ease: 'power2.inOut' });
+      gsap.fromTo(penClips, { attr: { width: 0 } }, { attr: { width: 170 }, duration: 0.8, stagger: 0.3, delay: 0.5, ease: 'none' });
+    };
+    const approve = () => {
+      if (approved) return; approved = true;
+      penIn(); btn.classList.add('is-load'); btn.blur();
+      gsap.delayedCall(0.8, () => {
+        btn.classList.remove('is-load'); btn.classList.add('is-done'); btn.textContent = 'Approved ✓';
+        askBox.classList.remove('is-ask'); askBox.classList.add('is-done');
+        gsap.fromTo(stamp, { opacity: 0, scale: 1.6, rotation: -16 }, { opacity: 1, scale: 1, rotation: -9, duration: 0.32, ease: 'power4.in' });
+        gsap.fromTo(heroBox, { x: 0 }, { x: 1.5, duration: 0.045, yoyo: true, repeat: 3, delay: 0.3, clearProps: 'x' });
+        gsap.to(penShapes.concat(penTexts), { opacity: 0.35, duration: 0.8, delay: 0.5 });
+        gsap.fromTo(toastCard, { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.5 });
+        say('Approved · <b>186 records</b> updated in Salesforce');
+      });
+    };
+    btn.addEventListener('click', approve);
+
+    // --- final / reduced-motion state: the telling frame (the agent waits for a human) ---
+    const finalState = (waiting) => {
+      clip.style.clipPath = 'inset(0% 0 0% 0)'; edges.forEach((e) => { e.style.opacity = 0; }); scan.style.opacity = 0; $('#hdLog').style.opacity = 0;
+      gsap.set(wireShapes, { strokeDashoffset: 0 }); gsap.set(wireTexts.concat(noteEls), { opacity: 1 }); gsap.set(aiNotes, { opacity: 0 });
+      if (!approved && waiting) { penDrawn = true; askBox.classList.add('is-ask'); gsap.set(penShapes, { strokeDasharray: 1, strokeDashoffset: 0 }); gsap.set(penClips, { attr: { width: 170 } }); }
+      gsap.set(cards.slice(0, 2), { opacity: 1 }); gsap.set([tbl, $('.legend'), $('.coords')], { opacity: 1 });
+      rows.slice(2, 4).forEach((r) => { const c = $('.ui-chip', r); c.className = 'ui-chip is-ok'; c.textContent = 'Qualified'; });
+    };
+
+    build();
+    if (REDUCED) { state.o = 1; finalState(true); unlock(); return; }
+
+    // initial pose: blueprint undrawn, console hidden behind a zero-height band
+    placeScan();
+    gsap.set(wireShapes, { strokeDasharray: 1, strokeDashoffset: 1 }); gsap.set(wireTexts.concat(noteEls), { opacity: 0 });
+    gsap.set(penShapes, { strokeDasharray: 1, strokeDashoffset: 1 }); gsap.set(penClips, { attr: { width: 0 } });
+    gsap.set(cards, { opacity: 0 }); gsap.set(scanL, { scaleX: 0 });
+    const first = root.classList.contains('is-pre');
+
+    const demo = gsap.timeline({ paused: true });
+    demo.call(() => setChip(rows[2], 'is-ok', 'Qualified'), null, 0.2)
+      .call(() => setChip(rows[3], 'is-ok', 'Qualified'), null, 1.2)
+      .call(() => setChip(rows[4], 'is-run', 'Enriching'), null, 1.9)
+      .call(() => setChip(rows[4], 'is-ok', 'Qualified'), null, 3.1)
+      .call(penIn, null, 3.7)
+      .call(approve, null, 10.5);
+
+    const tl = gsap.timeline({ paused: true, delay: first ? 0.25 : 0.1 });
+    tl.fromTo(scanL, { scaleX: 0 }, { scaleX: 1, duration: 2.1, ease: 'power1.inOut' }, 0)
+      .to(state, { p: 1, duration: 2.1, ease: 'power1.inOut', onUpdate: () => { setPct(); logStep(); } }, 0)
+      .fromTo(wireShapes, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.7, ease: 'power2.inOut', stagger: { amount: 1.4 } }, 0.1)
+      .fromTo(wireTexts, { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: { amount: 1.3 } }, 0.45)
+      .fromTo(noteEls, { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.1 }, 1.1)
+      .addLabel('open', 2.35)
+      .set(edges, { opacity: 1 }, 'open')
+      .to([scanL, pctEl], { opacity: 0, duration: 0.15 }, 'open')
+      .to(state, { o: 1, duration: 1.5, ease: 'expo.out', onUpdate: setBand }, 'open')
+      .to(edges, { opacity: 0, duration: 0.45 }, 'open+=1.05')
+      .to('#hdLog', { opacity: 0.0, duration: 0.5 }, 'open+=.6')
+      .to(aiNotes, { opacity: 0, duration: 0.7, stagger: 0.1 }, 'open+=1.1')
+      .add(() => { revealed = true; unlock(); }, 'open+=.5')
+      .fromTo([cards[0], cards[1]], { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', stagger: 0.14, onComplete: () => cards.slice(0, 2).forEach((c, i) => gsap.to(c, { y: -5, duration: 4 + i * 1.1, yoyo: true, repeat: -1, ease: 'sine.inOut' })) }, 'open+=1')
+      .add(() => demo.play(), 'open+=1.3');
+    if (!first) tl.timeScale(2.2);
+    tl.play();
+
+    // skip: jump to the end of the reveal
+    const doSkip = () => { if (revealed || !root.classList.contains('is-pre')) return; tl.timeScale(1); tl.tweenTo('open+=1.2', { duration: 0.8, ease: 'power2.inOut', onComplete: () => tl.play() }); };
+    skip.addEventListener('click', doSkip);
+    addEventListener('keydown', (e) => { if (!revealed && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) doSkip(); });
+
+    let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { build(); if (revealed) { state.o = 1; clip.style.clipPath = 'inset(0% 0 0% 0)'; gsap.set(wireShapes, { strokeDashoffset: 0 }); gsap.set(wireTexts.concat(noteEls), { opacity: 1 }); gsap.set(aiNotes, { opacity: 0 }); gsap.set(penShapes, { strokeDasharray: 1, strokeDashoffset: penDrawn ? 0 : 1 }); gsap.set(penClips, { attr: { width: penDrawn ? 170 : 0 } }); } else placeScan(); }, 200); });
+  })();
 
   /* ---------- clients carousel ---------- */
   (() => {
