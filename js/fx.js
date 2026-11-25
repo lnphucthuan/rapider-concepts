@@ -20,18 +20,44 @@ window.FX = (() => {
     document.body.append(c);
     const lbl = c.querySelector('.cur__lbl'), xy = c.querySelector('.cur__xy');
     const mx = gsap.quickTo(c, 'x', { duration: 0.18, ease: 'power3.out' }), my = gsap.quickTo(c, 'y', { duration: 0.18, ease: 'power3.out' });
-    addEventListener('pointermove', (e) => {
-      mx(e.clientX); my(e.clientY);
-      if (xy) xy.textContent = `${String(Math.round(e.clientX)).padStart(4, '0')} · ${String(Math.round(e.clientY + scrollY)).padStart(5, '0')}`;
-      const t = e.target.closest('a, button, input, label, select, textarea, [data-cursor]');
+    // Is the ground under the pointer dark (or brand blue)? Then the cursor turns light, so it never disappears.
+    const darkCache = new WeakMap();
+    const isDark = (el) => {
+      if (!el || el === document.documentElement) return false;
+      if (darkCache.has(el)) return darkCache.get(el);
+      let n = el, res = false;
+      while (n && n !== document.documentElement) {
+        if (n.hasAttribute && n.hasAttribute('data-cursor-dark')) { res = true; break; }
+        if (n.tagName === 'VIDEO' || n.tagName === 'IMG') { res = true; break; }
+        const bg = getComputedStyle(n).backgroundColor, m = bg.match(/rgba?\(([^)]+)\)/);
+        if (m) { const [r, g, b, a = 1] = m[1].split(',').map(Number); if (a > 0.5) { res = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 < 0.45; break; } }
+        n = n.parentElement;
+      }
+      darkCache.set(el, res); return res;
+    };
+    let lx = -100, ly = -100, last = null;
+    const look = (target) => {
+      if (target === last) return; last = target;
+      const t = target && target.closest ? target.closest('a, button, input, label, select, textarea, [data-cursor]') : null;
       c.classList.toggle('is-hover', !!t);
       const text = t ? t.getAttribute('data-cursor') || '' : '';
       c.classList.toggle('has-lbl', !!text); lbl.textContent = text;
+      c.classList.toggle('on-dark', isDark(target));
+    };
+    addEventListener('pointermove', (e) => {
+      lx = e.clientX; ly = e.clientY; mx(lx); my(ly);
+      c.classList.remove('is-out'); // any movement brings it back (mouseenter on document is not reliable)
+      if (xy) xy.textContent = `${String(Math.round(lx)).padStart(4, '0')} · ${String(Math.round(ly + scrollY)).padStart(5, '0')}`;
+      look(e.target);
     }, { passive: true });
+    // the page also moves under a still mouse (scroll, pinned scenes): re-check what is under it
+    let pend = false;
+    addEventListener('scroll', () => { if (pend || lx < 0) return; pend = true; requestAnimationFrame(() => { pend = false; look(document.elementFromPoint(lx, ly)); }); }, { passive: true });
+    addEventListener('resize', () => { last = null; });
     addEventListener('pointerdown', () => c.classList.add('is-down'));
     addEventListener('pointerup', () => c.classList.remove('is-down'));
-    document.addEventListener('mouseleave', () => c.classList.add('is-out'));
-    document.addEventListener('mouseenter', () => c.classList.remove('is-out'));
+    document.documentElement.addEventListener('mouseleave', () => c.classList.add('is-out'));
+    addEventListener('blur', () => c.classList.add('is-out'));
   };
 
   const magnetic = () => {
@@ -93,5 +119,45 @@ window.FX = (() => {
     });
   };
 
-  return { init(o = {}) { roll(); scramble(); magnetic(); tilt(); if (o.cursor) cursor(o.cursor); }, REDUCED, FINE };
+  /* ---------- scroll that stays smooth on phones ---------- */
+  const TOUCH = !FINE;
+  // The address bar showing/hiding resizes the viewport on phones; never re-lay the page for that.
+  if (window.ScrollTrigger) ScrollTrigger.config({ ignoreMobileResize: true });
+
+  // Pinned scene. Desktop: a normal ScrollTrigger pin. Touch: the browser holds it with position: sticky.
+  // A ScrollTrigger pin is moved by JS one frame after the finger scrolls, so on phones it lags and then snaps
+  // ("thump"); sticky runs on the compositor together with the finger. Spread the result into scrollTrigger vars.
+  //   FX.pin('.race__pin', { top: () => navH, len: 2 })  // len = scroll length in screen heights
+  const pin = (target, o = {}) => {
+    const el = typeof target === 'string' ? document.querySelector(target) : target;
+    const top = () => (typeof o.top === 'function' ? o.top() : o.top || 0);
+    if (!TOUCH) return { trigger: el, start: () => `top ${top()}px`, end: `+=${Math.round((o.len || 1) * 100)}%`, pin: true, anticipatePin: 1 };
+    const wrap = document.createElement('div'); wrap.className = 'stk';
+    el.parentNode.insertBefore(wrap, el); wrap.append(el);
+    let len = 0;
+    const size = () => { len = Math.round((o.len || 1) * innerHeight); el.style.position = 'sticky'; el.style.top = top() + 'px'; wrap.style.height = el.offsetHeight + len + 'px'; };
+    size(); if (window.ScrollTrigger) ScrollTrigger.addEventListener('refreshInit', size);
+    return { trigger: wrap, start: () => `top ${top()}px`, end: () => `+=${len}` };
+  };
+
+  // Scroll progress arrives in steps on phones (native scroll events). Ease the value instead of jumping to it.
+  //   const go = FX.smooth(render); ... onUpdate: (st) => go(st.progress)
+  const smooth = (render, d = 0.35) => {
+    const o = { p: 0 };
+    const q = gsap.quickTo(o, 'p', { duration: d, ease: 'power2.out', onUpdate: () => render(o.p) });
+    return (p, now) => { if (now) { o.p = p; q.tween && q.tween.pause(); render(p); } else q(p); };
+  };
+
+  // Pause every CSS animation (pulses, spinners, marquees) in sections that are off screen, and let JS loops ask
+  // FX.on(el) before they do work.
+  const vis = new WeakMap();
+  const watch = () => {
+    const io = new IntersectionObserver((es) => es.forEach((e) => { vis.set(e.target, e.isIntersecting); e.target.classList.toggle('is-off', !e.isIntersecting); }), { rootMargin: '15% 0px' });
+    $$('main > section, body > section, footer, .hero').forEach((s) => io.observe(s));
+    return io;
+  };
+  let io;
+  const on = (el) => { const s = el && el.closest('section, footer, .hero'); if (!s) return true; if (!vis.has(s)) { if (!io) io = watch(); io.observe(s); return true; } return vis.get(s); };
+
+  return { init(o = {}) { roll(); scramble(); magnetic(); tilt(); if (o.cursor) cursor(o.cursor); io = io || watch(); }, pin, smooth, on, REDUCED, FINE, TOUCH };
 })();

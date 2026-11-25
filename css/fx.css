@@ -1,7 +1,7 @@
 /* Shared micro-interaction styles (cursor, label roll, glare). Colours come from each page's variables. */
 .has-cur, .has-cur a, .has-cur button, .has-cur label, .has-cur input { cursor: none; }
 .has-cur input[type="email"] { cursor: text; }
-.cur { position: fixed; left: 0; top: 0; z-index: 999; pointer-events: none; width: 0; height: 0; transition: opacity .3s; }
+.cur { position: fixed; left: 0; top: 0; z-index: 2147482000; pointer-events: none; width: 0; height: 0; transition: opacity .3s; }
 .cur.is-out { opacity: 0; }
 .cur__ring { position: absolute; left: 0; top: 0; width: 34px; height: 34px; margin: -17px; border-radius: 50%; transition: width .35s cubic-bezier(.2, .7, .1, 1), height .35s cubic-bezier(.2, .7, .1, 1), margin .35s cubic-bezier(.2, .7, .1, 1), background-color .3s, border-color .3s, transform .2s; }
 .cur__lbl { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); white-space: nowrap; font: 700 11px/1 var(--mono, monospace); letter-spacing: .04em; text-transform: uppercase; opacity: 0; transition: opacity .2s; }
@@ -33,3 +33,25 @@
 [data-tilt] { position: relative; will-change: transform; }
 .glare { position: absolute; inset: 0; z-index: 20; pointer-events: none; border-radius: inherit; opacity: 0; transition: opacity .4s; mix-blend-mode: soft-light; }
 @media (prefers-reduced-motion: reduce) { .roll > span { transition: none; } }
+
+/* ---------- smooth on phones ---------- */
+/* sections off screen: CSS loops stop (pulses, spinners, marquees) */
+.is-off, .is-off *, .is-off *::before, .is-off *::after { animation-play-state: paused !important; }
+/* sticky wrapper made by FX.pin on touch screens */
+.stk { position: relative; }
+/* touch screens: blur behind glass is repainted on every scroll frame. Pages list their glass in their own CSS:
+   @media (hover: none), (pointer: coarse) { .nav, .x { backdrop-filter: none } } */
+
+/* ---------- cursor stays visible on every ground (round 3.2) ---------- */
+/* blend modes only work on the fixed .cur itself (it is its own stacking context) */
+.cur--volt.is-hover:not(.has-lbl):not(.on-dark) { mix-blend-mode: multiply; }
+.cur--volt.is-hover .cur__ring { mix-blend-mode: normal; }
+.cur--volt .cur__ring, .cur--volt .cur__dot { box-shadow: 0 0 0 1px rgba(255, 255, 255, .55); }
+.cur--volt.on-dark .cur__ring { border-color: #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, .35); }
+.cur--volt.on-dark .cur__dot { background: #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, .35); }
+.cur--volt.on-dark.is-hover:not(.has-lbl) .cur__ring { background: rgba(215, 255, 63, .22); border: 2px solid var(--volt, #d7ff3f); box-shadow: none; }
+.cur--cross .cur__h, .cur--cross .cur__v { box-shadow: 0 0 0 1px rgba(251, 250, 246, .7); }
+.cur--cross .cur__h { height: 1.5px; } .cur--cross .cur__v { width: 1.5px; }
+.cur--cross.on-dark .cur__h, .cur--cross.on-dark .cur__v { background: #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, .3); }
+.cur--cross.on-dark .cur__ring { border-color: #fff; }
+.cur--cross.on-dark .cur__xy { color: #fff; }

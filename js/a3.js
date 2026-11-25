@@ -134,14 +134,18 @@
 
   /* ---------- stopwatch + speed-reactive type ---------- */
   const sw = $('#sw'), t0 = performance.now();
-  const tick = () => { const ms = performance.now() - t0, s = Math.floor(ms / 1000); sw.textContent = `${pad(Math.floor(s / 60))}:${pad(s % 60)}.${pad(Math.floor((ms % 1000) / 10))}`; requestAnimationFrame(tick); };
+  const tick = () => { if (FX.on(sw)) { const ms = performance.now() - t0, s = Math.floor(ms / 1000); sw.textContent = `${pad(Math.floor(s / 60))}:${pad(s % 60)}.${pad(Math.floor((ms % 1000) / 10))}`; } requestAnimationFrame(tick); };
   if (!REDUCED) requestAnimationFrame(tick);
-  if (lenis) {
-    let sl = 0, wd = 100;
+  // Type leans and widens with scroll speed. Desktop only: on phones every change re-lays the text (it was 17 fps).
+  // Written on the headings themselves (not :root, which restyles the whole page) and only when the value moves.
+  if (lenis && FX.FINE) {
+    let sl = 0, wd = 100, last = '';
+    const vt = $$('.h1, .two, .race__day b, .foot__word, .cine__t, .comp__row');
     gsap.ticker.add(() => {
       const v = Math.min(70, Math.abs(lenis.velocity || 0));
       sl += (-(v / 70) * 9 - sl) * 0.12; wd += (100 + (v / 70) * 16 - wd) * 0.12;
-      root.style.setProperty('--slnt', sl.toFixed(2)); root.style.setProperty('--wdth', wd.toFixed(1));
+      const k = sl.toFixed(1) + '|' + wd.toFixed(0); if (k === last) return; last = k;
+      vt.forEach((el) => { if (!FX.on(el)) return; el.style.setProperty('--slnt', sl.toFixed(1)); el.style.setProperty('--wdth', wd.toFixed(0)); });
     });
   }
 
@@ -199,9 +203,10 @@
     gsap.set(wins, { xPercent: -50, yPercent: -50, rotation: (i, el) => +el.style.getPropertyValue('--r') });
     gsap.set([core, ring], { scale: 0.6, opacity: 0 });
     gsap.set(b, { opacity: 0.18 });
-    const tl = gsap.timeline({ defaults: { ease: 'none' }, paused: REDUCED, scrollTrigger: REDUCED ? undefined : { trigger: '.chaos__pin', start: () => `top ${nav.offsetHeight}px`, end: '+=220%', pin: true, scrub: 0.6 } });
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, paused: REDUCED, scrollTrigger: REDUCED ? undefined : { ...FX.pin('.chaos__pin', { top: () => nav.offsetHeight, len: 2.2 }), scrub: 0.6, invalidateOnRefresh: true } });
     tl.to(wins, { x: (i) => (i % 2 ? 14 : -14), y: (i) => (i % 3 ? -10 : 12), rotation: (i, el) => +el.style.getPropertyValue('--r') * 1.6, duration: 0.6, ease: 'sine.inOut' })
-      .to(wins, { left: '50%', top: '52%', scale: 0.18, opacity: 0, rotation: 0, duration: 0.7, stagger: 0.05, ease: 'power3.in' }, 0.6)
+      // move with transforms (x/y), not left/top: left/top re-lay the page on every scroll frame
+      .to(wins, { x: (i, el) => el.parentElement.offsetWidth * 0.5 - el.offsetLeft, y: (i, el) => el.parentElement.offsetHeight * 0.52 - el.offsetTop, scale: 0.18, opacity: 0, rotation: 0, duration: 0.7, stagger: 0.05, ease: 'power3.in' }, 0.6)
       .to(a, { opacity: 0.25, duration: 0.3 }, 0.9)
       .to(b, { opacity: 1, duration: 0.3 }, 0.95)
       .to(sa, { opacity: 0, duration: 0.2 }, 0.9)
@@ -247,14 +252,14 @@
       const o = d / 120, n = Math.min(1, d / 60);
       oldFill.style.setProperty('--p', o.toFixed(3)); newFill.style.setProperty('--p', (n * 0.5).toFixed(3));
       oldPct.textContent = d >= 120 ? 'Launched' : `${Math.round(o * 100)}%`;
-      newPct.textContent = d >= 60 ? 'Live · still working' : `${Math.round(n * 100)}%`;
+      newPct.textContent = d >= 60 ? (MOBILE() ? 'Live' : 'Live · still working') : `${Math.round(n * 100)}%`; // short on phones so the label never wraps (it made the lane jump 24 px)
       live.classList.toggle('is-on', d >= 60);
       ms.forEach((m) => m.classList.toggle('is-on', d >= +m.dataset.d));
       const s = d >= 60 ? 3 : d >= 45 ? 2 : d >= 24 ? 1 : 0;
       legend.forEach((l, i) => l.classList.toggle('is-on', i === s));
     };
     if (REDUCED) render(0.7);
-    else { render(0); ScrollTrigger.create({ trigger: '.race__pin', start: () => `top ${nav.offsetHeight}px`, end: '+=200%', pin: true, onUpdate: (st) => render(st.progress) }); }
+    else { render(0); const go = FX.smooth(render); ScrollTrigger.create({ ...FX.pin('.race__pin', { top: () => nav.offsetHeight, len: 2 }), onUpdate: (st) => go(st.progress) }); }
   })();
 
   /* ---------- feature cards: small live demos ---------- */
@@ -314,22 +319,25 @@
       lines.forEach((l, i) => l.classList.toggle('is-in', p > 0.08 + i * 0.1));
     };
     if (REDUCED) { render(1); return; }
-    gsap.set(lines, { yPercent: 40, opacity: 0 });
-    ScrollTrigger.create({ trigger: '.cine__pin', start: 'top top', end: '+=220%', pin: true, onUpdate: (st) => {
-      render(st.progress);
-      lines.forEach((l) => gsap.to(l, { yPercent: l.classList.contains('is-in') ? 0 : 40, opacity: l.classList.contains('is-in') ? 1 : 0, duration: 0.6, overwrite: 'auto' }));
-    } });
+    // the lines animate with CSS transitions on .is-in (no new tween per scroll event)
+    $('.cine__t').classList.add('is-anim');
+    const go = FX.smooth(render);
+    ScrollTrigger.create({ ...FX.pin('.cine__pin', { top: 0, len: 2.2 }), onUpdate: (st) => go(st.progress) });
     render(0);
   })();
 
   /* ---------- fast-forward wipe + comparatives marquee follow your scroll ---------- */
   if (!REDUCED) {
     gsap.fromTo('.ffwipe span', { xPercent: -45 }, { xPercent: 0, ease: 'none', scrollTrigger: { trigger: '.ffwipe', start: 'top bottom', end: 'bottom top', scrub: true } });
-    const row = $('.comp__row'); let x = 0, dir = 1;
+    // measure the row once (reading scrollWidth every frame forced a full re-layout per frame)
+    const row = $('.comp__row'); let x = 0, dir = 1, w = 0;
+    const measure = () => { w = row.scrollWidth / 2; };
+    measure(); addEventListener('resize', measure); if (document.fonts) document.fonts.ready.then(measure);
     gsap.ticker.add(() => {
+      if (!w || !FX.on(row)) return;
       const v = lenis ? lenis.velocity || 0 : 0; if (Math.abs(v) > 0.5) dir = v > 0 ? 1 : -1;
       x -= (0.6 + Math.min(14, Math.abs(v) * 0.35)) * dir;
-      const w = row.scrollWidth / 2; if (x <= -w) x += w; if (x > 0) x -= w;
+      if (x <= -w) x += w; if (x > 0) x -= w;
       row.style.transform = `translateX(${x}px) skewX(${Math.max(-6, Math.min(6, -v * 0.15))}deg)`;
     });
     // easter egg: a fast scroll gets noticed (once)

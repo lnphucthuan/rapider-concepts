@@ -364,7 +364,8 @@
     skip.addEventListener('click', doSkip);
     addEventListener('keydown', (e) => { if (!revealed && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) doSkip(); });
 
-    let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { build(); if (revealed) { state.o = 1; clip.style.clipPath = 'inset(0% 0 0% 0)'; gsap.set(wireShapes, { strokeDashoffset: 0 }); gsap.set(wireTexts.concat(noteEls), { opacity: 1 }); gsap.set(aiNotes, { opacity: 0 }); gsap.set(penShapes, { strokeDasharray: 1, strokeDashoffset: penDrawn ? 0 : 1 }); gsap.set(penClips, { attr: { width: penDrawn ? 170 : 0 } }); } else placeScan(); }, 200); });
+    // phones fire resize when the address bar shows/hides; only a width change needs a rebuild
+    let rz, lastW = innerWidth; addEventListener('resize', () => { if (innerWidth === lastW) return; lastW = innerWidth; clearTimeout(rz); rz = setTimeout(() => { build(); if (revealed) { state.o = 1; clip.style.clipPath = 'inset(0% 0 0% 0)'; gsap.set(wireShapes, { strokeDashoffset: 0 }); gsap.set(wireTexts.concat(noteEls), { opacity: 1 }); gsap.set(aiNotes, { opacity: 0 }); gsap.set(penShapes, { strokeDasharray: 1, strokeDashoffset: penDrawn ? 0 : 1 }); gsap.set(penClips, { attr: { width: penDrawn ? 170 : 0 } }); } else placeScan(); }, 200); });
   })();
 
   /* ---------- clients carousel ---------- */
@@ -391,7 +392,7 @@
     gsap.set(ul, { attr: { pathLength: 1 }, strokeDasharray: 1, strokeDashoffset: 1 });
     gsap.set(st, { opacity: 0, scale: 1.8, rotation: -20 });
     let curF = 0;
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, paused: REDUCED, scrollTrigger: REDUCED ? undefined : { trigger: '.state__pin', start: () => `top ${navH()}px`, end: '+=240%', pin: true, scrub: 0.6,
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, paused: REDUCED, scrollTrigger: REDUCED ? undefined : { ...FX.pin('.state__pin', { top: navH, len: 2.4 }), scrub: 0.6,
       onUpdate: (s) => { const f = Math.floor(s.progress * 90 * 25); tc.textContent = `TC 00:00:${String(Math.floor(f / 25)).padStart(2, '0')}:${String(f % 25).padStart(2, '0')}`; const i = s.progress < 0.36 ? 0 : s.progress < 0.68 ? 1 : 2; if (i !== curF) { curF = i; cap.textContent = CAPS[i]; } } } });
     const wipe = (i, at) => {
       tl.fromTo(F[i], { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.45, ease: 'none' }, at)
@@ -483,7 +484,7 @@
     const L = () => [0, tl.labels.erd, tl.labels.pen, tl.labels.stamp, tl.labels.end, tl.labels.end];
     const map = (p) => { const seg = p * 5, i = Math.min(4, Math.floor(seg)), f = seg - i, l = L(); return [l[i] + (l[i + 1] - l[i]) * f, i]; };
     if (REDUCED || MOBILE()) { tl.progress(1); stage(3); }
-    else { stage(0); ScrollTrigger.create({ trigger: '.intro__pin', start: () => `top ${navH()}px`, end: '+=320%', pin: true, onUpdate: (st) => { const [t, i] = map(st.progress); tl.time(t); stage(i); } }); }
+    else { stage(0); const go = FX.smooth((p) => { const [t, i] = map(p); tl.time(t); stage(i); }); ScrollTrigger.create({ ...FX.pin('.intro__pin', { top: navH, len: 3.2 }), onUpdate: (st) => go(st.progress) }); }
   })();
 
   /* ---------- run natively: approve in the widget (micro) ---------- */
@@ -508,7 +509,7 @@
       svg._keys && svg._keys.filter((e) => e.tagName !== 'text').forEach((e) => e.classList.add('ai'));
     };
     if (REDUCED || MOBILE()) { cols.forEach((c) => c.classList.add('is-on')); }
-    else { set(0); ScrollTrigger.create({ trigger: '.way__pin', start: () => `top ${navH()}px`, end: '+=240%', pin: true, onUpdate: (st) => set(Math.min(3, Math.floor(st.progress * 4))) }); }
+    else { set(0); ScrollTrigger.create({ ...FX.pin('.way__pin', { top: navH, len: 2.4 }), onUpdate: (st) => set(Math.min(3, Math.floor(st.progress * 4))) }); }
   })();
 
   /* ---------- phone, BOM ticks, counters ---------- */
