@@ -136,16 +136,18 @@
   const sw = $('#sw'), t0 = performance.now();
   const tick = () => { if (FX.on(sw)) { const ms = performance.now() - t0, s = Math.floor(ms / 1000); sw.textContent = `${pad(Math.floor(s / 60))}:${pad(s % 60)}.${pad(Math.floor((ms % 1000) / 10))}`; } requestAnimationFrame(tick); };
   if (!REDUCED) requestAnimationFrame(tick);
-  // Type leans and widens with scroll speed. Desktop only: on phones every change re-lays the text (it was 17 fps).
-  // Written on the headings themselves (not :root, which restyles the whole page) and only when the value moves.
-  if (lenis && FX.FINE) {
-    let sl = 0, wd = 100, last = '';
-    const vt = $$('.h1, .two, .race__day b, .foot__word, .cine__t, .comp__row');
+  // Titles lean forward with scroll speed (Rapid-er). Done with a transform (skewX), NOT the font's width/slant axes:
+  // widening the font made titles re-wrap 2 ↔ 3 lines while scrolling (44 width changes, 9 re-wraps in one scroll),
+  // and every change re-laid the text. A transform never re-wraps and runs on the GPU. Desktop only.
+  if (lenis && FX.FINE && !REDUCED) {
+    let sk = 0, last = '0.00';
+    const vt = $$('.h1, .two, .cine__t, .foot__word, .race__day b').filter((el) => !el.closest('.chaos__t')); // chaos title is scaled by GSAP
+    vt.forEach((el) => { el.style.transformOrigin = '0 100%'; });
     gsap.ticker.add(() => {
       const v = Math.min(70, Math.abs(lenis.velocity || 0));
-      sl += (-(v / 70) * 9 - sl) * 0.12; wd += (100 + (v / 70) * 16 - wd) * 0.12;
-      const k = sl.toFixed(1) + '|' + wd.toFixed(0); if (k === last) return; last = k;
-      vt.forEach((el) => { if (!FX.on(el)) return; el.style.setProperty('--slnt', sl.toFixed(1)); el.style.setProperty('--wdth', wd.toFixed(0)); });
+      sk += (-(v / 70) * 6 - sk) * 0.14; if (Math.abs(sk) < 0.02) sk = 0;
+      const k = sk.toFixed(2); if (k === last) return; last = k;
+      vt.forEach((el) => { if (FX.on(el)) el.style.transform = sk ? `skewX(${k}deg)` : ''; });
     });
   }
 

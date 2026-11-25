@@ -124,14 +124,14 @@ window.FX = (() => {
   // The address bar showing/hiding resizes the viewport on phones; never re-lay the page for that.
   if (window.ScrollTrigger) ScrollTrigger.config({ ignoreMobileResize: true });
 
-  // Pinned scene. Desktop: a normal ScrollTrigger pin. Touch: the browser holds it with position: sticky.
-  // A ScrollTrigger pin is moved by JS one frame after the finger scrolls, so on phones it lags and then snaps
-  // ("thump"); sticky runs on the compositor together with the finger. Spread the result into scrollTrigger vars.
+  // Pinned scene, held by the browser with position: sticky inside a tall wrapper — on every device.
+  // A ScrollTrigger `pin` is switched to position: fixed by JS: on phones it lags one frame behind the finger and
+  // snaps ("thump"); on desktop it overshot 43–93 px at the moment it locked (measured, Nov 2026). Sticky is
+  // moved by the compositor together with the scroll, so it cannot jump. Spread the result into scrollTrigger vars.
   //   FX.pin('.race__pin', { top: () => navH, len: 2 })  // len = scroll length in screen heights
   const pin = (target, o = {}) => {
     const el = typeof target === 'string' ? document.querySelector(target) : target;
     const top = () => (typeof o.top === 'function' ? o.top() : o.top || 0);
-    if (!TOUCH) return { trigger: el, start: () => `top ${top()}px`, end: `+=${Math.round((o.len || 1) * 100)}%`, pin: true, anticipatePin: 1 };
     const wrap = document.createElement('div'); wrap.className = 'stk';
     el.parentNode.insertBefore(wrap, el); wrap.append(el);
     let len = 0;
