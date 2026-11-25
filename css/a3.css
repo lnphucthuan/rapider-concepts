@@ -709,3 +709,44 @@ input[type="range"]:focus-visible { outline: 2px solid var(--ink); outline-offse
 
 /* touch screens: no blur behind glass (repainted every scroll frame) */
 @media (hover: none), (pointer: coarse) { .nav, .pops li, .bub { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
+
+/* ===================== micro system v2 (round 4) =====================
+   From the award sites we measured (study-micro): one movement curve + one colour curve, three durations, and every
+   clickable thing answers hover, PRESS and keyboard focus the same way. Fewer effects, all on the same beat.
+   Signature (Rapid-er): a button fills like a stopwatch hand sweeping left → right and empties to the right when you
+   leave, like finishing a lap. The two brand colours swap under the sweep. */
+:root {
+  --m-ease: cubic-bezier(.19, 1, .22, 1);      /* expo out: instant start, soft landing — fast without bounce */
+  --m-color: cubic-bezier(.215, .61, .355, 1); /* cubic out, for colours */
+  --m-fast: .14s; --m-base: .3s; --m-move: .45s;
+  --ease: var(--m-ease); --spring: var(--m-ease); /* every older transition joins the same beat */
+}
+.btn { transition: transform var(--m-base) var(--m-ease), color var(--m-base) var(--m-color), box-shadow var(--m-base) var(--m-color); }
+.btn::before { transform: scaleX(0); transform-origin: 100% 50%; transition: transform var(--m-move) var(--m-ease); }
+.btn:hover::before, .btn:focus-visible::before { transform: scaleX(1); transform-origin: 0 50%; }
+.btn .ff, .btn .roll > span { transition: transform var(--m-move) var(--m-ease), color var(--m-base) var(--m-color); }
+.btn--volt::before { background: var(--ink); }
+.btn--volt:hover, .btn--volt:focus-visible { color: var(--volt); }
+.btn--ink::before { background: var(--volt); }
+.btn--ink:hover, .btn--ink:focus-visible { color: var(--ink); }
+.btn--ink:hover .ff, .btn--ink:focus-visible .ff { color: var(--ink); }
+.btn:active { transform: scale(.96); transition-duration: var(--m-fast); }
+/* the wordmark winks: "er" steps forward */
+.brand .er { display: inline-block; transition: transform var(--m-move) var(--m-ease); }
+.brand:hover .er { transform: translateX(3px); }
+/* text links: underline draws in from the left, leaves to the right */
+.foot a:not(.btn), .announce a { background: linear-gradient(currentColor, currentColor) 100% 100% / 0 1px no-repeat; transition: background-size var(--m-move) var(--m-ease), color var(--m-base) var(--m-color); }
+.foot a:not(.btn):hover, .announce a:hover, .hero__alt a:hover, .foot a:not(.btn):focus-visible { background-size: 100% 1px; background-position: 0 100%; }
+/* a link inside a sentence keeps its underline; on hover a volt marker sweeps under it (same stopwatch move) */
+.hero__alt a { background: linear-gradient(var(--volt), var(--volt)) 100% 100% / 0 100% no-repeat; transition: background-size var(--m-move) var(--m-ease), text-decoration-color var(--m-base) var(--m-color); }
+.hero__alt a:hover, .hero__alt a:focus-visible { background-size: 100% 100%; background-position: 0 100%; text-decoration-color: transparent; }
+/* press: everything you can tap answers the finger (on phones this is the ONLY feedback) */
+:where(a, button, label, summary, input[type="range"]) { -webkit-tap-highlight-color: transparent; }
+:where(.menu > a, .menu__item > button, .nav__sign, .drop a, .chips label, .seg button, .announce__x, .copy, .cell, .video, .msheet a):active { scale: .96; }
+:where(.fcard, .plan, .q, .t, .bigstat):active { scale: .99; }
+:where(.foot a:not(.btn), .announce a, .brand, .hero__alt a):active { opacity: .6; }
+.email:hover { box-shadow: inset 0 0 0 1px var(--ink); }
+/* keyboard focus: one clear ring everywhere (volt on dark grounds) */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.email input:focus-visible { outline: 0; }
+:where(.foot, .cine, .announce, .lapt, .cta) :focus-visible { outline-color: var(--volt); }

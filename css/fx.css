@@ -25,7 +25,7 @@
 .cur--cross.has-lbl .cur__lbl { left: 26px; top: -14px; transform: none; padding: 3px 6px; background: var(--ink, #161616); color: var(--panel, #fff); }
 /* label roll */
 .roll { position: relative; display: inline-grid; overflow: hidden; vertical-align: top; line-height: 1.25; }
-.roll > span { grid-area: 1 / 1; transition: transform .45s cubic-bezier(.65, 0, .35, 1); white-space: nowrap; }
+.roll > span { grid-area: 1 / 1; transition: transform var(--m-move, .45s) var(--m-ease, cubic-bezier(.65, 0, .35, 1)); white-space: nowrap; } /* joins the page's beat */
 .roll__b { transform: translateY(110%); }
 .btn:hover .roll__a, a:hover > .roll .roll__a { transform: translateY(-110%); }
 .btn:hover .roll__b, a:hover > .roll .roll__b { transform: none; }

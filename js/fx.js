@@ -159,5 +159,14 @@ window.FX = (() => {
   let io;
   const on = (el) => { const s = el && el.closest('section, footer, .hero'); if (!s) return true; if (!vis.has(s)) { if (!io) io = watch(); io.observe(s); return true; } return vis.get(s); };
 
-  return { init(o = {}) { roll(); scramble(); magnetic(); tilt(); if (o.cursor) cursor(o.cursor); io = io || watch(); }, pin, smooth, on, REDUCED, FINE, TOUCH };
+  // Magnetic buttons, 3D tilt and text scramble are OFF unless asked for (round 4): the award sites we measured
+  // don't stack effects; they give every element the same quiet hover + press + focus, and one signature move.
+  // iOS Safari only shows :active (press) states when the page listens to touchstart.
+  return {
+    init(o = {}) {
+      roll(); if (o.scramble) scramble(); if (o.magnetic) magnetic(); if (o.tilt) tilt(); if (o.cursor) cursor(o.cursor);
+      document.addEventListener('touchstart', () => {}, { passive: true });
+      io = io || watch();
+    }, pin, smooth, on, REDUCED, FINE, TOUCH,
+  };
 })();

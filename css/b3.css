@@ -601,3 +601,46 @@ html:not(.is-pre) .hd__skip, .static .hd__skip { opacity: 0; pointer-events: non
 
 /* touch screens: no blur behind glass (repainted every scroll frame) */
 @media (hover: none), (pointer: coarse) { .nav, .hd__card { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
+
+/* ===================== micro system v2 (round 4) =====================
+   Same rules as the award sites we measured: one movement curve + one colour curve, three durations, and every
+   clickable thing answers hover, PRESS and keyboard focus the same way.
+   Signature (Blueprint — "checked by engineers, approved by you"): on hover four drafting corner marks close in on
+   the button, as if it is being checked; on press the button sinks like a stamp and the marks clamp tight. */
+:root {
+  --m-ease: cubic-bezier(.23, 1, .32, 1);      /* quint out (Heron's own curve) */
+  --m-color: cubic-bezier(.215, .61, .355, 1);
+  --m-fast: .12s; --m-base: .3s; --m-move: .5s;
+  --ease: var(--m-ease); --spring: var(--m-ease);
+}
+.btn { position: relative; transition: background-color var(--m-base) var(--m-color), color var(--m-base) var(--m-color), box-shadow var(--m-base) var(--m-color), transform var(--m-base) var(--m-ease); }
+.btn::after { content: ""; position: absolute; inset: -6px; pointer-events: none; opacity: 0; transform: scale(1.08);
+  --c: var(--ai); --l: 9px; --t: 1.5px;
+  background:
+    linear-gradient(var(--c), var(--c)) 0 0 / var(--l) var(--t), linear-gradient(var(--c), var(--c)) 0 0 / var(--t) var(--l),
+    linear-gradient(var(--c), var(--c)) 100% 0 / var(--l) var(--t), linear-gradient(var(--c), var(--c)) 100% 0 / var(--t) var(--l),
+    linear-gradient(var(--c), var(--c)) 0 100% / var(--l) var(--t), linear-gradient(var(--c), var(--c)) 0 100% / var(--t) var(--l),
+    linear-gradient(var(--c), var(--c)) 100% 100% / var(--l) var(--t), linear-gradient(var(--c), var(--c)) 100% 100% / var(--t) var(--l);
+  background-repeat: no-repeat;
+  transition: opacity var(--m-base) var(--m-color), transform var(--m-move) var(--m-ease), inset var(--m-fast) var(--m-ease); }
+.btn:hover::after, .btn:focus-visible::after { opacity: 1; transform: none; }
+.btn--blue::after, .btn--ink:hover::after { --c: var(--ink); }
+.btn:active { transform: translateY(2px); transition-duration: var(--m-fast); }
+.btn:active::after { inset: -3px; }
+.btn .ic, .btn .roll > span { transition: transform var(--m-move) var(--m-ease); }
+/* the hero console's Approve: a real button, so it answers too */
+.ui-btn.is-pri { transition: background-color var(--m-base) var(--m-color), transform var(--m-base) var(--m-ease), box-shadow var(--m-base) var(--m-color); }
+.ui-btn.is-pri:not(.is-done):hover { background: #1236c9; box-shadow: 0 0 0 3px rgba(29, 78, 255, .18); }
+.ui-btn.is-pri:active { transform: scale(.95); transition-duration: var(--m-fast); }
+/* nav cells and wordmark */
+.nc:active, .nc--drop > button:active, .bill button:active, .nav__menu:active { background: var(--paper-2); }
+.nav__logo b { background: linear-gradient(var(--ai), var(--ai)) 100% 100% / 0 2px no-repeat; padding-bottom: 2px; transition: background-size var(--m-move) var(--m-ease); }
+.nav__logo:hover b, .nav__logo:focus-visible b { background-size: 100% 2px; background-position: 0 100%; }
+.bill button:hover:not([aria-pressed="true"]) { background: var(--paper-2); }
+/* text links: blue pen line draws in from the left, leaves to the right */
+.foot__grid a, .msheet a, .ndrop a { text-decoration: none; background: linear-gradient(var(--ai), var(--ai)) 100% 100% / 0 1px no-repeat; transition: background-size var(--m-move) var(--m-ease), color var(--m-base) var(--m-color); }
+.foot__grid a:hover, .msheet a:hover, .ndrop a:hover, .foot__grid a:focus-visible { background-size: 100% 1px; background-position: 0 100%; color: var(--ai); }
+:where(a, button, label, summary) { -webkit-tap-highlight-color: transparent; }
+:where(.foot__grid a, .msheet a, .ndrop a, .nav__logo):active { opacity: .6; }
+/* keyboard focus: a dashed drafting line */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible { outline: 2px dashed var(--ai); outline-offset: 3px; }
